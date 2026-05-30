@@ -29,7 +29,7 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
       <article>
         <div class="flex items-start gap-5 mb-6">
           {pertinente.artworkUrl && (
-            <img src={pertinente.artworkUrl} alt={`${t.pertinente.title} — cover art`}
+            <img src={pertinente.artworkUrl} alt={`${t.pertinente.title} · cover art`}
               width="88" height="88" loading="lazy"
               class="w-[88px] h-[88px] shrink-0 border border-rule" />
           )}
@@ -76,7 +76,7 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
       <article>
         <div class="flex items-start gap-5 mb-6">
           {memc.artworkUrl && (
-            <img src={memc.artworkUrl} alt={`${t.memc.title} — cover art`}
+            <img src={memc.artworkUrl} alt={`${t.memc.title} · cover art`}
               width="88" height="88" loading="lazy"
               class="w-[88px] h-[88px] shrink-0 border border-rule" />
           )}
