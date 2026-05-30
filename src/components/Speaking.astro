@@ -1,0 +1,148 @@
+---
+import { COPY, SITE, type Lang } from '../content/copy';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang].speaking;
+const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
+---
+<article class="pt-32 pb-20 md:pt-40 md:pb-28">
+  <!-- Hero -->
+  <header class="mx-auto max-w-5xl px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">{t.eyebrow}</p>
+    <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink max-w-4xl">
+      {t.title}
+    </h1>
+    <p class="mt-8 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">{t.lede}</p>
+    <a href={contactHref} class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 mt-9 text-[14px] font-medium hover:opacity-80 transition-opacity">
+      {t.ctaPrimary} <span aria-hidden>→</span>
+    </a>
+  </header>
+
+  <!-- Diferenciador -->
+  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.diferenciador.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-6">{t.diferenciador.h}</h2>
+    <p class="text-[16px] md:text-[17px] leading-relaxed text-ink/80">{t.diferenciador.p}</p>
+  </section>
+
+  <!-- Temas -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.temas.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.03em] text-ink mb-12 max-w-2xl">{t.temas.h}</h2>
+    <div class="grid md:grid-cols-3 gap-10 md:gap-12">
+      {t.temas.items.map((item, i) => (
+        <div>
+          <div class="font-display text-[13px] leading-none mb-5 tracking-[0.18em] uppercase">
+            <span class="text-accent font-semibold">0{i + 1}</span> <span class="text-mute">—</span>
+          </div>
+          <h3 class="font-display text-[22px] md:text-[24px] leading-snug tracking-tight text-ink mb-4">{item.h}</h3>
+          <p class="text-[15px] leading-relaxed text-ink/75">{item.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Formatos -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.formatos.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-12 max-w-2xl">{t.formatos.h}</h2>
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+      {t.formatos.items.map((f) => (
+        <li>
+          <h3 class="font-display text-[18px] md:text-[20px] tracking-tight text-ink mb-2">{f.h}</h3>
+          <p class="text-[14px] leading-relaxed text-ink/70">{f.p}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Logística -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.logistica.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-10 max-w-2xl">{t.logistica.h}</h2>
+    <dl class="grid sm:grid-cols-2 gap-x-10 gap-y-7 max-w-4xl">
+      {t.logistica.items.map((it) => (
+        <div>
+          <dt class="text-[11px] uppercase tracking-[0.18em] text-mute mb-2">{it.label}</dt>
+          <dd class="text-[15px] text-ink/85 leading-relaxed">{it.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- Prueba social -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.pruebaSocial.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-4 max-w-2xl">{t.pruebaSocial.h}</h2>
+    <p class="text-[15px] text-ink/70 max-w-2xl mb-10">{t.pruebaSocial.p}</p>
+    <ol class="border-t border-rule">
+      {t.pruebaSocial.items.map((ev) => (
+        <li class="grid md:grid-cols-12 gap-4 md:gap-8 border-b border-rule py-6">
+          <span class="md:col-span-3 text-[13px] uppercase tracking-[0.14em] text-mute font-medium">{ev.year}</span>
+          <div class="md:col-span-9">
+            <h3 class="font-display text-[18px] md:text-[20px] tracking-tight text-ink mb-2">{ev.event}</h3>
+            <p class="text-[14px] leading-relaxed text-ink/70 max-w-xl">{ev.context}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-6 text-[12px] text-mute italic">{t.pruebaSocial.pendiente}</p>
+  </section>
+
+  <!-- Docencia -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.docencia.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-10 max-w-2xl">{t.docencia.h}</h2>
+    <ul class="grid md:grid-cols-3 gap-10">
+      {t.docencia.items.map((it) => (
+        <li>
+          <h3 class="font-display text-[18px] md:text-[20px] tracking-tight text-ink mb-3">{it.h}</h3>
+          <p class="text-[14px] leading-relaxed text-ink/70">{it.p}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Podcasts -->
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.podcasts.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-10 max-w-2xl">{t.podcasts.h}</h2>
+    <ul class="flex flex-wrap gap-x-8 gap-y-4 max-w-3xl">
+      {t.podcasts.items.map((p) => (
+        <li class="font-display text-[18px] md:text-[20px] text-ink/85">
+          {p.url ? (
+            <a href={p.url} target="_blank" rel="noopener" class="hover:text-accent transition-colors underline decoration-accent decoration-2 underline-offset-4">
+              {p.name}
+            </a>
+          ) : (
+            <span>{p.name}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6 text-[12px] text-mute italic">{t.podcasts.pendiente}</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.faq.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-12">{t.faq.h}</h2>
+    <dl class="space-y-8">
+      {t.faq.items.map((qa) => (
+        <div class="border-t border-rule pt-6">
+          <dt class="font-display text-[18px] md:text-[20px] tracking-tight text-ink mb-3">{qa.q}</dt>
+          <dd class="text-[15px] leading-relaxed text-ink/80">{qa.a}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- Contacto -->
+  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-ink pt-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.contacto.kicker}</p>
+    <h2 class="font-display text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.03em] text-ink mb-5">{t.contacto.h}</h2>
+    <p class="text-[16px] leading-relaxed text-ink/80 mb-8 max-w-xl">{t.contacto.p}</p>
+    <a href={contactHref} class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+      {t.contacto.cta} <span aria-hidden>→</span>
+    </a>
+  </section>
+</article>

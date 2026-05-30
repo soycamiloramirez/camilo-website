@@ -8,14 +8,24 @@ const t = COPY[lang].trabajo;
     <p class="text-[11px] uppercase tracking-[0.18em] text-paper/60 mb-5">{t.kicker}</p>
     <h2 class="font-display text-[34px] md:text-[48px] leading-[1.08] tracking-tight max-w-3xl">{t.title}</h2>
     <div class="mt-14 grid md:grid-cols-2 gap-8 md:gap-12">
-      {t.cards.map((c) => (
-        <article class="border border-paper/15 p-8 md:p-10 hover:border-accent transition-colors">
-          <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-accent-soft mb-6">{c.tag}</span>
-          <h3 class="font-display text-[26px] md:text-[30px] leading-snug tracking-tight mb-5">{c.h}</h3>
-          <p class="text-[15px] leading-relaxed text-paper/80 mb-6">{c.p}</p>
-          <p class="text-[13px] text-paper/55 italic">{c.for}</p>
-        </article>
-      ))}
+      {t.cards.map((c, i) => {
+        const isSpeaking = c.tag.toLowerCase() === 'speaking';
+        const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
+        const ctaLabel = lang === 'es' ? 'Ver detalle de Speaking' : 'See Speaking details';
+        return (
+          <article class="border border-paper/15 p-8 md:p-10 hover:border-accent transition-colors">
+            <span class="inline-block text-[11px] uppercase tracking-[0.18em] text-accent-soft mb-6">{c.tag}</span>
+            <h3 class="font-display text-[26px] md:text-[30px] leading-snug tracking-tight mb-5">{c.h}</h3>
+            <p class="text-[15px] leading-relaxed text-paper/80 mb-6">{c.p}</p>
+            <p class="text-[13px] text-paper/55 italic">{c.for}</p>
+            {isSpeaking && (
+              <a href={speakingHref} class="inline-flex items-center gap-2 mt-6 text-[13px] font-medium text-paper underline decoration-accent-soft decoration-2 underline-offset-4 hover:text-accent-soft transition-colors">
+                {ctaLabel} <span aria-hidden>→</span>
+              </a>
+            )}
+          </article>
+        );
+      })}
     </div>
     <p class="mt-12 text-[15px] text-paper/70 max-w-3xl italic">{t.filter}</p>
   </div>

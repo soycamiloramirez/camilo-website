@@ -84,6 +84,7 @@ export const COPY = {
       blog: 'Blog',
       tesis: 'Tesis',
       trabajo: 'Trabajar conmigo',
+      speaking: 'Speaking',
       historia: 'Historia',
       contacto: 'Contacto',
     },
@@ -241,6 +242,134 @@ export const COPY = {
         'Criterio diario sobre IA, negocios y LATAM. Cofundador de Navigamo, Director Regional LATAM de The AI Collective. Host de Pertinente y MEMC.',
       ogAlt: 'Camilo Ramírez — IA, negocios y LATAM',
     },
+    speaking: {
+      meta: {
+        title: 'Speaking — Camilo Ramírez · Conferencista IA, negocios y LATAM',
+        description: 'Keynotes, hosting y talleres sobre IA, negocios y la oportunidad de LATAM. Para CEOs, juntas y conferencias. Español o inglés, presencial o virtual, en cualquier parte del mundo.',
+      },
+      eyebrow: 'Speaking',
+      title: 'Conferencista sobre IA, negocios y la oportunidad de LATAM.',
+      lede:
+        'Llevo a tarima la misma claridad que aplico con CEOs: traduzco la inteligencia artificial al lenguaje del negocio, sin hype, sin abstracciones, con la profundidad técnica suficiente para que no se sienta superficial. Hago que algo difícil sea fácil de entender — y útil el lunes siguiente.',
+      ctaPrimary: 'Invítame a tu evento',
+      diferenciador: {
+        kicker: 'Por qué traerme',
+        h: 'IA + negocios + LATAM, en lenguaje humano.',
+        p: 'No soy el técnico que complica la conversación ni el evangelista que vende humo. Soy quien traduce: explico cómo la IA cambia las decisiones de su empresa, qué de lo nuevo importa y qué es ruido, y por qué LATAM tiene una ventaja que casi nadie está nombrando. Cuando termino, la sala entiende — y se lleva algo que puede aplicar.',
+      },
+      temas: {
+        kicker: 'Temas',
+        h: 'Tres temas, profundos pero accesibles.',
+        items: [
+          {
+            h: 'Gobernanza de IA',
+            p: 'Cómo adoptar inteligencia artificial sin perder el control. Riesgos reales, cómo decidir qué construir vs. comprar, qué exigirle a sus proveedores, y por qué la protección de datos no basta. Para juntas directivas y comités de tecnología.',
+          },
+          {
+            h: 'Responsabilidad corporativa con IA',
+            p: 'La IA está acelerando decisiones que antes tomaban meses. Cómo navegar su impacto sobre empleo, clientes y comunidad — sin caer ni en el pánico ni en el lavado de cara. Conversación incómoda, pero necesaria, para líderes que quieren responder bien.',
+          },
+          {
+            h: 'Básicos de IA para C-level',
+            p: 'Lo que un CEO o miembro de junta tiene que entender de IA en 60 minutos: qué es un modelo de lenguaje, qué es un agente, qué es ventana de contexto, dónde está el dinero, y cómo evaluar una propuesta de IA sin ser técnico. Cero jerga innecesaria.',
+          },
+        ],
+      },
+      formatos: {
+        kicker: 'Formatos',
+        h: 'Cinco formas de trabajar conmigo en su evento.',
+        items: [
+          { h: 'Keynotes', p: 'Charlas magistrales de 30 a 60 minutos, con storytelling propio y un mensaje accionable.' },
+          { h: 'Hosting de eventos', p: 'Conducción y moderación de jornadas completas, congresos o lanzamientos.' },
+          { h: 'Paneles', p: 'Moderación o participación con preparación seria — no improvisación.' },
+          { h: 'Talleres', p: 'Sesiones prácticas de 2 a 4 horas para equipos directivos. Aterrizo los conceptos a su negocio.' },
+          { h: 'Capacitaciones', p: 'Programas multi-sesión para equipos de liderazgo o áreas específicas.' },
+        ],
+      },
+      logistica: {
+        kicker: 'Logística',
+        h: 'Cómo es trabajar conmigo en lo práctico.',
+        items: [
+          { label: 'Idiomas', value: 'Español (nativo, colombiano neutro) e inglés (C1 certificado, EF SET 66/100).' },
+          { label: 'Modalidad', value: 'Presencial o virtual. Para virtual tengo setup profesional propio.' },
+          { label: 'Geografía', value: 'Base en Bogotá. Disponible para LATAM y cualquier lugar del mundo.' },
+          { label: 'Coordinación', value: 'Por correo directo a yo@camilo-ramirez.com — leo cada propuesta personalmente.' },
+        ],
+      },
+      pruebaSocial: {
+        kicker: 'Dónde he estado',
+        h: 'Eventos, tarimas, comunidades.',
+        p: 'Vengo hablando en público desde 2006. Una muestra representativa:',
+        items: [
+          { year: '2025 — hoy', event: 'Director Regional LATAM · The AI Collective', context: 'Comunidad de IA más grande del planeta (+200.000 miembros, +180 capítulos). Eventos regionales constantes.' },
+          { year: '2024', event: 'Colombia 4.0', context: 'Festival de innovación digital, Bogotá.' },
+          { year: '2014 — 2022', event: 'IAB Day · IAB Colombia', context: 'Conferencias anuales del capítulo. Miembro de la junta directiva 8 años.' },
+          { year: '2019', event: 'TVN Panamá', context: 'Charla sobre voice search y data — la tesis "construir desde el dolor, no para vender" ya estaba ahí.' },
+          { year: '2006 — hoy', event: 'Festivales y conferencias en LATAM', context: 'Speaker certificado (Experienced Speaker). Jurado en Effie, FIAP y PromaxBDA.' },
+        ],
+        pendiente: '[PENDIENTE: lista curada de eventos recientes con enlaces.]',
+      },
+      docencia: {
+        kicker: 'Docencia',
+        h: 'Enseñar es donde más se aprende.',
+        items: [
+          { h: 'Universidad Jorge Tadeo Lozano', p: 'Docente del Diplomado IAB (2012 — 2016).' },
+          { h: 'IAB Colombia', p: 'Miembro de la junta directiva 8 años (2014 — 2022).' },
+          { h: 'Posgrados', p: 'Conferencista invitado en programas de posgrado en marketing digital y transformación. [PENDIENTE: confirmar listado.]' },
+        ],
+      },
+      podcasts: {
+        kicker: 'En otros podcasts',
+        h: 'Conversaciones donde me han invitado.',
+        items: [
+          { name: 'Coffee', url: null },
+          { name: 'Grupo Energía Bogotá', url: null },
+          { name: 'Amílcar Sosaya', url: null },
+          { name: 'Remando en Arequipe', url: null },
+        ],
+        pendiente: '[PENDIENTE: enlaces directos a los episodios.]',
+      },
+      contacto: {
+        kicker: 'Contactar',
+        h: '¿Quiere llevarme a su evento?',
+        p: 'Escríbame directo con el contexto del evento: tipo, audiencia, fecha, ciudad o virtual, idioma. Respondo cada solicitud personalmente.',
+        cta: 'Enviar solicitud de speaking',
+      },
+      faq: {
+        kicker: 'Preguntas frecuentes',
+        h: 'Sobre contratarme para hablar.',
+        items: [
+          {
+            q: '¿Cómo le contrato?',
+            a: 'Escríbame a yo@camilo-ramirez.com con el contexto del evento: tipo, audiencia, fecha, ciudad o virtual, idioma, y presupuesto si lo tiene claro. Le respondo personalmente con disponibilidad y un fee orientativo.',
+          },
+          {
+            q: '¿En qué idioma puede hablar?',
+            a: 'Español nativo (colombiano neutro) e inglés C1 certificado (EF SET 66/100). Tarima en cualquiera de los dos sin fricción.',
+          },
+          {
+            q: '¿Presencial o virtual?',
+            a: 'Ambos. Para presencial vuelo desde Bogotá. Para virtual tengo setup profesional propio (cámara, audio, iluminación) — no improviso desde un laptop.',
+          },
+          {
+            q: '¿Sobre qué temas habla?',
+            a: 'Gobernanza de IA, responsabilidad corporativa con IA, y básicos de IA para C-level. El hilo común: traducir la inteligencia artificial al lenguaje del negocio, sin hype y sin abstracciones.',
+          },
+          {
+            q: '¿Usted implementa la IA en mi empresa?',
+            a: 'No, la implementación la hace Navigamo — la compañía que cofundé. Yo soy speaker y advisor; ejecutar lo hace mi equipo. Si su evento busca activar a su organización con IA, la charla más el handoff a Navigamo es el flujo natural.',
+          },
+          {
+            q: '¿Acepta charlas pro bono?',
+            a: 'Excepcionalmente, alineadas con causas específicas. No es la regla — mi tiempo y experiencia tienen un precio. Si su organización es sin ánimo de lucro y la causa encaja, escríbame y conversamos.',
+          },
+          {
+            q: '¿Tiene material de tarima (foto, video, sizzle reel)?',
+            a: '[PENDIENTE: sizzle reel y fotos profesionales de tarima curándose. Mientras tanto, en mi LinkedIn y YouTube hay material reciente.]',
+          },
+        ],
+      },
+    },
     trayectoriaBrief: {
       kicker: 'Trayectoria',
       title: 'Veinte años aprendiendo a leer la estructura de un problema.',
@@ -346,6 +475,7 @@ export const COPY = {
       blog: 'Blog',
       tesis: 'Thesis',
       trabajo: 'Work with me',
+      speaking: 'Speaking',
       historia: 'Story',
       contacto: 'Contact',
     },
@@ -502,6 +632,134 @@ export const COPY = {
       description:
         'Daily judgment on AI, business and LATAM. Co-founder of Navigamo, Regional Director for LATAM at The AI Collective. Host of Pertinente and MEMC.',
       ogAlt: 'Camilo Ramírez — AI, business and LATAM',
+    },
+    speaking: {
+      meta: {
+        title: 'Speaking — Camilo Ramírez · AI, business and LATAM keynote speaker',
+        description: 'Keynotes, event hosting and workshops on AI, business and the LATAM opportunity. For CEOs, boards and conferences. Spanish or English, in person or virtual, anywhere in the world.',
+      },
+      eyebrow: 'Speaking',
+      title: 'Keynote speaker on AI, business and the LATAM opportunity.',
+      lede:
+        'I bring the same clarity I apply with CEOs to the stage: I translate AI into the language of business — no hype, no abstractions, with enough technical depth that it never feels shallow. I make hard things easy to understand, and useful by Monday morning.',
+      ctaPrimary: 'Invite me to your event',
+      diferenciador: {
+        kicker: 'Why book me',
+        h: 'AI + business + LATAM, in human language.',
+        p: 'I’m not the technical guy who overcomplicates the conversation, and I’m not the evangelist who sells smoke. I translate: I explain how AI changes your company’s decisions, what new things matter and what is noise, and why LATAM has an edge almost nobody is naming. When I finish, the room understands — and leaves with something they can actually apply.',
+      },
+      temas: {
+        kicker: 'Topics',
+        h: 'Three topics, deep but accessible.',
+        items: [
+          {
+            h: 'AI Governance',
+            p: 'How to adopt AI without losing control. Real risks, build vs. buy decisions, what to demand from vendors, and why data protection alone isn’t enough. For boards and technology committees.',
+          },
+          {
+            h: 'Corporate responsibility with AI',
+            p: 'AI is accelerating decisions that used to take months. How to navigate its impact on employment, customers and community — without panic and without window-dressing. An uncomfortable but necessary conversation for leaders who want to respond well.',
+          },
+          {
+            h: 'AI fundamentals for C-level',
+            p: 'What a CEO or board member needs to understand about AI in 60 minutes: language models, agents, context window, where the money is, and how to evaluate an AI proposal without being technical. Zero unnecessary jargon.',
+          },
+        ],
+      },
+      formatos: {
+        kicker: 'Formats',
+        h: 'Five ways to work with me at your event.',
+        items: [
+          { h: 'Keynotes', p: '30 to 60-minute talks with my own storytelling and an actionable takeaway.' },
+          { h: 'Event hosting', p: 'Hosting and moderation of full-day events, congresses or launches.' },
+          { h: 'Panels', p: 'Moderation or participation — with serious prep, not improvisation.' },
+          { h: 'Workshops', p: '2 to 4-hour hands-on sessions for executive teams. I land the concepts in your business.' },
+          { h: 'Training programs', p: 'Multi-session programs for leadership teams or specific areas.' },
+        ],
+      },
+      logistica: {
+        kicker: 'Logistics',
+        h: 'How it works in practice.',
+        items: [
+          { label: 'Languages', value: 'Spanish (native, neutral Colombian) and English (C1 certified, EF SET 66/100).' },
+          { label: 'Format', value: 'In person or virtual. For virtual I have a professional setup of my own.' },
+          { label: 'Geography', value: 'Based in Bogotá. Available across LATAM and anywhere in the world.' },
+          { label: 'Coordination', value: 'Direct email to yo@camilo-ramirez.com — I read every request personally.' },
+        ],
+      },
+      pruebaSocial: {
+        kicker: 'Where I’ve spoken',
+        h: 'Events, stages, communities.',
+        p: 'Speaking in public since 2006. A representative sample:',
+        items: [
+          { year: '2025 — present', event: 'Regional Director LATAM · The AI Collective', context: 'Largest AI community on the planet (200,000+ members, 180+ chapters). Constant regional events.' },
+          { year: '2024', event: 'Colombia 4.0', context: 'Bogotá digital innovation festival.' },
+          { year: '2014 — 2022', event: 'IAB Day · IAB Colombia', context: 'Annual conferences of the IAB Colombia chapter. Board member for 8 years.' },
+          { year: '2019', event: 'TVN Panama', context: 'Talk on voice search and data — the thesis "build from real pain, not to sell" was already there.' },
+          { year: '2006 — present', event: 'Festivals and conferences across LATAM', context: 'Certified Experienced Speaker. Jury at Effie, FIAP and PromaxBDA.' },
+        ],
+        pendiente: '[PENDING: curated list of recent events with links.]',
+      },
+      docencia: {
+        kicker: 'Teaching',
+        h: 'Teaching is where you learn the most.',
+        items: [
+          { h: 'Universidad Jorge Tadeo Lozano', p: 'IAB Diploma instructor (2012 — 2016).' },
+          { h: 'IAB Colombia', p: 'Board member for 8 years (2014 — 2022).' },
+          { h: 'Postgraduate programs', p: 'Guest lecturer in digital marketing and transformation programs. [PENDING: full list.]' },
+        ],
+      },
+      podcasts: {
+        kicker: 'On other podcasts',
+        h: 'Conversations I’ve been invited to.',
+        items: [
+          { name: 'Coffee', url: null },
+          { name: 'Grupo Energía Bogotá', url: null },
+          { name: 'Amílcar Sosaya', url: null },
+          { name: 'Remando en Arequipe', url: null },
+        ],
+        pendiente: '[PENDING: direct episode links.]',
+      },
+      contacto: {
+        kicker: 'Contact',
+        h: 'Want me on your stage?',
+        p: 'Write directly with the event context: type, audience, date, city or virtual, language. I reply personally to every request.',
+        cta: 'Send speaking request',
+      },
+      faq: {
+        kicker: 'Frequently asked',
+        h: 'About booking me to speak.',
+        items: [
+          {
+            q: 'How do I book you?',
+            a: 'Email me at yo@camilo-ramirez.com with the event context: type, audience, date, city or virtual, language, and budget if you have one in mind. I’ll reply personally with availability and an indicative fee.',
+          },
+          {
+            q: 'In what language can you speak?',
+            a: 'Native Spanish (neutral Colombian) and certified C1 English (EF SET 66/100). Stage in either with no friction.',
+          },
+          {
+            q: 'In person or virtual?',
+            a: 'Both. For in-person I fly from Bogotá. For virtual I have my own professional setup (camera, audio, lighting) — I don’t improvise from a laptop.',
+          },
+          {
+            q: 'What topics do you cover?',
+            a: 'AI governance, corporate responsibility with AI, and AI fundamentals for C-level. The common thread: translating AI into the language of business, without hype.',
+          },
+          {
+            q: 'Do you implement AI in my company?',
+            a: 'No, implementation is done by Navigamo — the company I co-founded. I’m a speaker and advisor; execution is done by my team. If your event is meant to activate your organization with AI, the talk plus the handoff to Navigamo is the natural flow.',
+          },
+          {
+            q: 'Do you accept pro bono talks?',
+            a: 'Occasionally, aligned with specific causes. It is not the rule — my time and experience have a price. If your organization is non-profit and the cause fits, write me and we’ll talk.',
+          },
+          {
+            q: 'Do you have stage material (photo, video, sizzle reel)?',
+            a: '[PENDING: sizzle reel and professional stage photos in progress. Meanwhile, my LinkedIn and YouTube have recent material.]',
+          },
+        ],
+      },
     },
     trayectoriaBrief: {
       kicker: 'Track record',

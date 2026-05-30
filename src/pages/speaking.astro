@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Speaking from '../components/Speaking.astro';
+import Footer from '../components/Footer.astro';
+import { COPY, SITE } from '../content/copy';
+
+const lang = 'es' as const;
+const t = COPY[lang].speaking;
+const url = `${SITE.url}/speaking`;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'es-CO',
+  mainEntity: t.faq.items.map((qa) => ({
+    '@type': 'Question',
+    name: qa.q,
+    acceptedAnswer: { '@type': 'Answer', text: qa.a },
+  })),
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Speaking', item: url },
+  ],
+};
+
+// Past speaking events as schema.org Event with Camilo as performer.
+// Used by Google for the "speaker" entity association.
+const events = t.pruebaSocial.items.map((ev, i) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  '@id': `${url}#event-${i}`,
+  name: ev.event,
+  description: ev.context,
+  performer: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
+}));
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Speaking & Keynotes',
+  provider: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+  areaServed: ['Latin America', 'Colombia', 'Worldwide'],
+  availableLanguage: ['Spanish', 'English'],
+  serviceType: 'Keynote speaking on AI, business and LATAM',
+  url,
+};
+
+const extraJsonLd = [serviceJsonLd, faqJsonLd, breadcrumbJsonLd, ...events];
+---
+<Base lang={lang} pageTitle={t.meta.title} pageDescription={t.meta.description} pageType="website" path="/speaking" extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+  <main>
+    <Speaking lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>
