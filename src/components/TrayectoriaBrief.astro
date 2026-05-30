@@ -1,0 +1,25 @@
+---
+import { COPY, type Lang } from '../content/copy';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang].trayectoriaBrief;
+const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
+---
+<section id="trayectoria" class="py-24 md:py-32 border-t border-rule">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.kicker}</p>
+    <h2 class="font-display text-[34px] md:text-[44px] leading-[1.08] tracking-[-0.035em] max-w-3xl">{t.title}</h2>
+    <p class="mt-6 text-[17px] leading-relaxed text-ink/75 max-w-3xl">{t.lede}</p>
+    <ol class="mt-12 border-t border-rule">
+      {t.milestones.map((m) => (
+        <li class="grid grid-cols-12 gap-6 border-b border-rule py-5">
+          <span class="col-span-4 md:col-span-3 text-[13px] uppercase tracking-[0.14em] text-mute font-medium">{m.years}</span>
+          <span class="col-span-8 md:col-span-9 font-display text-[18px] md:text-[20px] tracking-tight text-ink">{m.label}</span>
+        </li>
+      ))}
+    </ol>
+    <a href={historiaHref}
+      class="inline-flex items-center gap-2 mt-10 text-[14px] font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
+      {t.cta} <span aria-hidden>→</span>
+    </a>
+  </div>
+</section>

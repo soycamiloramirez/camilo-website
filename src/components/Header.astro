@@ -1,0 +1,27 @@
+---
+import { COPY, type Lang } from '../content/copy';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang];
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const otherHref = lang === 'es' ? '/en' : '/';
+const home = lang === 'es' ? '/' : '/en';
+const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
+---
+<header class="fixed top-0 inset-x-0 z-40 bg-paper/85 backdrop-blur border-b border-rule">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10 h-14 flex items-center justify-between">
+    <a href={home} class="font-display text-[15px] tracking-tight text-ink font-medium" aria-label="Camilo Ramírez">
+      Camilo Ramírez
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-[13px] text-mute">
+      <a href={`${home}#ultimo`} class="hover:text-ink transition-colors">{t.nav.ultimo}</a>
+      {lang === 'es' && <a href="/blog" class="hover:text-ink transition-colors">{t.nav.blog}</a>}
+      <a href={`${home}#tesis`} class="hover:text-ink transition-colors">{t.nav.tesis}</a>
+      <a href={`${home}#trabajo`} class="hover:text-ink transition-colors">{t.nav.trabajo}</a>
+      <a href={historiaHref} class="hover:text-ink transition-colors">{t.nav.historia}</a>
+      <a href={`${home}#contacto`} class="hover:text-ink transition-colors">{t.nav.contacto}</a>
+    </nav>
+    <a href={otherHref} class="text-[13px] text-mute hover:text-ink transition-colors uppercase tracking-wider" aria-label={`Switch to ${otherLang}`}>
+      {otherLang}
+    </a>
+  </div>
+</header>

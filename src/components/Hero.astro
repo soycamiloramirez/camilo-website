@@ -1,0 +1,79 @@
+---
+import { COPY, SITE, PODCASTS, type Lang } from '../content/copy';
+import { loadPodcast } from '../lib/podcasts';
+import PlatformIcon from './PlatformIcon.astro';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang];
+
+const pertinente = await loadPodcast({
+  id: PODCASTS.pertinente.id,
+  title: 'Pertinente',
+  appleId: PODCASTS.pertinente.appleId,
+  limit: 1,
+});
+const latest = pertinente.episodes[0];
+const fmtDate = (iso: string) =>
+  iso ? new Intl.DateTimeFormat(lang === 'es' ? 'es-CO' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)) : '';
+---
+<section class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+    <div class="md:col-span-7">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">{t.hero.eyebrow}</p>
+      <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink">
+        {t.hero.title}
+      </h1>
+      <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
+        {t.hero.lede}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href="#ultimo" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+          {t.hero.ctaPrimary} <span aria-hidden>→</span>
+        </a>
+        <a href="#trabajo" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-ink transition-colors">
+          {t.hero.ctaSecondary}
+        </a>
+      </div>
+      <p class="mt-8 text-[13px] text-mute">{t.hero.since} · {SITE.location[lang]}</p>
+    </div>
+    <div class="md:col-span-5 md:pt-4">
+      <div class="aspect-[4/5] relative overflow-hidden bg-soft mb-6">
+        <img
+          src="/camilo-hero.jpg"
+          alt="Camilo Ramírez"
+          width="800"
+          height="1000"
+          class="w-full h-full object-cover grayscale contrast-[1.05]"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      {latest && (
+        <div class="border border-rule p-5 hover:border-accent transition-colors">
+          <p class="text-[10px] uppercase tracking-[0.18em] text-mute mb-4">{t.hero.latestEyebrow}</p>
+          <a href={PODCASTS.pertinente.platforms[0].href} target="_blank" rel="noopener"
+            class="flex items-start gap-4 group">
+            {pertinente.artworkUrl && (
+              <img src={pertinente.artworkUrl} alt="Pertinente cover" width="64" height="64" loading="eager"
+                class="w-16 h-16 shrink-0 border border-rule" />
+            )}
+            <div class="min-w-0">
+              <p class="font-display text-[15px] leading-snug tracking-tight text-ink mb-2 line-clamp-2 group-hover:text-accent transition-colors">{latest.title}</p>
+              <p class="text-[12px] text-mute">{fmtDate(latest.published)}{latest.durationLabel ? ` · ${latest.durationLabel}` : ''}</p>
+            </div>
+          </a>
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-rule">
+            <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{lang === 'es' ? 'Escuchar en' : 'Listen on'}</span>
+            <span class="flex items-center gap-3 text-ink">
+              {PODCASTS.pertinente.platforms.slice(0, 3).map((p) => (
+                <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
+                  class="text-ink hover:text-accent transition-colors">
+                  <PlatformIcon name={p.name} className="h-4 w-4" />
+                </a>
+              ))}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

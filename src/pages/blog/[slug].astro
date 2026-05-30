@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import { CATEGORIES, type CategorySlug } from '../../content.config';
+import { SITE, PODCASTS } from '../../content/copy';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, all: posts } }));
+}
+
+const { post, all } = Astro.props as {
+  post: Awaited<ReturnType<typeof getCollection<'blog'>>>[number];
+  all: Awaited<ReturnType<typeof getCollection<'blog'>>>;
+};
+
+const { Content } = await render(post);
+
+const lang = 'es' as const;
+const url = `${SITE.url}/blog/${post.id}`;
+const dateFmt = new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.date);
+
+const wordCount = (post.body ?? '').split(/\s+/).filter(Boolean).length;
+const readingMin = Math.max(1, Math.round(wordCount / 220));
+
+const cats = post.data.categories as CategorySlug[];
+
+// Related: same primary category, exclude self, max 3, prefer most recent.
+const primary = cats[0];
+const related = all
+  .filter((p) => p.id !== post.id && (p.data.categories as CategorySlug[]).includes(primary))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const pageTitle = `${post.data.title} · Camilo Ramírez`;
+const pageDescription = post.data.description;
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    url,
+    inLanguage: 'es-CO',
+    datePublished: post.data.date.toISOString(),
+    dateModified: post.data.date.toISOString(),
+    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    publisher: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    image: `${SITE.url}/og-image.jpg`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    articleSection: cats.map((c) => CATEGORIES[c].label),
+    wordCount,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE.url}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+    ],
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path={`/blog/${post.id}`} extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+  <main class="pt-28 pb-20 md:pt-36">
+    <article class="mx-auto max-w-3xl px-6 lg:px-10">
+      <header class="mb-12 md:mb-16">
+        <div class="flex items-center gap-3 mb-6 flex-wrap">
+          {cats.map((c) => (
+            <a href={`/blog/categoria/${CATEGORIES[c].slug}`}
+              class="text-[10px] uppercase tracking-[0.18em] text-accent hover:text-ink transition-colors">
+              {CATEGORIES[c].label}
+            </a>
+          ))}
+          <span class="text-[12px] text-mute tabular-nums">{dateFmt} · {readingMin} min de lectura</span>
+        </div>
+        <h1 class="font-display text-[34px] sm:text-[44px] md:text-[54px] leading-[1.06] tracking-[-0.035em] text-ink">
+          {post.data.title}
+        </h1>
+      </header>
+
+      <div class="post-prose">
+        <Content />
+      </div>
+
+      <!-- Cierre con Pertinente -->
+      <aside class="mt-16 md:mt-20 pt-10 border-t border-rule">
+        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-3">De Pertinente, mi podcast diario</p>
+        <p class="font-display text-[20px] md:text-[22px] leading-snug tracking-tight text-ink mb-6 max-w-xl">
+          Este análisis nació de un episodio del podcast. Ahí publico uno nuevo cada día.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={PODCASTS.pertinente.platforms[0].href} target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+            Escuchar en Spotify <span aria-hidden>↗</span>
+          </a>
+          <a href={PODCASTS.pertinente.platforms[1].href} target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-ink transition-colors">
+            Ver en YouTube <span aria-hidden>↗</span>
+          </a>
+        </div>
+      </aside>
+    </article>
+
+    {related.length > 0 && (
+      <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 pt-12 border-t border-rule">
+        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-8">Sigue leyendo</p>
+        <div class="grid md:grid-cols-3 gap-8">
+          {related.map((p) => <PostCard post={p} size="sm" />)}
+        </div>
+      </section>
+    )}
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<style is:global>
+  .post-prose {
+    color: var(--color-ink);
+  }
+  .post-prose p {
+    font-size: 17px;
+    line-height: 1.75;
+    margin: 0 0 1.5em 0;
+    color: rgb(10 10 10 / 0.85);
+  }
+  .post-prose h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin: 2.5em 0 0.8em 0;
+    color: var(--color-ink);
+  }
+  @media (min-width: 768px) {
+    .post-prose h2 { font-size: 30px; }
+    .post-prose p { font-size: 18px; }
+  }
+  .post-prose h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 2em 0 0.6em 0;
+  }
+  .post-prose a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .post-prose a:hover { color: var(--color-accent); }
+  .post-prose em { font-style: italic; }
+  .post-prose strong { font-weight: 600; color: var(--color-ink); }
+  .post-prose blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1.2em;
+    margin: 1.5em 0;
+    font-style: italic;
+    color: rgb(10 10 10 / 0.75);
+  }
+  .post-prose hr {
+    border: none;
+    border-top: 1px solid var(--color-rule);
+    margin: 2.5em 0;
+  }
+  .post-prose ul, .post-prose ol {
+    padding-left: 1.4em;
+    margin: 0 0 1.5em 0;
+  }
+  .post-prose li {
+    font-size: 17px;
+    line-height: 1.75;
+    margin-bottom: 0.4em;
+    color: rgb(10 10 10 / 0.85);
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const lang = 'es' as const;
+---
+<Base lang={lang} pageTitle="404 — Página no encontrada · Camilo Ramírez" pageDescription="La página que buscabas no existe. Vuelve al inicio o lee la historia." path="/404">
+  <Header lang={lang} />
+  <main class="pt-32 pb-32 md:pt-40 md:pb-40">
+    <div class="mx-auto max-w-3xl px-6 lg:px-10">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">404</p>
+      <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink">
+        Esa página no existe.
+      </h1>
+      <p class="mt-7 text-[17px] leading-relaxed text-ink/80 max-w-2xl">
+        El enlace puede estar mal o el contenido se movió. Mientras lo arreglo, hay dos puertas que sí funcionan.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href="/" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+          Volver al inicio <span aria-hidden>→</span>
+        </a>
+        <a href="/historia" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-ink transition-colors">
+          Leer la historia
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>

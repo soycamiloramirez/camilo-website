@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+import { COPY, SITE, SOCIALS, type Lang } from '../content/copy';
+const {
+  lang,
+  pageTitle,
+  pageDescription,
+  pageType = 'profile',
+  path,
+  extraJsonLd = [],
+} = Astro.props as {
+  lang: Lang;
+  pageTitle?: string;
+  pageDescription?: string;
+  pageType?: 'profile' | 'article' | 'website';
+  path?: string;
+  extraJsonLd?: Record<string, unknown>[];
+};
+const t = COPY[lang];
+
+const homePath = lang === 'es' ? '/' : '/en';
+const currentPath = path ?? homePath;
+const altPath = path
+  ? (lang === 'es' ? path.replace(/^\//, '/en/') : path.replace(/^\/en\//, '/'))
+  : (lang === 'es' ? '/en' : '/');
+
+const canonical = `${SITE.url}${currentPath === '/' ? '/' : currentPath}`;
+const altUrl = `${SITE.url}${altPath}`;
+
+const title = pageTitle ?? t.meta.title;
+const description = pageDescription ?? t.meta.description;
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Camilo Ramírez',
+  url: SITE.url,
+  image: `${SITE.url}/camilo-hero.jpg`,
+  jobTitle:
+    lang === 'es'
+      ? 'Voz pública de IA y negocios · Advisor · Speaker'
+      : 'Public voice on AI and business · Advisor · Speaker',
+  worksFor: { '@type': 'Organization', name: 'Navigamo', url: 'https://navigamo.co' },
+  memberOf: { '@type': 'Organization', name: 'The AI Collective', url: 'https://aicollective.com' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Bogotá', addressCountry: 'CO' },
+  sameAs: SOCIALS.map((s) => s.href),
+  email: `mailto:${SITE.email}`,
+  description: t.meta.description,
+};
+---
+<!doctype html>
+<html lang={lang === 'es' ? 'es-CO' : 'en-US'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'es' ? 'es-CO' : 'en-US'} href={canonical} />
+    <link rel="alternate" hreflang={lang === 'es' ? 'en-US' : 'es-CO'} href={altUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE.url}${currentPath === homePath ? '/' : currentPath}`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content={pageType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE.url}/og-image.jpg`} />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_CO'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@soy_camilo_r" />
+    <meta name="twitter:creator" content="@soy_camilo_r" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE.url}/og-image.jpg`} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    {extraJsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+    {import.meta.env.PROD && (
+      <>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YNYELQBZ62"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YNYELQBZ62', { anonymize_ip: true });
+        </script>
+      </>
+    )}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

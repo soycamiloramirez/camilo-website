@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Historia from '../../components/Historia.astro';
+import Footer from '../../components/Footer.astro';
+import { COPY, SITE } from '../../content/copy';
+
+const lang = 'en' as const;
+const page = COPY[lang].historia.meta;
+const url = `${SITE.url}/en/historia`;
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: page.title,
+    description: page.description,
+    url,
+    inLanguage: 'en-US',
+    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    publisher: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    image: `${SITE.url}/og-image.jpg`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    datePublished: '2026-05-29',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/en` },
+      { '@type': 'ListItem', position: 2, name: 'Story', item: url },
+    ],
+  },
+];
+---
+<Base lang={lang} pageTitle={page.title} pageDescription={page.description} pageType="article" path="/en/historia" extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+  <main>
+    <Historia lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

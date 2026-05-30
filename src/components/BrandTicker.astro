@@ -1,0 +1,34 @@
+---
+import { COPY, CLIENT_BRANDS, type Lang } from '../content/copy';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang].historia.brands;
+const items = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
+---
+<section aria-labelledby="brands-title" class="my-16 md:my-24 border-t border-b border-rule py-14 md:py-16">
+  <div class="mx-auto max-w-3xl px-6 lg:px-10 mb-10 md:mb-12">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-3">{t.kicker}</p>
+    <h2 id="brands-title" class="font-display text-[22px] md:text-[26px] leading-snug tracking-tight text-ink mb-3">{t.title}</h2>
+    <p class="text-[14px] leading-relaxed text-mute max-w-xl">{t.p}</p>
+  </div>
+
+  <div class="marquee-mask overflow-hidden">
+    <ul class="marquee flex items-center gap-12 md:gap-16 w-max" aria-hidden="true">
+      {items.map((b) => (
+        <li class="shrink-0 flex items-center justify-center h-10 md:h-12 brand-mark">
+          {b.file ? (
+            <img src={`/brands/${b.file}`} alt={b.name}
+              class="block h-full w-auto max-w-[140px] md:max-w-[160px] object-contain" loading="lazy" />
+          ) : (
+            <span class="font-display text-[15px] md:text-[16px] font-semibold uppercase tracking-[0.14em] whitespace-nowrap">
+              {b.name}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <ul class="sr-only">
+    {CLIENT_BRANDS.map((b) => <li>{b.name}</li>)}
+  </ul>
+</section>

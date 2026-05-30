@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://camilo-ramirez.com/sitemap-index.xml

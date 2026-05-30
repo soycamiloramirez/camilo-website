@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import CategoryNav from '../../components/blog/CategoryNav.astro';
+import { SITE } from '../../content/copy';
+
+const lang = 'es' as const;
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const pageTitle = 'Blog — Criterio sobre IA, negocios y LATAM | Camilo Ramírez';
+const pageDescription = 'Análisis editorial diario sobre IA, negocios, geopolítica y oportunidades en Latinoamérica. Cada artículo nace de un episodio de Pertinente.';
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Blog · Camilo Ramírez',
+    description: pageDescription,
+    url: `${SITE.url}/blog`,
+    inLanguage: 'es-CO',
+    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    blogPost: posts.slice(0, 10).map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.title,
+      url: `${SITE.url}/blog/${p.id}`,
+      datePublished: p.data.date.toISOString(),
+    })),
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/blog" extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+  <main class="pt-28 pb-20 md:pt-36 md:pb-28">
+    <header class="mx-auto max-w-5xl px-6 lg:px-10 mb-14 md:mb-20">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">Blog</p>
+      <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink">
+        Criterio sobre IA, negocios y LATAM.
+      </h1>
+      <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
+        Cada artículo nace de un episodio de <a href="/#ultimo" class="underline decoration-accent underline-offset-4 hover:text-accent transition-colors">Pertinente</a>, mi análisis diario. Acá los conviertes en lectura — el mismo criterio, en formato editorial.
+      </p>
+    </header>
+
+    <div class="mx-auto max-w-5xl px-6 lg:px-10">
+      <CategoryNav current="all" />
+      <div class="grid gap-10 md:gap-12">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>

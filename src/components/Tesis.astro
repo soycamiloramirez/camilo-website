@@ -1,0 +1,20 @@
+---
+import { COPY, type Lang } from '../content/copy';
+const { lang } = Astro.props as { lang: Lang };
+const t = COPY[lang].tesis;
+---
+<section id="tesis" class="py-24 md:py-32 border-t border-rule">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.kicker}</p>
+    <h2 class="font-display text-[34px] md:text-[48px] leading-[1.08] tracking-tight max-w-3xl">{t.title}</h2>
+    <div class="mt-14 grid md:grid-cols-3 gap-10 md:gap-12">
+      {t.items.map((it, i) => (
+        <div>
+          <div class="font-display text-[13px] leading-none mb-6 tracking-[0.18em] uppercase"><span class="text-accent font-semibold">0{i + 1}</span> <span class="text-mute">—</span></div>
+          <h3 class="font-display text-[22px] md:text-[24px] leading-snug tracking-tight mb-4">{it.h}</h3>
+          <p class="text-[15px] leading-relaxed text-ink/75">{it.p}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

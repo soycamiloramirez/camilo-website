@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: soycamiloramirez/camilo-website
+  branch: main
+  # OAuth gestionado por el helper público de Sveltia (Cloudflare Workers).
+  base_url: https://sveltia-cms-auth.workers.dev
+  auth_endpoint: oauth/authorize
+
+publish_mode: simple
+media_folder: public/uploads
+public_folder: /uploads
+
+site_url: https://camilo-ramirez.com
+display_url: https://camilo-ramirez.com
+logo_url: https://camilo-ramirez.com/favicon.svg
+
+i18n:
+  structure: single_file
+  locales: [es]
+  default_locale: es
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Artículo
+    folder: src/content/blog
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    summary: '{{title}} — {{date | date(''DD MMM YYYY'')}}'
+    preview_path: blog/{{slug}}
+    sortable_fields: [date, title]
+    view_filters:
+      - label: 'Negocios'
+        field: categories
+        pattern: negocios
+      - label: 'Geopolítica'
+        field: categories
+        pattern: geopolitica
+      - label: 'LATAM'
+        field: categories
+        pattern: latam
+      - label: 'Aprende'
+        field: categories
+        pattern: aprende
+      - label: 'Borradores'
+        field: draft
+        pattern: true
+    fields:
+      - { name: title, label: 'Título', widget: string, required: true }
+      - {
+          name: description,
+          label: 'Descripción / Lede',
+          widget: text,
+          required: true,
+          hint: 'Resumen corto para SEO (~150-200 caracteres). Se usa en buscadores y al compartir.',
+        }
+      - { name: date, label: 'Fecha', widget: datetime, format: 'YYYY-MM-DD', date_format: 'YYYY-MM-DD', time_format: false, required: true }
+      - {
+          name: categories,
+          label: 'Categorías',
+          widget: select,
+          multiple: true,
+          min: 1,
+          options:
+            [
+              { label: 'Negocios y estrategia', value: 'negocios' },
+              { label: 'Geopolítica y mercado', value: 'geopolitica' },
+              { label: 'LATAM', value: 'latam' },
+              { label: 'Aprende', value: 'aprende' },
+            ],
+          hint: 'Elige una o más. Un artículo puede vivir en varias secciones.',
+        }
+      - { name: episode, label: 'Episodio de Pertinente (opcional)', widget: number, required: false, value_type: int, min: 1 }
+      - { name: draft, label: 'Borrador', widget: boolean, default: false, required: false, hint: 'Marca como borrador para que no salga publicado todavía.' }
+      - { name: body, label: 'Cuerpo', widget: markdown, required: true }
