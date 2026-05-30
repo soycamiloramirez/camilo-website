@@ -2,9 +2,9 @@ backend:
   name: github
   repo: soycamiloramirez/camilo-website
   branch: main
-  # OAuth gestionado por el helper público de Sveltia (Cloudflare Workers).
-  base_url: https://sveltia-cms-auth.workers.dev
-  auth_endpoint: oauth/authorize
+  # OAuth hospedado en el mismo Vercel del sitio (API routes propios).
+  base_url: https://camilo-ramirez.com
+  auth_endpoint: api/oauth/authorize
 
 publish_mode: simple
 media_folder: public/uploads
