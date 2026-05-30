@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PodcastCard from '../components/podcasts/PodcastCard.astro';
+import MinePodcastBlock from '../components/podcasts/MinePodcastBlock.astro';
+import { PODCAST_ENTRIES, PODCAST_SECTIONS, type PodcastEntry } from '../content/podcasts';
+import { SITE } from '../content/copy';
+
+const lang = 'es' as const;
+
+const mine = PODCAST_ENTRIES.filter((p) => p.section === 'mine');
+const negocios = PODCAST_ENTRIES.filter((p) => p.section === 'negocios');
+const fuera = PODCAST_ENTRIES.filter((p) => p.section === 'fuera');
+
+const url = `${SITE.url}/podcasts`;
+const pageTitle = 'Podcasts · Mi lista de IA, negocios y vida | Camilo Ramírez';
+const pageDescription =
+  'Los podcasts que escucho para pensar negocios, IA y tecnología en LATAM, más lo que escucho fuera del trabajo. Curaduría personal de Camilo Ramírez, no lista pasiva.';
+
+const firstUrl = (p: PodcastEntry): string =>
+  p.spotify ?? p.apple ?? p.youtube ?? p.web ?? p.amazon ?? url;
+
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Podcasts que escucha Camilo Ramírez',
+  description: pageDescription,
+  url,
+  inLanguage: 'es-CO',
+  author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+  numberOfItems: PODCAST_ENTRIES.length,
+  itemListElement: PODCAST_ENTRIES.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: p.name,
+    url: firstUrl(p),
+  })),
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Podcasts', item: url },
+  ],
+};
+
+const extraJsonLd = [itemListJsonLd, breadcrumbJsonLd];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/podcasts" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+  <main class="pt-28 pb-20 md:pt-36 md:pb-28">
+    <!-- Hero -->
+    <header class="mx-auto max-w-5xl px-6 lg:px-10 mb-20 md:mb-24">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">Podcasts</p>
+      <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink max-w-4xl">
+        Lo que publico y lo que escucho.
+      </h1>
+      <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
+        Curaduría personal, no lista pasiva. Arriba lo que produzco. Abajo lo que escucho para pensar el negocio y la IA, y al final lo que escucho cuando no estoy pensando en IA.
+      </p>
+    </header>
+
+    <!-- Sección 0: Mis podcasts -->
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 mb-24 md:mb-32">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.mine.kicker}</p>
+      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+        {PODCAST_SECTIONS.mine.title}
+      </h2>
+      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.mine.intro}</p>
+      <div class="space-y-16 md:space-y-20">
+        <MinePodcastBlock
+          variant="pertinente"
+          name="Pertinente con Camilo Ramírez"
+          frequency="Diario, lunes a viernes, menos de 10 minutos"
+          description={mine[0].description}
+        />
+        <MinePodcastBlock
+          variant="memc"
+          name="Métase en mi cabeza"
+          frequency="Semanal, un episodio en vivo por semana"
+          description={mine[1].description}
+        />
+      </div>
+    </section>
+
+    <!-- Sección 1: Negocios, IA y tecnología -->
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 mb-24 md:mb-32 border-t border-rule pt-16 md:pt-20">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.negocios.kicker}</p>
+      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+        {PODCAST_SECTIONS.negocios.title}
+      </h2>
+      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        {negocios.map((p) => <PodcastCard podcast={p} />)}
+      </div>
+    </section>
+
+    <!-- Sección 2: Fuera del trabajo -->
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-16 md:pt-20">
+      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.fuera.kicker}</p>
+      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+        {PODCAST_SECTIONS.fuera.title}
+      </h2>
+      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        {fuera.map((p) => <PodcastCard podcast={p} />)}
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Base>

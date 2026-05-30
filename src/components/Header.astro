@@ -15,8 +15,8 @@ const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
     <nav class="hidden md:flex items-center gap-7 text-[13px] text-mute">
       <a href={`${home}#ultimo`} class="hover:text-ink transition-colors">{t.nav.ultimo}</a>
       {lang === 'es' && <a href="/blog" class="hover:text-ink transition-colors">{t.nav.blog}</a>}
+      {lang === 'es' && <a href="/podcasts" class="hover:text-ink transition-colors">{t.nav.podcasts}</a>}
       <a href={lang === 'es' ? '/speaking' : '/en/speaking'} class="hover:text-ink transition-colors">{t.nav.speaking}</a>
-      <a href={`${home}#trabajo`} class="hover:text-ink transition-colors">{t.nav.trabajo}</a>
       <a href={historiaHref} class="hover:text-ink transition-colors">{t.nav.historia}</a>
       <a href={`${home}#contacto`} class="hover:text-ink transition-colors">{t.nav.contacto}</a>
     </nav>

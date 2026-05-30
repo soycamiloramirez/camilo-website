@@ -82,6 +82,7 @@ export const COPY = {
     nav: {
       ultimo: 'Lo último',
       blog: 'Blog',
+      podcasts: 'Podcasts',
       tesis: 'Tesis',
       trabajo: 'Trabajar conmigo',
       speaking: 'Speaking',
