@@ -8,6 +8,7 @@ const {
   pageType = 'profile',
   path,
   extraJsonLd = [],
+  hasAlternate = true,
 } = Astro.props as {
   lang: Lang;
   pageTitle?: string;
@@ -15,6 +16,12 @@ const {
   pageType?: 'profile' | 'article' | 'website';
   path?: string;
   extraJsonLd?: Record<string, unknown>[];
+  /**
+   * Whether the current page has a sibling in the other locale.
+   * Set to false for ES-only pages like /blog/* so we don't advertise
+   * non-existent EN URLs in hreflang.
+   */
+  hasAlternate?: boolean;
 };
 const t = COPY[lang];
 
@@ -30,22 +37,52 @@ const altUrl = `${SITE.url}${altPath}`;
 const title = pageTitle ?? t.meta.title;
 const description = pageDescription ?? t.meta.description;
 
+// Person entity — the central node of the Knowledge Graph for Camilo.
+// Includes alternateName, knowsAbout (subjects), nationality, gender, and
+// extended sameAs (socials + podcast platforms + companies).
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${SITE.url}/#person`,
   name: 'Camilo Ramírez',
+  alternateName: ['Camilo Ramirez', 'soy.camilo.ramirez'],
+  givenName: 'Camilo',
+  familyName: 'Ramírez',
   url: SITE.url,
   image: `${SITE.url}/camilo-hero.jpg`,
   jobTitle:
     lang === 'es'
-      ? 'Voz pública de IA y negocios · Advisor · Speaker'
-      : 'Public voice on AI and business · Advisor · Speaker',
-  worksFor: { '@type': 'Organization', name: 'Navigamo', url: 'https://navigamo.co' },
-  memberOf: { '@type': 'Organization', name: 'The AI Collective', url: 'https://aicollective.com' },
-  address: { '@type': 'PostalAddress', addressLocality: 'Bogotá', addressCountry: 'CO' },
-  sameAs: SOCIALS.map((s) => s.href),
-  email: `mailto:${SITE.email}`,
+      ? 'Voz de IA y negocios en LATAM · Advisor · Speaker'
+      : 'Voice on AI and business in LATAM · Advisor · Speaker',
   description: t.meta.description,
+  nationality: { '@type': 'Country', name: 'Colombia' },
+  knowsAbout: [
+    'Artificial Intelligence',
+    'AI for business',
+    'Business strategy',
+    'Latin America technology',
+    'Digital marketing',
+    'SEO',
+    'Public speaking',
+    'Podcasting',
+    'AI adoption',
+    'AI governance',
+  ],
+  knowsLanguage: ['es', 'en'],
+  worksFor: { '@type': 'Organization', name: 'Navigamo', url: 'https://navigamo.co' },
+  memberOf: [
+    { '@type': 'Organization', name: 'The AI Collective', url: 'https://aicollective.com' },
+  ],
+  address: { '@type': 'PostalAddress', addressLocality: 'Bogotá', addressRegion: 'Cundinamarca', addressCountry: 'CO' },
+  sameAs: [
+    ...SOCIALS.map((s) => s.href),
+    'https://open.spotify.com/show/2bOwCqIBN1uRj5Ms84CnFe',
+    'https://podcasts.apple.com/us/podcast/pertinente-con-camilo-ram%C3%ADrez/id1894335566',
+    'https://open.spotify.com/show/7fzBFk8AGRc7ptnho5jZOB',
+    'https://navigamo.co',
+    'https://aicollective.com',
+  ],
+  email: `mailto:${SITE.email}`,
 };
 ---
 <!doctype html>
@@ -57,26 +94,37 @@ const personJsonLd = {
     <meta name="theme-color" content="#ffffff" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Camilo Ramírez" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={lang === 'es' ? 'es-CO' : 'en-US'} href={canonical} />
-    <link rel="alternate" hreflang={lang === 'es' ? 'en-US' : 'es-CO'} href={altUrl} />
-    <link rel="alternate" hreflang="x-default" href={`${SITE.url}${currentPath === homePath ? '/' : currentPath}`} />
+    {hasAlternate && (
+      <>
+        <link rel="alternate" hreflang={lang === 'es' ? 'en-US' : 'es-CO'} href={altUrl} />
+        <link rel="alternate" hreflang="x-default" href={`${SITE.url}${currentPath === homePath ? '/' : currentPath}`} />
+      </>
+    )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blog · Camilo Ramírez" href={`${SITE.url}/blog/rss.xml`} />
     <meta property="og:type" content={pageType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={`${SITE.url}/og-image.jpg`} />
     <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
-    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_CO'} />
+    {hasAlternate && (
+      <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_CO'} />
+    )}
+    <meta property="og:site_name" content="Camilo Ramírez" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@soy_camilo_r" />
     <meta name="twitter:creator" content="@soy_camilo_r" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE.url}/og-image.jpg`} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
     {extraJsonLd.map((obj) => (
       <script type="application/ld+json" set:html={JSON.stringify(obj)} />

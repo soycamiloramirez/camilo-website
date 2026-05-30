@@ -31,7 +31,7 @@ const lang = 'es' as const;
 const pageTitle = `${cat.label} — Blog · Camilo Ramírez`;
 const pageDescription = `Artículos sobre ${cat.label.toLowerCase()} desde el blog de Camilo Ramírez. Criterio editorial sobre IA, negocios y LATAM.`;
 ---
-<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path={`/blog/categoria/${cat.slug}`}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path={`/blog/categoria/${cat.slug}`} hasAlternate={false}>
   <Header lang={lang} />
   <main class="pt-28 pb-20 md:pt-36 md:pb-28">
     <header class="mx-auto max-w-5xl px-6 lg:px-10 mb-14">

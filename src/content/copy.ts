@@ -106,7 +106,7 @@ export const COPY = {
         title: 'Pertinente',
         tag: 'Diario · 6 a 13 min',
         oneLine:
-          'Yo solo, todos los días, las cuatro noticias que importan en IA, negocios y geopolítica de la región. Para entender hacia dónde va el dinero y la innovación.',
+          'Análisis diario, ~10 minutos, sobre un tema clave de IA, negocios o geopolítica en LATAM. Para líderes que necesitan entender hacia dónde va el dinero y la innovación, sin hype.',
         listenLabel: 'Escuchar en',
         all: 'Ver todos los episodios',
       },
@@ -162,8 +162,8 @@ export const COPY = {
     },
     aic: {
       kicker: 'Lidero el ecosistema',
-      title: 'Director Regional Sur América · The AI Collective.',
-      p: 'La comunidad de IA más grande del planeta: +200.000 miembros, +25 capítulos en hubs globales. Desde 2025 dirijo la región de Sur América. Mi trabajo: empujar el debate de adopción de IA con propósito humano y reglas propias de LATAM — no a control remoto desde otro hemisferio.',
+      title: 'Director Regional LATAM · The AI Collective.',
+      p: 'La comunidad de IA más grande del planeta: +200.000 miembros, +180 capítulos en 40+ países. Desde 2025 dirijo la región de LATAM. Mi trabajo: empujar el debate de adopción de IA con propósito humano y reglas propias de la región — no a control remoto desde otro hemisferio.',
       partnersLabel: 'Partners',
       cta: 'Conocer The AI Collective',
       href: 'https://aicollective.com',
@@ -205,7 +205,7 @@ export const COPY = {
         {
           years: '2024 — hoy',
           h: 'Navigamo · AI Collective · Pertinente · MEMC',
-          p: 'Cofundador y Director LATAM de Navigamo. Director Regional Sur América de The AI Collective. Creador y host de Pertinente (diario) y de Métase en mi cabeza (semanal, TV + podcast).',
+          p: 'Cofundador y Director LATAM de Navigamo. Director Regional LATAM de The AI Collective. Creador y host de Pertinente (diario) y de Métase en mi cabeza (semanal, TV + podcast).',
         },
       ],
       credentials: [
@@ -238,7 +238,7 @@ export const COPY = {
     meta: {
       title: 'Camilo Ramírez — IA, negocios y LATAM · Pertinente, MEMC, advisory',
       description:
-        'Criterio diario sobre IA, negocios y LATAM. Cofundador de Navigamo, Director Regional Sur América de The AI Collective. Host de Pertinente y MEMC.',
+        'Criterio diario sobre IA, negocios y LATAM. Cofundador de Navigamo, Director Regional LATAM de The AI Collective. Host de Pertinente y MEMC.',
       ogAlt: 'Camilo Ramírez — IA, negocios y LATAM',
     },
     trayectoriaBrief: {
@@ -316,9 +316,9 @@ export const COPY = {
         {
           years: '2025 — hoy',
           tag: 'El rol regional',
-          h: 'The AI Collective Sur América — el contrapeso humano.',
+          h: 'The AI Collective LATAM — el contrapeso humano.',
           body: [
-            'En julio de 2025 asumí la Dirección Regional de Sur América de The AI Collective. Es la comunidad de IA más grande del planeta: más de 200.000 miembros, más de 25 capítulos, partners como Anthropic, Microsoft, Nvidia, Amazon, Perplexity y Meta. Su misión es ser el contrapeso humano en la era de aceleración de la IA: reconstruir confianza, colaboración global y alineación con valores humanos.',
+            'En julio de 2025 asumí la Dirección Regional de LATAM de The AI Collective. Es la comunidad de IA más grande del planeta: más de 200.000 miembros, más de 180 capítulos en 40+ países, partners como Anthropic, Microsoft, Nvidia, Amazon, Perplexity y Meta. Su misión es ser el contrapeso humano en la era de aceleración de la IA: reconstruir confianza, colaboración global y alineación con valores humanos.',
             'Asumir la región es coherente con lo que vengo pensando: LATAM puede ser potencia con reglas propias. No por replicar el manual del norte, sino por reconocer una ventaja que es nuestra — conocer nuestros problemas en primera persona. El modelo es commodity. El terreno, no.',
           ],
         },
@@ -328,7 +328,7 @@ export const COPY = {
           h: 'Pertinente y Métase en mi cabeza — el criterio, todos los días.',
           body: [
             'Métase en mi cabeza arrancó en abril de 2025. Un episodio en vivo por semana, ~60 minutos, con líderes que están construyendo el presente y el futuro de la región: ex CEO de Google Colombia, ex Ministro TIC, VP de Caracol, fundadores. IA con visión humana, no técnica.',
-            'Pertinente es lo más reciente. Yo solo, todos los días, las cuatro noticias que importan en IA, negocios y geopolítica de la región. Sin invitados, sin humo. El objetivo: que dueños de empresa y líderes entiendan hacia dónde va el dinero y la innovación.',
+            'Pertinente es lo más reciente. Yo solo, todos los días, ~10 minutos analizando un tema clave de IA, negocios o geopolítica en LATAM. Sin invitados, sin hype. El objetivo: que dueños de empresa y líderes entiendan hacia dónde va el dinero y la innovación.',
             'Acá termina la historia, pero solo en orden cronológico. En realidad es donde empieza el resto: el contenido es la puerta. Si lo que digo le sirve, hablamos de su junta o de su evento.',
           ],
         },
@@ -368,7 +368,7 @@ export const COPY = {
         title: 'Pertinente',
         tag: 'Daily · 6 to 13 min',
         oneLine:
-          'Just me, every day, the four news items that matter on AI, business and geopolitics in the region. To understand where money and innovation are heading.',
+          'Daily analysis, ~10 minutes, on one key topic in AI, business or geopolitics across LATAM. For leaders who need to understand where money and innovation are heading — without hype.',
         listenLabel: 'Listen on',
         all: 'All episodes',
       },
@@ -424,8 +424,8 @@ export const COPY = {
     },
     aic: {
       kicker: 'I lead the ecosystem',
-      title: 'Regional Director for South America · The AI Collective.',
-      p: 'The largest AI community on the planet: 200,000+ members, 25+ chapters in global hubs. Since 2025 I lead the South America region. My job: push the conversation on AI adoption with human purpose and LATAM’s own rules — not remote-controlled from another hemisphere.',
+      title: 'Regional Director for LATAM · The AI Collective.',
+      p: 'The largest AI community on the planet: 200,000+ members, 180+ chapters across 40+ countries. Since 2025 I lead the LATAM region. My job: push the conversation on AI adoption with human purpose and LATAM’s own rules — not remote-controlled from another hemisphere.',
       partnersLabel: 'Partners',
       cta: 'Explore The AI Collective',
       href: 'https://aicollective.com',
@@ -467,7 +467,7 @@ export const COPY = {
         {
           years: '2024 — present',
           h: 'Navigamo · AI Collective · Pertinente · MEMC',
-          p: 'Co-founder and LATAM Director at Navigamo. Regional Director for South America at The AI Collective. Creator and host of Pertinente (daily) and Métase en mi cabeza (weekly, TV + podcast).',
+          p: 'Co-founder and LATAM Director at Navigamo. Regional Director for LATAM at The AI Collective. Creator and host of Pertinente (daily) and Métase en mi cabeza (weekly, TV + podcast).',
         },
       ],
       credentials: [
@@ -500,7 +500,7 @@ export const COPY = {
     meta: {
       title: 'Camilo Ramírez — AI, business and LATAM · Pertinente, MEMC, advisory',
       description:
-        'Daily judgment on AI, business and LATAM. Co-founder of Navigamo, Regional Director for South America at The AI Collective. Host of Pertinente and MEMC.',
+        'Daily judgment on AI, business and LATAM. Co-founder of Navigamo, Regional Director for LATAM at The AI Collective. Host of Pertinente and MEMC.',
       ogAlt: 'Camilo Ramírez — AI, business and LATAM',
     },
     trayectoriaBrief: {
@@ -578,9 +578,9 @@ export const COPY = {
         {
           years: '2025 — present',
           tag: 'The regional role',
-          h: 'The AI Collective South America — the human counterweight.',
+          h: 'The AI Collective LATAM — the human counterweight.',
           body: [
-            'In July 2025 I took on the South America Regional Directorship of The AI Collective. The largest AI community on the planet: more than 200,000 members, more than 25 chapters, partners like Anthropic, Microsoft, Nvidia, Amazon, Perplexity and Meta. Its mission: to be the human counterweight in an era of AI acceleration — rebuild trust, global collaboration and alignment with human values.',
+            'In July 2025 I took on the LATAM Regional Directorship of The AI Collective. The largest AI community on the planet: more than 200,000 members, more than 180 chapters across 40+ countries, partners like Anthropic, Microsoft, Nvidia, Amazon, Perplexity and Meta. Its mission: to be the human counterweight in an era of AI acceleration — rebuild trust, global collaboration and alignment with human values.',
             'Taking on the region is coherent with what I’ve been thinking: LATAM can be a power on its own terms. Not by replicating the playbook of the North, but by recognizing an edge that is ours — knowing our own problems firsthand. The model is a commodity. The terrain is not.',
           ],
         },
@@ -590,7 +590,7 @@ export const COPY = {
           h: 'Pertinente and Métase en mi cabeza — judgment, every day.',
           body: [
             'Métase en mi cabeza started in April 2025. One live episode a week, ~60 minutes, with leaders building the present and future of the region: former CEO of Google Colombia, former ICT Minister, Caracol VP, founders. AI with a human lens, not a technical one.',
-            'Pertinente is the most recent. Just me, every day, the four news items that matter on AI, business and geopolitics in the region. No guests, no smoke. The goal: that business owners and leaders understand where money and innovation are heading.',
+            'Pertinente is the most recent. Just me, every day, ~10 minutes analyzing one key topic in AI, business or geopolitics across LATAM. No guests, no hype. The goal: that business owners and leaders understand where money and innovation are heading.',
             'The story ends here, but only in chronological order. This is actually where the rest begins: content is the door. If what I say is useful, we’ll talk about your board or your stage.',
           ],
         },

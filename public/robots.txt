@@ -1,4 +1,72 @@
+# Camilo Ramírez — robots.txt
+# Política: abrir el sitio a todos los crawlers (buscadores + motores de IA).
+# Camilo construye autoridad publicando criterio; bloquear bots significaría
+# bloquear las plataformas que pueden citarlo. Si quieres bloquear alguno
+# específico en el futuro, agrega un User-agent dedicado abajo.
+
 User-agent: *
+Allow: /
+
+# Bots de buscadores tradicionales (explícito para claridad)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Bots de motores de IA — permitidos explícitamente.
+# Aparecer citado en respuestas de estos motores es parte de la estrategia
+# de autoridad: contenido como motor de presencia en la era de los LLM.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
 Allow: /
 
 Sitemap: https://camilo-ramirez.com/sitemap-index.xml
