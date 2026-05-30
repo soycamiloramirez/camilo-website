@@ -4,19 +4,37 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PodcastCard from '../components/podcasts/PodcastCard.astro';
 import MinePodcastBlock from '../components/podcasts/MinePodcastBlock.astro';
-import { PODCAST_ENTRIES, PODCAST_SECTIONS, type PodcastEntry } from '../content/podcasts';
+import {
+  PODCAST_ENTRIES,
+  PODCAST_SECTIONS,
+  PODCAST_TAGS,
+  TAGS_BY_SECTION,
+  type PodcastEntry,
+  type PodcastSection,
+  type PodcastTag,
+} from '../content/podcasts';
 import { SITE } from '../content/copy';
 
 const lang = 'es' as const;
 
 const mine = PODCAST_ENTRIES.filter((p) => p.section === 'mine');
-const negocios = PODCAST_ENTRIES.filter((p) => p.section === 'negocios');
-const fuera = PODCAST_ENTRIES.filter((p) => p.section === 'fuera');
+
+function bySection(section: Exclude<PodcastSection, 'mine'>): Record<PodcastTag, PodcastEntry[]> {
+  const out = {} as Record<PodcastTag, PodcastEntry[]>;
+  for (const tag of TAGS_BY_SECTION[section]) out[tag] = [];
+  for (const p of PODCAST_ENTRIES) {
+    if (p.section === section && out[p.tag]) out[p.tag].push(p);
+  }
+  return out;
+}
+
+const negociosGroups = bySection('negocios');
+const fueraGroups = bySection('fuera');
 
 const url = `${SITE.url}/podcasts`;
 const pageTitle = 'Podcasts · Mi lista de IA, negocios y vida | Camilo Ramírez';
 const pageDescription =
-  'Los podcasts que escucho para pensar negocios, IA y tecnología en LATAM, más lo que escucho fuera del trabajo. Curaduría personal de Camilo Ramírez, no lista pasiva.';
+  'Los podcasts que escucho para pensar negocios, IA y tecnología en LATAM, más lo que escucho fuera del trabajo. Curaduría personal de Camilo Ramírez, navegable por categoría.';
 
 const firstUrl = (p: PodcastEntry): string =>
   p.spotify ?? p.apple ?? p.youtube ?? p.web ?? p.amazon ?? url;
@@ -48,23 +66,47 @@ const breadcrumbJsonLd = {
 };
 
 const extraJsonLd = [itemListJsonLd, breadcrumbJsonLd];
+
+const negociosCount = TAGS_BY_SECTION.negocios.reduce((n, t) => n + negociosGroups[t].length, 0);
+const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].length, 0);
 ---
 <Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/podcasts" extraJsonLd={extraJsonLd} hasAlternate={false}>
   <Header lang={lang} />
-  <main class="pt-28 pb-20 md:pt-36 md:pb-28">
+  <main class="pb-20 md:pb-28">
     <!-- Hero -->
-    <header class="mx-auto max-w-5xl px-6 lg:px-10 mb-20 md:mb-24">
+    <header class="mx-auto max-w-5xl px-6 lg:px-10 pt-28 md:pt-36 mb-12 md:mb-16">
       <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">Podcasts</p>
       <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink max-w-4xl">
         Lo que publico y lo que escucho.
       </h1>
       <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
-        Curaduría personal, no lista pasiva. Arriba lo que produzco. Abajo lo que escucho para pensar el negocio y la IA, y al final lo que escucho cuando no estoy pensando en IA.
+        Curaduría personal, no lista pasiva. {PODCAST_ENTRIES.length} podcasts en total. Arriba los míos. Abajo todo agrupado por categoría para que pueda saltar al tema que le interesa.
       </p>
     </header>
 
+    <!-- Sticky chips nav -->
+    <nav aria-label="Categorías" class="sticky top-14 z-30 bg-paper/95 backdrop-blur border-y border-rule">
+      <div class="mx-auto max-w-5xl px-6 lg:px-10 py-3 flex items-center gap-x-2 gap-y-2 overflow-x-auto whitespace-nowrap scroll-px-6 scroll-pl-6">
+        <a href="#mis-podcasts" class="shrink-0 inline-flex items-center text-[12px] uppercase tracking-[0.14em] text-mute hover:text-ink transition-colors px-3 py-1.5 border border-rule rounded-full">Mis podcasts</a>
+        <span class="text-rule">·</span>
+        <span class="shrink-0 text-[11px] uppercase tracking-[0.14em] text-mute/60">Negocios</span>
+        {TAGS_BY_SECTION.negocios.map((tag) => (
+          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-[12px] text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
+            {PODCAST_TAGS[tag].label}
+          </a>
+        ))}
+        <span class="text-rule">·</span>
+        <span class="shrink-0 text-[11px] uppercase tracking-[0.14em] text-mute/60">Fuera del trabajo</span>
+        {TAGS_BY_SECTION.fuera.map((tag) => (
+          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-[12px] text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
+            {PODCAST_TAGS[tag].label}
+          </a>
+        ))}
+      </div>
+    </nav>
+
     <!-- Sección 0: Mis podcasts -->
-    <section class="mx-auto max-w-5xl px-6 lg:px-10 mb-24 md:mb-32">
+    <section id="mis-podcasts" class="mx-auto max-w-5xl px-6 lg:px-10 mt-16 md:mt-20 mb-20 md:mb-24 scroll-mt-32">
       <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.mine.kicker}</p>
       <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.mine.title}
@@ -86,27 +128,61 @@ const extraJsonLd = [itemListJsonLd, breadcrumbJsonLd];
       </div>
     </section>
 
-    <!-- Sección 1: Negocios, IA y tecnología -->
-    <section class="mx-auto max-w-5xl px-6 lg:px-10 mb-24 md:mb-32 border-t border-rule pt-16 md:pt-20">
+    <!-- Sección 1: Negocios -->
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16 mb-20 md:mb-24">
       <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.negocios.kicker}</p>
       <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.negocios.title}
       </h2>
-      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
-      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
-        {negocios.map((p) => <PodcastCard podcast={p} />)}
+      <p class="text-[16px] leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
+      <p class="text-[12px] uppercase tracking-[0.14em] text-mute mt-3 mb-14">{negociosCount} podcasts · {TAGS_BY_SECTION.negocios.length} subcategorías</p>
+
+      <div class="space-y-16 md:space-y-20">
+        {TAGS_BY_SECTION.negocios.map((tag) => {
+          const items = negociosGroups[tag];
+          if (items.length === 0) return null;
+          const cat = PODCAST_TAGS[tag];
+          return (
+            <div id={cat.slug} class="scroll-mt-32">
+              <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
+                <h3 class="font-display text-[22px] md:text-[26px] tracking-tight text-ink">{cat.label}</h3>
+                <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{items.length}</span>
+              </header>
+              <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                {items.map((p) => <PodcastCard podcast={p} />)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
 
     <!-- Sección 2: Fuera del trabajo -->
-    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-16 md:pt-20">
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16">
       <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.fuera.kicker}</p>
       <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.fuera.title}
       </h2>
-      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
-      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
-        {fuera.map((p) => <PodcastCard podcast={p} />)}
+      <p class="text-[16px] leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
+      <p class="text-[12px] uppercase tracking-[0.14em] text-mute mt-3 mb-14">{fueraCount} podcasts · {TAGS_BY_SECTION.fuera.length} subcategorías</p>
+
+      <div class="space-y-16 md:space-y-20">
+        {TAGS_BY_SECTION.fuera.map((tag) => {
+          const items = fueraGroups[tag];
+          if (items.length === 0) return null;
+          const cat = PODCAST_TAGS[tag];
+          return (
+            <div id={cat.slug} class="scroll-mt-32">
+              <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
+                <h3 class="font-display text-[22px] md:text-[26px] tracking-tight text-ink">{cat.label}</h3>
+                <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{items.length}</span>
+              </header>
+              <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                {items.map((p) => <PodcastCard podcast={p} />)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   </main>
