@@ -9,7 +9,7 @@ episode: 6
 
 Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son. Y la confusión no es un detalle de pedantes: hace que uno tome malas decisiones, porque mezcla lo que ya está pasando con lo que tal vez pase en una década.
 
-Le propongo aclararlo de una vez, con una imagen sencilla: confundir la AGI con la singularidad es como confundir el motor de combustión con la revolución industrial. Uno es una tecnología. El otro es un cambio irreversible en la historia humana. Relacionados, pero no lo mismo.
+Le propongo aclararlo de una vez, con una imagen sencilla: confundir la AGI con la singularidad es como confundir el motor de combustión con la revolución industrial. Uno es una tecnología. El otro es un cambio irreversible en la historia humana. Relacionados, si. Pero no lo mismo.
 
 ## La AGI: una máquina tan capaz como usted
 
