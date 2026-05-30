@@ -1,9 +1,10 @@
 ---
-title: 'AGI y singularidad no son lo mismo, y confundirlas le nubla el criterio'
-description: 'Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son. Y la confusión no'
+title: AGI y singularidad no son lo mismo, y confundirlas le nubla el criterio
+description: 'Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son.'
 date: 2026-05-17
+categories:
+  - aprende
 episode: 6
-categories: [aprende]
 ---
 
 Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son. Y la confusión no es un detalle de pedantes: hace que uno tome malas decisiones, porque mezcla lo que ya está pasando con lo que tal vez pase en una década.
