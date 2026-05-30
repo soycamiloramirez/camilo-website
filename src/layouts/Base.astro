@@ -125,6 +125,7 @@ const personJsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE.url}/og-image.jpg`} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="msvalidate.01" content="90255CD86199BA9792E7A613722D9076" />
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
     {extraJsonLd.map((obj) => (
       <script type="application/ld+json" set:html={JSON.stringify(obj)} />
