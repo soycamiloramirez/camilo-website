@@ -11,7 +11,7 @@ const lang = 'es' as const;
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const pageTitle = 'Blog — Criterio sobre IA, negocios y LATAM | Camilo Ramírez';
+const pageTitle = 'Blog · Criterio sobre IA, negocios y LATAM | Camilo Ramírez';
 const pageDescription = 'Análisis editorial diario sobre IA, negocios, geopolítica y oportunidades en Latinoamérica. Cada artículo nace de un episodio de Pertinente.';
 
 const extraJsonLd = [
@@ -41,7 +41,7 @@ const extraJsonLd = [
         Criterio sobre IA, negocios y LATAM.
       </h1>
       <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
-        Cada artículo nace de un episodio de <a href="/#ultimo" class="underline decoration-accent underline-offset-4 hover:text-accent transition-colors">Pertinente</a>, mi análisis diario. Acá los conviertes en lectura — el mismo criterio, en formato editorial.
+        Cada artículo nace de un episodio de <a href="/#ultimo" class="underline decoration-accent underline-offset-4 hover:text-accent transition-colors">Pertinente</a>, mi análisis diario. Acá los puedes leer: el mismo criterio, en formato editorial.
       </p>
     </header>
 

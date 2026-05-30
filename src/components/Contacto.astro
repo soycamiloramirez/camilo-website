@@ -50,7 +50,7 @@ const t = COPY[lang].contacto;
     const form = e.currentTarget;
     const fd = new FormData(form);
     const email = form.dataset.email;
-    const subject = encodeURIComponent(`[${fd.get('type')}] ${fd.get('name')} — ${fd.get('company')}`);
+    const subject = encodeURIComponent(`[${fd.get('type')}] ${fd.get('name')} · ${fd.get('company')}`);
     const body = encodeURIComponent(
       `Nombre: ${fd.get('name')}\nEmpresa: ${fd.get('company')}\nTipo: ${fd.get('type')}\n\n${fd.get('message')}`
     );

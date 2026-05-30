@@ -175,7 +175,8 @@ export const COPY = {
       title: 'Navigamo · cofundador y Director LATAM.',
       claim: 'Construimos IA. No solo opinamos.',
       p: 'Navigamo es la compañía que cofundé en 2024. Diseñamos y operamos soluciones con IA que mejoran vidas y generan eficiencias reales para empresas en LATAM. Es donde aterrizo lo que aconsejo: por eso lo que digo en público no es teoría. Lo estoy ejecutando con un equipo y un producto, en clientes de verdad.',
-      cta: 'Ir a Navigamo',
+      ctaIntro: '¿Quiere ver el trabajo? Los casos y el producto viven en Navigamo.',
+      cta: 'Ver el trabajo en Navigamo',
       href: 'https://navigamo.co',
     },
     trayectoria: {
@@ -445,7 +446,7 @@ export const COPY = {
           h: 'The AI Collective LATAM. El contrapeso humano.',
           body: [
             'En julio de 2025 asumí la Dirección Regional de LATAM de The AI Collective. Es la comunidad de IA más grande del planeta: más de 200.000 miembros, más de 180 capítulos en 40+ países, partners como Anthropic, Microsoft, Nvidia, Amazon, Perplexity y Meta. Su misión es ser el contrapeso humano en la era de aceleración de la IA: reconstruir confianza, colaboración global y alineación con valores humanos.',
-            'Asumir la región es coherente con lo que vengo pensando: LATAM puede ser potencia con reglas propias. No por replicar el manual del norte, sino por reconocer una ventaja que es nuestra: conocer nuestros problemas en primera persona. El modelo es commodity. El terreno, no.',
+            'Asumir la región es coherente con lo que vengo pensando: LATAM puede ser potencia con reglas propias. No por replicar el manual del norte, sino por reconocer una ventaja que sí es nuestra: el conocimiento del terreno. Los modelos los están construyendo en otra parte; el contexto local solo se conoce desde aquí, y ese es el activo que pesa.',
           ],
         },
         {
@@ -562,7 +563,8 @@ export const COPY = {
       title: 'Navigamo · co-founder and LATAM Director.',
       claim: 'We build AI. We don’t just talk about it.',
       p: 'Navigamo is the company I co-founded in 2024. We design and operate AI solutions that improve lives and create real efficiencies for LATAM companies. This is where the advice lands: that’s why what I say in public isn’t theory. I’m executing it with a team and a product, with real clients.',
-      cta: 'Go to Navigamo',
+      ctaIntro: 'Want to see the work? The cases and the product live at Navigamo.',
+      cta: 'See the work at Navigamo',
       href: 'https://navigamo.co',
     },
     trayectoria: {

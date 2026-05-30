@@ -2,7 +2,13 @@
 import { COPY, CLIENT_BRANDS, type Lang } from '../content/copy';
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang].historia.brands;
+// Duplicar el array para que la marquee haga loop seamless.
 const items = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
+
+// Hidden style for the a11y list, applied inline so Tailwind purge can't
+// strip it. Visually invisible, still readable by screen readers.
+const SR_ONLY =
+  'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0';
 ---
 <section aria-labelledby="brands-title" class="my-16 md:my-24 border-t border-b border-rule py-14 md:py-16">
   <div class="mx-auto max-w-3xl px-6 lg:px-10 mb-10 md:mb-12">
@@ -11,24 +17,88 @@ const items = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
     <p class="text-[14px] leading-relaxed text-mute max-w-xl">{t.p}</p>
   </div>
 
-  <div class="marquee-mask overflow-hidden">
-    <ul class="marquee flex items-center gap-12 md:gap-16 w-max" aria-hidden="true">
+  <div class="brand-marquee-mask">
+    <ul class="brand-marquee" aria-hidden="true">
       {items.map((b) => (
-        <li class="shrink-0 flex items-center justify-center h-10 md:h-12 brand-mark">
+        <li class="brand-marquee-item">
           {b.file ? (
-            <img src={`/brands/${b.file}`} alt={b.name}
-              class="block h-full w-auto max-w-[140px] md:max-w-[160px] object-contain" loading="lazy" />
+            <img src={`/brands/${b.file}`} alt={b.name} loading="lazy" />
           ) : (
-            <span class="font-display text-[15px] md:text-[16px] font-semibold uppercase tracking-[0.14em] whitespace-nowrap">
-              {b.name}
-            </span>
+            <span class="brand-marquee-wordmark">{b.name}</span>
           )}
         </li>
       ))}
     </ul>
   </div>
 
-  <ul class="sr-only">
+  <ul style={SR_ONLY}>
     {CLIENT_BRANDS.map((b) => <li>{b.name}</li>)}
   </ul>
 </section>
+
+<style>
+  @keyframes brandMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .brand-marquee-mask {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+  }
+  .brand-marquee {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: max-content;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    animation: brandMarquee 70s linear infinite;
+    will-change: transform;
+  }
+  @media (min-width: 768px) {
+    .brand-marquee { gap: 4rem; }
+  }
+  .brand-marquee:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-marquee { animation: none; }
+  }
+  .brand-marquee-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .brand-marquee-item { height: 3rem; }
+  }
+  .brand-marquee-item img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    filter: grayscale(100%) contrast(1.05);
+    opacity: 0.85;
+  }
+  @media (min-width: 768px) {
+    .brand-marquee-item img { max-width: 160px; }
+  }
+  .brand-marquee-wordmark {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    color: rgb(10 10 10 / 0.6);
+  }
+  @media (min-width: 768px) {
+    .brand-marquee-wordmark { font-size: 16px; }
+  }
+</style>

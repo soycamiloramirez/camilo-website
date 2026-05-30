@@ -28,7 +28,7 @@ const { categoryKey, posts } = Astro.props as {
 const cat = CATEGORIES[categoryKey];
 const lang = 'es' as const;
 
-const pageTitle = `${cat.label} — Blog · Camilo Ramírez`;
+const pageTitle = `${cat.label} · Blog · Camilo Ramírez`;
 const pageDescription = `Artículos sobre ${cat.label.toLowerCase()} desde el blog de Camilo Ramírez. Criterio editorial sobre IA, negocios y LATAM.`;
 ---
 <Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path={`/blog/categoria/${cat.slug}`} hasAlternate={false}>
