@@ -1,20 +1,92 @@
 @import "tailwindcss";
+@import "./tokens.css";
+
+/* =================================================================
+   Mapeo Tailwind ↔ tokens.
+
+   Cada theme var de Tailwind apunta a un token de `tokens.css`. Eso
+   habilita utility classes (`text-h1`, `bg-paper`, `text-accent`,
+   `mt-s5`, `gap-s7`, `tracking-display`, etc.) que LEEN de los tokens.
+
+   Cuando llegue un DS nuevo: se cambia `tokens.css` y todo este mapeo
+   se mueve automático. No se toca este archivo salvo para agregar
+   tokens nuevos al mapeo.
+   ================================================================= */
 
 @theme {
-  --color-ink: #0a0a0a;
-  --color-paper: #ffffff;
-  --color-soft: #f5f5f4;
-  --color-mute: #6b6b6b;
-  --color-rule: #e7e7e5;
-  --color-accent: #3D2D9C;
-  --color-accent-soft: #5A4ABF;
+  /* ---------- Colores (Tailwind: bg-paper, text-ink, ...) ---------- */
+  --color-paper:          var(--bg);
+  --color-soft:           var(--bg-soft);
+  --color-ink:            var(--ink);
+  --color-ink-2:          var(--ink-2);
+  --color-mute:           var(--ink-3);
+  --color-rule:           var(--rule);
+  --color-accent:         var(--accent);
+  --color-accent-deep:    var(--accent-deep);
+  --color-accent-soft:    var(--accent-soft);
+  --color-accent-on-dark: var(--accent-on-dark);
 
-  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* ---------- Fuentes (Tailwind: font-display, font-sans, font-serif) ---------- */
+  --font-sans:    var(--font-sans);
+  --font-display: var(--font-display);
+  --font-serif:   var(--font-serif);
+  --font-mono:    var(--font-mono);
 
-  --tracking-tight: -0.02em;
-  --tracking-tighter: -0.035em;
+  /* ---------- Type scale (Tailwind: text-display-1, text-h1, ...) ---------- */
+  --text-display-1: var(--text-display-1);
+  --text-display-2: var(--text-display-2);
+  --text-h1:        var(--text-h1);
+  --text-h2:        var(--text-h2);
+  --text-h3:        var(--text-h3);
+  --text-h4:        var(--text-h4);
+  --text-eyebrow:   var(--text-eyebrow);
+  --text-body-lg:   var(--text-body-lg);
+  --text-body:      var(--text-body);
+  --text-caption:   var(--text-caption);
+  --text-meta:      var(--text-meta);
+
+  /* ---------- Tracking (Tailwind: tracking-display, tracking-eyebrow, ...) ---------- */
+  --tracking-display: var(--tracking-display);
+  --tracking-tight:   var(--tracking-tight);
+  --tracking-heading: var(--tracking-heading);
+  --tracking-eyebrow: var(--tracking-eyebrow);
+  --tracking-label:   var(--tracking-label);
+  --tracking-wide:    var(--tracking-wide);
+
+  /* ---------- Line-height (Tailwind: leading-display, leading-body, ...) ---------- */
+  --leading-tight:    var(--leading-tight);
+  --leading-display:  var(--leading-display);
+  --leading-heading:  var(--leading-heading);
+  --leading-snug:     var(--leading-snug);
+  --leading-body:     var(--leading-body);
+  --leading-relaxed:  var(--leading-relaxed);
+
+  /* ---------- Spacing (Tailwind: mt-s5, gap-s7, p-s6, ...) ---------- */
+  --spacing-s1:  var(--s-1);
+  --spacing-s2:  var(--s-2);
+  --spacing-s3:  var(--s-3);
+  --spacing-s4:  var(--s-4);
+  --spacing-s5:  var(--s-5);
+  --spacing-s6:  var(--s-6);
+  --spacing-s7:  var(--s-7);
+  --spacing-s8:  var(--s-8);
+  --spacing-s9:  var(--s-9);
+  --spacing-s10: var(--s-10);
+
+  /* ---------- Radii (Tailwind: rounded-md, rounded-lg, rounded-pill) ---------- */
+  --radius-sm:    var(--radius-sm);
+  --radius-md:    var(--radius-md);
+  --radius-lg:    var(--radius-lg);
+  --radius-pill:  var(--radius-pill);
+
+  /* ---------- Motion ---------- */
+  --ease-brand:  var(--ease);
+  --ease-out-brand: var(--ease-out);
 }
+
+/* =================================================================
+   Body baseline. Hereda de tokens.
+   ================================================================= */
 
 html {
   scroll-behavior: smooth;
@@ -22,30 +94,48 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--color-paper);
-  color: var(--color-ink);
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--ink);
+  color: var(--ink-on-dark);
 }
 
 .font-display { font-family: var(--font-display); }
+.font-serif   { font-family: var(--font-serif); }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  letter-spacing: var(--tracking-tighter);
-  font-weight: 500;
+  letter-spacing: var(--tracking-tight);
+  font-weight: var(--weight-medium);
 }
 
 a { text-underline-offset: 3px; }
 
-/* Brand ticker — slow seamless marquee, paused on hover. */
+/* =================================================================
+   Dark surfaces — accent debe pasar al accent-on-dark para legibilidad.
+   Aplica a cualquier descendiente de `.bg-ink`.
+   ================================================================= */
+
+.bg-ink .text-accent,
+.bg-ink a.hover\:text-accent:hover,
+.bg-ink .hover\:text-accent:hover { color: var(--accent-on-dark); }
+.bg-ink .decoration-accent { text-decoration-color: var(--accent-on-dark); }
+.bg-ink .border-accent { border-color: var(--accent-on-dark); }
+.bg-ink .bg-accent { background-color: var(--accent-on-dark); }
+.bg-ink .text-accent-soft { color: var(--accent-on-dark); }
+.bg-ink .hover\:border-accent:hover { border-color: var(--accent-on-dark); }
+
+/* =================================================================
+   Brand ticker (marquee) — mantenido para /historia.
+   ================================================================= */
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -62,11 +152,9 @@ a { text-underline-offset: 3px; }
   -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
           mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
 }
-/* Unify every brand mark (SVGs, JPGs on white, wordmarks) into a single muted
-   monochrome. multiply-blend turns the white JPG backgrounds transparent against
-   the paper background; grayscale + contrast desaturates color logos. */
+
 .brand-mark img,
-.brand-mark span { color: var(--color-mute); opacity: 0.55; transition: opacity 0.2s ease; }
+.brand-mark span { color: var(--ink-3); opacity: 0.55; transition: opacity 0.2s ease; }
 .brand-mark img {
   filter: grayscale(100%) contrast(1.05);
   mix-blend-mode: multiply;
