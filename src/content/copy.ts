@@ -834,7 +834,7 @@ export const COPY = {
           h: 'The AI Collective LATAM. The human counterweight.',
           body: [
             'In July 2025 I took on the LATAM Regional Directorship of The AI Collective. The largest AI community on the planet: more than 200,000 members, more than 180 chapters across 40+ countries, partners like Anthropic, Microsoft, Nvidia, Amazon, Perplexity and Meta. Its mission: to be the human counterweight in an era of AI acceleration, rebuilding trust, global collaboration and alignment with human values.',
-            'Taking on the region is coherent with what I’ve been thinking: LATAM can be a power on its own terms. Not by replicating the playbook of the North, but by recognizing an edge that is ours: knowing our own problems firsthand. The model is a commodity. The terrain is not.',
+            'Taking on the region is coherent with what I’ve been thinking: LATAM can be a power on its own terms. Not by replicating the playbook of the North, but by recognizing an edge that is ours: knowledge of the terrain. That part can’t be imported.',
           ],
         },
         {

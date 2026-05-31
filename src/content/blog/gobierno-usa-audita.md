@@ -6,6 +6,8 @@ episode: 13
 categories: [geopolitica]
 ---
 
+# El gobierno de EE.UU. ya prueba los modelos de IA antes que usted. Y nosotros ni miramos.
+
 La mayoría de las noticias sobre inteligencia artificial hablan de funciones nuevas, de modelos más rápidos, de precios que bajan. Pero la noticia que de verdad cambia las reglas del juego no tiene que ver con código. Tiene que ver con poder. Y es esta: los cinco laboratorios que definen la frontera de la IA en el mundo ya le dan acceso a sus modelos al gobierno de Estados Unidos antes de que usted o yo podamos probarlos.
 
 ## Un auditor metido por dentro, no por fuera
@@ -20,7 +22,7 @@ Estados Unidos no está solo. Desde 2023 se formó una red con más de una docen
 
 ¿Y sabe cuál es el único país del sur global con silla en esa mesa? Kenia. No un país latinoamericano. Nosotros no vamos ni de paseo a mirar qué pasa.
 
-## La parte incómoda, la nuestra
+## La parte que nos toca
 
 Aquí es donde se pone serio para la región, y se lo digo sin rodeos. Ningún país de Latinoamérica hace parte de esa red, ni siquiera como observador. Estamos rezagados en gobernanza, en infraestructura y en capacidad técnica para evaluar modelos. Chile, que encabeza el índice regional, apuesta más por desarrollar que por auditar. Brasil y Argentina tienen una conversación distinta, más sobre sesgos y derechos, que es válida pero está fuera del debate principal.
 
@@ -29,3 +31,7 @@ Y lo más preocupante: en Colombia, México y Perú los congresos están redacta
 La consecuencia es concreta. Las startups de la región, los bancos que ya automatizan crédito con IA, las agencias que construyen sobre estos modelos: todos van a operar bajo las restricciones que diseña el gobierno gringo para protegerse a sí mismo. Si su empresa depende de cuándo sale un modelo nuevo, va a depender de lo que decida un gobierno en cuya mesa no tenemos silla. Como decimos por acá, es pelea de tigre con burro amarrado.
 
 Y le dejo la pregunta que de verdad importa: ¿nuestra mayor vulnerabilidad es que adoptamos poca IA, o es que no tenemos cómo sentarnos en la mesa donde se decide qué tecnología llega, cuándo y con qué reglas? Porque mientras seguimos discutiendo lo primero, lo segundo se nos está definiendo sin nosotros.
+
+---
+
+*Esto nació de un episodio de Pertinente, mi análisis diario sobre IA, negocios y geopolítica en Latinoamérica. Si le sirvió, ahí publico uno nuevo cada día.*

@@ -6,6 +6,8 @@ episode: 16
 categories: [negocios]
 ---
 
+# Salesforce pasó 25 años poniéndote frente a una pantalla. Acaba de decir que ya no importa.
+
 Durante un cuarto de siglo, Salesforce construyó un imperio sobre una idea: que las personas se sentaran frente a una pantalla a meter y actualizar datos. Cada empleado, su silla, su licencia, su pago mensual. Esa fue la mina de oro. Por eso es tan revelador que ahora su propio fundador salga a decir que el navegador ya no es lo importante. Cuando una empresa entierra la idea que la hizo rica, vale la pena entender por qué, porque algo grande está cambiando.
 
 ## Cómo se construyó el hábito
@@ -26,4 +28,8 @@ Su respuesta fue radical: una plataforma donde la información sigue siendo de e
 
 Y así se cierra la historia, con una ironía enorme. Salesforce se hizo gigante poniendo a un humano frente a un tablero a sacar conclusiones. Ahora le está diciendo a ese mismo humano que su rol ya no es estar ahí mirando, sino supervisar a los agentes que pican toda esa piedra por él.
 
-La pregunta que queda abierta es la que de verdad importa para entender hacia dónde vamos. ¿Salesforce está haciendo una jugada brillante, como cuando Apple mató el iPod para dar el salto al iPhone? ¿O lo que nos está diciendo, sin decirlo, es algo más incómodo: que en esta nueva etapa los usuarios humanos empiezan a valer menos que los agentes? No tengo la respuesta cerrada, y creo que nadie la tiene todavía. Pero la pregunta vale para cualquier negocio, porque tarde o temprano a todos nos va a tocar decidir qué hacen las personas cuando la máquina hace la tarea.
+La pregunta que queda abierta es la que de verdad importa para entender hacia dónde vamos. ¿Salesforce está haciendo una jugada brillante, como cuando Apple mató el iPod para dar el salto al iPhone? ¿O lo que nos está diciendo, sin decirlo, es algo más grave: que en esta nueva etapa los usuarios humanos empiezan a valer menos que los agentes? No tengo la respuesta cerrada, y creo que nadie la tiene todavía. Pero la pregunta vale para cualquier negocio, porque tarde o temprano a todos nos va a tocar decidir qué hacen las personas cuando la máquina hace la tarea.
+
+---
+
+*Esto nació de un episodio de Pertinente, mi análisis diario sobre IA, negocios y geopolítica en Latinoamérica. Si le sirvió, ahí publico uno nuevo cada día.*

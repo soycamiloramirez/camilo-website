@@ -6,6 +6,8 @@ episode: 1
 categories: [latam, negocios]
 ---
 
+# En la IA, el talento dejó de ser la barrera. Y ese es nuestro problema.
+
 Durante años nos contamos un cuento bonito sobre Latinoamérica y la tecnología: que lo que nos faltaba era talento, educación, gente preparada. Que el día que tuviéramos suficientes ingenieros buenos, podríamos jugar en las grandes ligas. Pues tengo una mala noticia y una buena, y las dos vienen del mismo dato.
 
 Esta semana Anthropic superó en valoración a OpenAI. Más de 900.000 millones de dólares, por encima de los de ChatGPT por primera vez en la historia. Pero el número que de verdad importa no es ese. Es otro: lo que Anthropic paga solo en cómputo para entrenar sus modelos es de 1.250 millones de dólares al mes. Al mes. Con un techo de 45.000 millones al año.
@@ -32,4 +34,8 @@ El talento latinoamericano no se desperdicia tratando de construir el próximo m
 
 Pero hay un costo en depender así de una infraestructura que se decide en otro lado. Si construir el cerebro del futuro cuesta lo que cuesta, todo ese poder queda concentrado en tres o cuatro empresas, casi todas en un solo país. Nosotros entramos a esa cadena en el último eslabón: el que paga la cuenta a fin de mes.
 
-Y entonces la pregunta para cualquiera que esté montando un negocio sobre estas herramientas en la región no es si la IA es poderosa. Es otra, más incómoda: ¿qué tanto control real tiene usted sobre la tecnología de la que ya depende su negocio? Porque construir encima de algo que no controlamos no es malo en sí mismo. Lo peligroso es no haberlo pensado.
+Y entonces la pregunta para cualquiera que esté montando un negocio sobre estas herramientas en la región no es si la IA es poderosa. Es otra: ¿qué tanto control real tiene usted sobre la tecnología de la que ya depende su negocio? Porque construir encima de algo que no controlamos no es malo en sí mismo. Lo peligroso es no haberlo pensado.
+
+---
+
+*Esto nació de un episodio de Pertinente, mi análisis diario sobre IA, negocios y geopolítica en Latinoamérica. Si le sirvió, ahí publico uno nuevo cada día.*

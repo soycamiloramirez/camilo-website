@@ -6,6 +6,8 @@ episode: 9
 categories: [negocios]
 ---
 
+# Las empresas dejaron de comprar la IA más famosa. Empezaron a comprar la que funciona.
+
 Casi todos, cuando pensamos en inteligencia artificial, pensamos en ChatGPT. Se volvió como Kleenex: la marca que se tragó la categoría entera. Nadie decía "pásame un pañuelo", decía "pásame un Kleenex". Con la IA pasó igual: la gente no dice inteligencia artificial, dice ChatGPT. Por eso esta noticia es tan reveladora, porque muestra que en el mundo donde se toman las decisiones con plata de verdad, la fama ya no manda.
 
 ## El dato que cambia la foto
@@ -26,4 +28,8 @@ Hay otro factor que pesa, y es de reputación. Hace unos meses, cuando el Pentá
 
 Le bajo esto a su realidad, porque es donde se vuelve útil. En la región, más del 70% de las empresas ya está integrando IA generativa en sus procesos. Pero los mismos directivos admiten que la velocidad de adopción está superando sus controles de seguridad. O sea: estamos metiendo IA más rápido de lo que la sabemos controlar.
 
-Si los grandes mercados corporativos del mundo ya están descartando al proveedor más famoso por uno más eficiente y más serio con los datos, la pregunta para su empresa es directa: ¿qué herramientas está pagando hoy que en realidad no le sirven de mucho? ¿Cuáles está usando por inercia, porque son las conocidas, y cuáles debería cambiar por algo que de verdad le funcione mejor? Elegir por fama es cómodo. Elegir por criterio es lo que separa a las empresas que aprovechan la IA de las que solo la pagan.
+Si los grandes mercados corporativos del mundo ya están descartando al proveedor más famoso por uno más eficiente y más serio con los datos, la pregunta para su empresa es directa: ¿qué herramientas está pagando hoy que en realidad no le sirven de mucho? ¿Cuáles está usando por inercia, porque son las conocidas, y cuáles debería cambiar por algo que de verdad le funcione mejor? Elegir por fama es lo fácil. Elegir por criterio es lo que separa a las empresas que aprovechan la IA de las que solo la pagan.
+
+---
+
+*Esto nació de un episodio de Pertinente, mi análisis diario sobre IA, negocios y geopolítica en Latinoamérica. Si le sirvió, ahí publico uno nuevo cada día.*

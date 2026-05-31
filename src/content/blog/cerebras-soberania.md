@@ -6,6 +6,8 @@ episode: 8
 categories: [geopolitica]
 ---
 
+# OpenAI le dio mil millones a un exconvicto. La razón nos deja a todos en evidencia.
+
 Voy a empezar por el dato que parece un titular amarillista pero es completamente real: OpenAI, los de ChatGPT, le firmaron un cheque de mil millones de dólares a una empresa dirigida por un hombre que se declaró culpable de un delito financiero grave. No es chisme. Y entender por qué lo hicieron dice más sobre el futuro de su negocio que cualquier anuncio de un modelo nuevo.
 
 ## La historia del hombre del refrigerador
@@ -24,6 +26,10 @@ Y aquí va el dato que de verdad importa, el que pone todo en perspectiva: toda 
 
 ## La pregunta que nos deja a todos callados
 
-Le voy a poner el espejo, porque es incómodo y por eso vale la pena. Todos somos entusiastas de la inteligencia artificial. Nos encanta, jugamos con ella, montamos cosas. Pero nuestra participación real en toda esta cadena de valor se reduce a una cosa: pagar la cuenta a fin de mes.
+Le voy a poner el espejo, y por eso vale la pena. Todos somos entusiastas de la inteligencia artificial. Nos encanta, jugamos con ella, montamos cosas. Pero nuestra participación real en toda esta cadena de valor se reduce a una cosa: pagar la cuenta a fin de mes.
 
-Si el costo de la infraestructura mundial de IA se decide con apuestas físicas descomunales y rescates de 20.000 millones negociados a puerta cerrada en California, entonces la pregunta para cualquiera que dirija una empresa en la región es una sola, y no es cómoda: ¿qué nivel de soberanía operativa tenemos de verdad sobre el software que ya está automatizando nuestros negocios? Porque entusiasmo tenemos de sobra. Control, casi ninguno. Y conviene saberlo antes de seguir construyendo encima.
+Si el costo de la infraestructura mundial de IA se decide con apuestas físicas descomunales y rescates de 20.000 millones negociados a puerta cerrada en California, entonces la pregunta para cualquiera que dirija una empresa en la región es una sola: ¿qué nivel de soberanía operativa tenemos de verdad sobre el software que ya está automatizando nuestros negocios? Porque entusiasmo tenemos de sobra. Control, casi ninguno. Y conviene saberlo antes de seguir construyendo encima.
+
+---
+
+*Esto nació de un episodio de Pertinente, mi análisis diario sobre IA, negocios y geopolítica en Latinoamérica. Si le sirvió, ahí publico uno nuevo cada día.*
