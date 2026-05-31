@@ -26,26 +26,27 @@ const fmtDate = (iso: string) =>
         {t.hero.lede}
       </p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href="#ultimo" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+        <a href="#ultimo" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:bg-accent transition-colors">
           {t.hero.ctaPrimary} <span aria-hidden>→</span>
         </a>
-        <a href="#trabajo" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-ink transition-colors">
+        <a href="#trabajo" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-accent hover:text-accent transition-colors">
           {t.hero.ctaSecondary}
         </a>
       </div>
       <p class="mt-8 text-[13px] text-mute">{t.hero.since} · {SITE.location[lang]}</p>
     </div>
     <div class="md:col-span-5 md:pt-4">
-      <div class="aspect-[4/5] relative overflow-hidden bg-soft mb-6">
-        <img
-          src="/camilo-hero.jpg"
-          alt="Camilo Ramírez"
-          width="800"
-          height="1000"
-          class="w-full h-full object-cover grayscale contrast-[1.05]"
-          loading="eager"
-          fetchpriority="high"
-        />
+      <div class="flex justify-center md:justify-end mb-8">
+        <div class="cr-ring aspect-square w-[280px] md:w-[340px]">
+          <img
+            src="/camilo-hero.jpg"
+            alt="Camilo Ramírez"
+            width="680"
+            height="680"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
       </div>
       {latest && (
         <div class="border border-rule p-5 hover:border-accent transition-colors">

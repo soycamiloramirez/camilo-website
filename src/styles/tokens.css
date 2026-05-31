@@ -1,0 +1,130 @@
+/* =================================================================
+   Camilo Ramírez · Design Tokens
+   Imported from the official design system (Camilo Ramírez Design System).
+   Paths point to /fonts/ where the woff2 files are served from public/.
+   Do NOT redefine colors, fonts, or spacing by hand elsewhere — use these
+   variables (var(--accent), var(--ink), var(--font-sans), ...).
+   ================================================================= */
+
+/* ---------- Webfonts (self-hosted from public/fonts/) ---------- */
+
+/* Fraunces — editorial italic accent (variable woff2 covers 400–600). */
+@font-face {
+  font-family: "Fraunces"; font-style: normal; font-weight: 400 600;
+  font-display: swap; src: url("/fonts/Fraunces-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces"; font-style: italic; font-weight: 400 600;
+  font-display: swap; src: url("/fonts/Fraunces-RegularItalic.woff2") format("woff2");
+}
+
+/* Helvetica Neue — official typeface, self-hosted. */
+@font-face {
+  font-family: "Helvetica Neue"; font-style: normal; font-weight: 200;
+  font-display: swap; src: url("/fonts/HelveticaNeue-UltraLight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: italic; font-weight: 200;
+  font-display: swap; src: url("/fonts/HelveticaNeue-UltraLightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: normal; font-weight: 300;
+  font-display: swap; src: url("/fonts/HelveticaNeue-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: italic; font-weight: 300;
+  font-display: swap; src: url("/fonts/HelveticaNeue-LightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: normal; font-weight: 400;
+  font-display: swap; src: url("/fonts/HelveticaNeue.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: italic; font-weight: 400;
+  font-display: swap; src: url("/fonts/HelveticaNeue-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: normal; font-weight: 500;
+  font-display: swap; src: url("/fonts/HelveticaNeue-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: italic; font-weight: 500;
+  font-display: swap; src: url("/fonts/HelveticaNeue-MediumItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: normal; font-weight: 700;
+  font-display: swap; src: url("/fonts/HelveticaNeue-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Neue"; font-style: italic; font-weight: 700;
+  font-display: swap; src: url("/fonts/HelveticaNeue-BoldItalic.woff2") format("woff2");
+}
+
+:root {
+  /* ---------- Surfaces ---------- */
+  --bg:           #F4F4F3;
+  --bg-pure:      #FFFFFF;
+  --dark:         #161318;
+  --dark-2:       #221E26;
+
+  /* ---------- Ink ---------- */
+  --ink:          #16161A;
+  --ink-2:        #3D3D40;
+  --ink-3:        #7A7A7D;
+  --ink-on-dark:  #F4F4F3;
+  --ink-on-dark-2:#B4B4B7;
+
+  /* ---------- Hairlines ---------- */
+  --hairline:        rgba(22, 22, 26, 0.12);
+  --hairline-strong: rgba(22, 22, 26, 0.22);
+  --hairline-on-dark: rgba(244, 244, 243, 0.14);
+
+  /* ---------- Accent (purple→magenta→red spectrum) ---------- */
+  --accent:        #800080;  /* electric purple — primary accent */
+  --accent-deep:   #560072;  /* hover / depth */
+  --accent-warm:   #A90072;  /* magenta — secondary highlight */
+  --accent-tint:   #F3E1F1;  /* soft fill behind accent */
+  --accent-hot:    #FF0000;  /* reserved — maximum emphasis only */
+  --accent-shadow: #2A0048;  /* darkest purple — deep backgrounds */
+  /* On dark backgrounds: never use saturated purple (it vibrates).
+     Use the lighter magenta for legibility. */
+  --accent-on-dark: #C75CA6;
+
+  /* ---------- Semantic ---------- */
+  --focus-ring: #800080;
+
+  /* ---------- Type families ---------- */
+  --font-sans:  "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-label: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --tracking-label: 0.14em;
+
+  /* ---------- Type scale ---------- */
+  --display-1:    clamp(56px, 8vw, 88px);
+  --display-2:    clamp(40px, 5.5vw, 56px);
+  --h1: 40px; --h2: 30px; --h3: 22px; --h4: 18px;
+  --eyebrow: 12px;
+  --body-lg: 19px; --body: 16px; --caption: 13px;
+
+  --lh-tight: 0.95; --lh-display: 1.05; --lh-heading: 1.18; --lh-body: 1.65;
+  --tracking-eyebrow: 0.18em;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.04em;
+
+  /* ---------- Spacing (8-pt) ---------- */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 72px; --s-9: 112px; --s-10: 160px;
+
+  /* ---------- Radii ---------- */
+  --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px;
+  --radius-pill: 9999px; --radius-circle: 50%;
+
+  /* ---------- Motion ---------- */
+  --ease:     cubic-bezier(.2, .7, .2, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur-fast: 160ms; --dur-base: 280ms; --dur-slow: 420ms;
+
+  /* ---------- Elevation ---------- */
+  --elev-0: none;
+  --elev-1: 0 1px 2px rgba(14,14,15,.06), 0 8px 24px rgba(14,14,15,.04);
+}
