@@ -1,27 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import PostCard from './blog/PostCard.astro';
+import Section from './ui/Section.astro';
+import Eyebrow from './ui/Eyebrow.astro';
+import Display2 from './ui/Display2.astro';
+import LinkButton from './ui/LinkButton.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 ---
-<section id="del-blog" class="py-24 md:py-32 border-t border-rule">
-  <div class="mx-auto max-w-6xl px-6 lg:px-10">
-    <div class="flex items-end justify-between mb-12 md:mb-14 gap-6 flex-wrap">
-      <div>
-        <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">Del blog</p>
-        <h2 class="font-display text-display-2 leading-display tracking-display max-w-2xl">
-          El mismo criterio, en formato editorial.
-        </h2>
-      </div>
-      <a href="/blog" class="text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors whitespace-nowrap">
-        Ver todo el blog →
-      </a>
+<Section id="del-blog" bordered wide>
+  <div class="flex items-end justify-between mb-12 md:mb-14 gap-6 flex-wrap">
+    <div>
+      <Eyebrow class="mb-5">Del blog</Eyebrow>
+      <Display2 class="max-w-2xl">El mismo criterio, en formato editorial.</Display2>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-10 md:gap-12">
-      {posts.map((post) => <PostCard post={post} size="sm" />)}
-    </div>
+    <LinkButton href="/blog" class="whitespace-nowrap">Ver todo el blog →</LinkButton>
   </div>
-</section>
+
+  <div class="grid md:grid-cols-3 gap-10 md:gap-12">
+    {posts.map((post) => <PostCard post={post} size="sm" />)}
+  </div>
+</Section>

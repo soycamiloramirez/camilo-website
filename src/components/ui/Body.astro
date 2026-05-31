@@ -1,0 +1,17 @@
+---
+/**
+ * Body — párrafo de cuerpo de texto normal. Token: `--text-body`.
+ *
+ * Props:
+ *  - `tone`: 'primary' (ink/85) | 'secondary' (ink/70) | 'muted' (mute).
+ */
+type Props = {
+  tone?: 'primary' | 'secondary' | 'muted';
+  class?: string;
+};
+const { tone = 'secondary', class: className = '' } = Astro.props as Props;
+const color = tone === 'primary' ? 'text-ink/85' : tone === 'muted' ? 'text-mute' : 'text-ink/75';
+---
+<p class={`text-body leading-relaxed ${color} ${className}`}>
+  <slot />
+</p>

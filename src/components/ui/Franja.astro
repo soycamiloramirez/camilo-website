@@ -1,0 +1,14 @@
+---
+/**
+ * Franja — barra sólida de color que reemplaza el em-dash como
+ * dispositivo editorial de separación. Se usa antes de un eyebrow.
+ *
+ * Por defecto usa el accent; sobre dark surfaces el override CSS
+ * en global.css la cambia a accent-on-dark automáticamente.
+ */
+type Props = {
+  class?: string;
+};
+const { class: className = '' } = Astro.props as Props;
+---
+<span class={`inline-block w-7 h-0.5 bg-accent align-middle ${className}`} aria-hidden="true"></span>

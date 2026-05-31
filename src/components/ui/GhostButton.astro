@@ -1,0 +1,24 @@
+---
+/**
+ * GhostButton — CTA secundario con border, sin fondo. En hover oscurece
+ * el border.
+ */
+type Props = {
+  href?: string;
+  external?: boolean;
+  class?: string;
+};
+const { href, external = false, class: className = '' } = Astro.props as Props;
+const Tag = href ? 'a' : 'button';
+const target = external ? '_blank' : undefined;
+const rel = external ? 'noopener' : undefined;
+const classes = `inline-flex items-center gap-s2 border border-ink/25 text-ink px-s5 py-s3 text-button font-medium hover:border-ink transition-colors ${className}`;
+---
+<Tag
+  href={href}
+  target={target}
+  rel={rel}
+  class={classes}
+>
+  <slot />
+</Tag>

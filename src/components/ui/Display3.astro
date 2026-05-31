@@ -1,0 +1,14 @@
+---
+/**
+ * Display 3 — títulos de sub-sección (Roles, Speaking categorías,
+ * Podcasts sub-headers). Token: `--text-display-3`.
+ */
+type Props = {
+  as?: 'h2' | 'h3' | 'div';
+  class?: string;
+};
+const { as: Tag = 'h2', class: className = '' } = Astro.props as Props;
+---
+<Tag class={`font-display text-display-3 leading-display tracking-heading text-ink ${className}`}>
+  <slot />
+</Tag>

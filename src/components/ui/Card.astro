@@ -1,0 +1,28 @@
+---
+/**
+ * Card — superficie editorial. Hairline + padding + hover sutil.
+ *
+ * Props:
+ *  - `dark`: si true, usa surface oscuro (--dark-2) y border-on-dark.
+ *  - `href`: si presente, todo el card es link.
+ *  - `class`: clases extra.
+ */
+type Props = {
+  dark?: boolean;
+  href?: string;
+  external?: boolean;
+  class?: string;
+};
+const { dark = false, href, external = false, class: className = '' } = Astro.props as Props;
+const Tag = href ? 'a' : 'div';
+const target = external ? '_blank' : undefined;
+const rel = external ? 'noopener' : undefined;
+
+const base = dark
+  ? 'border border-paper/15 bg-ink hover:border-accent'
+  : 'border border-rule hover:border-accent';
+const classes = `block p-s5 transition-colors ${base} ${className}`;
+---
+<Tag href={href} target={target} rel={rel} class={classes}>
+  <slot />
+</Tag>

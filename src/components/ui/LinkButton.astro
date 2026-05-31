@@ -1,0 +1,24 @@
+---
+/**
+ * LinkButton — CTA tipo "link con underline accent". El más sutil de los 3.
+ * Usado en "Ver todos los episodios", "Leer la historia completa", etc.
+ *
+ * Por convención lleva una flecha (→ o ↗) al final que se pasa por slot.
+ */
+type Props = {
+  href: string;
+  external?: boolean;
+  class?: string;
+};
+const { href, external = false, class: className = '' } = Astro.props as Props;
+const target = external ? '_blank' : undefined;
+const rel = external ? 'noopener' : undefined;
+---
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  class={`inline-flex items-center gap-s2 text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors ${className}`}
+>
+  <slot />
+</a>

@@ -1,0 +1,14 @@
+---
+/**
+ * H3 — títulos de item dentro de listas/grids (cards de Tesis,
+ * artículos del blog, podcasts individuales). Token: `--text-h3`.
+ */
+type Props = {
+  as?: 'h2' | 'h3' | 'h4' | 'div';
+  class?: string;
+};
+const { as: Tag = 'h3', class: className = '' } = Astro.props as Props;
+---
+<Tag class={`font-display text-h3 leading-snug tracking-tight text-ink ${className}`}>
+  <slot />
+</Tag>

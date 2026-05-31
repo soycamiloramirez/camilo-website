@@ -1,50 +1,56 @@
 ---
-import { COPY, SITE, type Lang } from '../content/copy';
+import { COPY, type Lang } from '../content/copy';
+import Eyebrow from './ui/Eyebrow.astro';
+import Display1 from './ui/Display1.astro';
+import Display3 from './ui/Display3.astro';
+import H3 from './ui/H3.astro';
+import Lede from './ui/Lede.astro';
+import Body from './ui/Body.astro';
+import PrimaryButton from './ui/PrimaryButton.astro';
+
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang].speaking;
 const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
 ---
 <article class="pt-32 pb-20 md:pt-40 md:pb-28">
   <!-- Hero -->
-  <header class="mx-auto max-w-5xl px-6 lg:px-10">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">{t.eyebrow}</p>
-    <h1 class="font-display text-display-1 leading-display tracking-display text-ink max-w-4xl">
-      {t.title}
-    </h1>
-    <p class="mt-8 text-body-lg leading-relaxed text-ink/80 max-w-2xl">{t.lede}</p>
-    <a href={contactHref} class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 mt-9 text-button font-medium hover:opacity-80 transition-opacity">
+  <header class="mx-auto max-w-5xl px-s6 lg:px-s7">
+    <Eyebrow class="mb-6">{t.eyebrow}</Eyebrow>
+    <Display1 class="max-w-4xl">{t.title}</Display1>
+    <Lede class="mt-8 max-w-2xl">{t.lede}</Lede>
+    <PrimaryButton href={contactHref} class="mt-9">
       {t.ctaPrimary} <span aria-hidden>→</span>
-    </a>
+    </PrimaryButton>
   </header>
 
   <!-- Diferenciador -->
-  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.diferenciador.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-6">{t.diferenciador.h}</h2>
-    <p class="text-body-lg leading-relaxed text-ink/80">{t.diferenciador.p}</p>
+  <section class="mx-auto max-w-3xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.diferenciador.kicker}</Eyebrow>
+    <Display3 class="mb-6">{t.diferenciador.h}</Display3>
+    <Lede>{t.diferenciador.p}</Lede>
   </section>
 
   <!-- Temas -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.temas.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-12 max-w-2xl">{t.temas.h}</h2>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32">
+    <Eyebrow class="mb-5">{t.temas.kicker}</Eyebrow>
+    <Display3 class="mb-12 max-w-2xl">{t.temas.h}</Display3>
     <div class="grid md:grid-cols-3 gap-10 md:gap-12">
       {t.temas.items.map((item, i) => (
         <div>
           <div class="font-display text-caption leading-none mb-5 tracking-eyebrow uppercase">
             <span class="text-accent font-semibold">0{i + 1}</span> <span class="text-mute">—</span>
           </div>
-          <h3 class="font-display text-h3 leading-snug tracking-tight text-ink mb-4">{item.h}</h3>
-          <p class="text-body leading-relaxed text-ink/75">{item.p}</p>
+          <H3 class="mb-4">{item.h}</H3>
+          <Body>{item.p}</Body>
         </div>
       ))}
     </div>
   </section>
 
   <!-- Formatos -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.formatos.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-12 max-w-2xl">{t.formatos.h}</h2>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.formatos.kicker}</Eyebrow>
+    <Display3 class="mb-12 max-w-2xl">{t.formatos.h}</Display3>
     <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
       {t.formatos.items.map((f) => (
         <li>
@@ -56,9 +62,9 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- Logística -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.logistica.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-10 max-w-2xl">{t.logistica.h}</h2>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.logistica.kicker}</Eyebrow>
+    <Display3 class="mb-10 max-w-2xl">{t.logistica.h}</Display3>
     <dl class="grid sm:grid-cols-2 gap-x-10 gap-y-7 max-w-4xl">
       {t.logistica.items.map((it) => (
         <div>
@@ -70,10 +76,10 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- Prueba social -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.pruebaSocial.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-4 max-w-2xl">{t.pruebaSocial.h}</h2>
-    <p class="text-body text-ink/70 max-w-2xl mb-10">{t.pruebaSocial.p}</p>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.pruebaSocial.kicker}</Eyebrow>
+    <Display3 class="mb-4 max-w-2xl">{t.pruebaSocial.h}</Display3>
+    <Body class="max-w-2xl mb-10">{t.pruebaSocial.p}</Body>
     <ol class="border-t border-rule">
       {t.pruebaSocial.items.map((ev) => (
         <li class="grid md:grid-cols-12 gap-4 md:gap-8 border-b border-rule py-6">
@@ -88,9 +94,9 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- Docencia -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.docencia.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-10 max-w-2xl">{t.docencia.h}</h2>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.docencia.kicker}</Eyebrow>
+    <Display3 class="mb-10 max-w-2xl">{t.docencia.h}</Display3>
     <ul class="grid md:grid-cols-3 gap-10">
       {t.docencia.items.map((it) => (
         <li>
@@ -102,9 +108,9 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- Podcasts -->
-  <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.podcasts.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-10 max-w-2xl">{t.podcasts.h}</h2>
+  <section class="mx-auto max-w-5xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.podcasts.kicker}</Eyebrow>
+    <Display3 class="mb-10 max-w-2xl">{t.podcasts.h}</Display3>
     <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-6 max-w-3xl">
       {t.podcasts.items.map((p) => (
         <li>
@@ -122,9 +128,9 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- FAQ -->
-  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-rule pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.faq.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-12">{t.faq.h}</h2>
+  <section class="mx-auto max-w-3xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-rule pt-12">
+    <Eyebrow class="mb-5">{t.faq.kicker}</Eyebrow>
+    <Display3 class="mb-12">{t.faq.h}</Display3>
     <dl class="space-y-8">
       {t.faq.items.map((qa) => (
         <div class="border-t border-rule pt-6">
@@ -136,12 +142,12 @@ const contactHref = lang === 'es' ? '/#contacto' : '/en#contacto';
   </section>
 
   <!-- Contacto -->
-  <section class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-ink pt-12">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.contacto.kicker}</p>
-    <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5">{t.contacto.h}</h2>
-    <p class="text-body leading-relaxed text-ink/80 mb-8 max-w-xl">{t.contacto.p}</p>
-    <a href={contactHref} class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-button font-medium hover:opacity-80 transition-opacity">
+  <section class="mx-auto max-w-3xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-ink pt-12">
+    <Eyebrow class="mb-5">{t.contacto.kicker}</Eyebrow>
+    <Display3 class="mb-5">{t.contacto.h}</Display3>
+    <Body class="mb-8 max-w-xl">{t.contacto.p}</Body>
+    <PrimaryButton href={contactHref}>
       {t.contacto.cta} <span aria-hidden>→</span>
-    </a>
+    </PrimaryButton>
   </section>
 </article>

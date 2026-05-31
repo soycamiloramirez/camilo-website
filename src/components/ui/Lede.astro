@@ -1,0 +1,13 @@
+---
+/**
+ * Lede — párrafo grande de intro (después de un display). Token:
+ * `--text-body-lg`. Color `text-ink/80` por defecto.
+ */
+type Props = {
+  class?: string;
+};
+const { class: className = '' } = Astro.props as Props;
+---
+<p class={`text-body-lg leading-body text-ink/80 ${className}`}>
+  <slot />
+</p>

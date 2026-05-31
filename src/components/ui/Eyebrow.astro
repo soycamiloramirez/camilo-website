@@ -1,0 +1,24 @@
+---
+/**
+ * Eyebrow / kicker — la línea pequeña en uppercase con tracking ancho
+ * que antecede a un título de sección. Usa los tokens
+ * `--text-eyebrow` + `--tracking-eyebrow`.
+ *
+ * Props:
+ *  - `accent` (boolean): si true, el color usa `text-accent` (resaltado).
+ *    Por defecto es `text-mute` (gris terciario).
+ *  - `as` (string): la etiqueta HTML. Por defecto `p`. Usar `span` cuando
+ *    vaya dentro de un párrafo.
+ *  - `class` (string): clases extra opcionales (margin, etc.).
+ */
+type Props = {
+  accent?: boolean;
+  as?: 'p' | 'span' | 'div';
+  class?: string;
+};
+const { accent = false, as: Tag = 'p', class: className = '' } = Astro.props as Props;
+const color = accent ? 'text-accent' : 'text-mute';
+---
+<Tag class={`text-eyebrow uppercase tracking-eyebrow ${color} ${className}`}>
+  <slot />
+</Tag>

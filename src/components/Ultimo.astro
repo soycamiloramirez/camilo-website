@@ -2,6 +2,12 @@
 import { COPY, PODCASTS, type Lang } from '../content/copy';
 import { loadPodcast } from '../lib/podcasts';
 import PlatformIcon from './PlatformIcon.astro';
+import Section from './ui/Section.astro';
+import Eyebrow from './ui/Eyebrow.astro';
+import Display2 from './ui/Display2.astro';
+import Lede from './ui/Lede.astro';
+import H2 from './ui/H2.astro';
+
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang].ultimo;
 
@@ -17,53 +23,57 @@ const pertinenteLatest = pertinente.episodes[0];
 const memcLatest = memc.episodes[0];
 
 const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${id}?utm_source=generator&theme=0`;
+
+const podcasts = [
+  { cfg: PODCASTS.pertinente, copy: t.pertinente, feed: pertinente, latest: pertinenteLatest },
+  { cfg: PODCASTS.memc, copy: t.memc, feed: memc, latest: memcLatest },
+];
 ---
-<section id="ultimo" class="py-24 md:py-32 border-t border-rule">
-  <div class="mx-auto max-w-6xl px-6 lg:px-10">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.kicker}</p>
-    <h2 class="font-display text-display-2 leading-display tracking-display max-w-3xl">{t.title}</h2>
-    <p class="mt-6 text-body-lg leading-relaxed text-ink/75 max-w-3xl">{t.lede}</p>
+<Section id="ultimo" bordered wide>
+  <Eyebrow class="mb-5">{t.kicker}</Eyebrow>
+  <Display2 class="max-w-3xl">{t.title}</Display2>
+  <Lede class="mt-6 max-w-3xl">{t.lede}</Lede>
 
-    <div class="mt-16 grid md:grid-cols-2 gap-12 md:gap-14">
-      <!-- Pertinente -->
+  <div class="mt-16 grid md:grid-cols-2 gap-12 md:gap-14">
+    {podcasts.map(({ cfg, copy, feed, latest }) => (
       <article>
         <div class="flex items-start gap-5 mb-6">
-          {pertinente.artworkUrl && (
-            <img src={pertinente.artworkUrl} alt={`${t.pertinente.title} · cover art`}
+          {feed.artworkUrl && (
+            <img src={feed.artworkUrl} alt={`${copy.title} · cover art`}
               width="88" height="88" loading="lazy"
               class="w-[88px] h-[88px] shrink-0 border border-rule" />
           )}
           <div>
-            <h3 class="font-display text-h2 tracking-tight leading-none mb-2">{t.pertinente.title}</h3>
-            <p class="text-caption text-mute uppercase tracking-label">{t.pertinente.tag}</p>
+            <H2 class="leading-none mb-2">{copy.title}</H2>
+            <p class="text-caption text-mute uppercase tracking-label">{copy.tag}</p>
           </div>
         </div>
-        <p class="text-body leading-relaxed text-ink/75 mb-6 max-w-xl">{t.pertinente.oneLine}</p>
+        <p class="text-body leading-relaxed text-ink/75 mb-6 max-w-xl">{copy.oneLine}</p>
 
-        {pertinenteLatest && (
+        {latest && (
           <p class="text-caption text-mute mb-4">
             <span class="uppercase tracking-label">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
-            <span class="text-ink/80 ml-1">{pertinenteLatest.title}</span>
-            <span class="ml-1">· {fmt(pertinenteLatest.published)}</span>
+            <span class="text-ink/80 ml-1">{latest.title}</span>
+            <span class="ml-1">· {fmt(latest.published)}</span>
           </p>
         )}
 
         <div class="overflow-hidden">
           <iframe
-            src={spotifyShowEmbed(PODCASTS.pertinente.spotifyShowId)}
+            src={spotifyShowEmbed(cfg.spotifyShowId)}
             width="100%"
             height="232"
             frameborder="0"
             allowfullscreen
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-            title={`${t.pertinente.title} · Spotify`}>
+            title={`${copy.title} · Spotify`}>
           </iframe>
         </div>
 
         <div class="flex items-center gap-5 mt-6 text-mute">
-          <span class="text-eyebrow uppercase tracking-eyebrow">{t.pertinente.listenLabel}</span>
-          {PODCASTS.pertinente.platforms.map((p) => (
+          <span class="text-eyebrow uppercase tracking-eyebrow">{copy.listenLabel}</span>
+          {cfg.platforms.map((p) => (
             <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
               class="text-mute hover:text-accent transition-colors">
               <PlatformIcon name={p.name} />
@@ -71,53 +81,6 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
           ))}
         </div>
       </article>
-
-      <!-- MEMC -->
-      <article>
-        <div class="flex items-start gap-5 mb-6">
-          {memc.artworkUrl && (
-            <img src={memc.artworkUrl} alt={`${t.memc.title} · cover art`}
-              width="88" height="88" loading="lazy"
-              class="w-[88px] h-[88px] shrink-0 border border-rule" />
-          )}
-          <div>
-            <h3 class="font-display text-h2 tracking-tight leading-none mb-2">{t.memc.title}</h3>
-            <p class="text-caption text-mute uppercase tracking-label">{t.memc.tag}</p>
-          </div>
-        </div>
-        <p class="text-body leading-relaxed text-ink/75 mb-6 max-w-xl">{t.memc.oneLine}</p>
-
-        {memcLatest && (
-          <p class="text-caption text-mute mb-4">
-            <span class="uppercase tracking-label">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
-            <span class="text-ink/80 ml-1">{memcLatest.title}</span>
-            <span class="ml-1">· {fmt(memcLatest.published)}</span>
-          </p>
-        )}
-
-        <div class="overflow-hidden">
-          <iframe
-            src={spotifyShowEmbed(PODCASTS.memc.spotifyShowId)}
-            width="100%"
-            height="232"
-            frameborder="0"
-            allowfullscreen
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title={`${t.memc.title} · Spotify`}>
-          </iframe>
-        </div>
-
-        <div class="flex items-center gap-5 mt-6 text-mute">
-          <span class="text-eyebrow uppercase tracking-eyebrow">{t.memc.listenLabel}</span>
-          {PODCASTS.memc.platforms.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
-              class="text-mute hover:text-accent transition-colors">
-              <PlatformIcon name={p.name} />
-            </a>
-          ))}
-        </div>
-      </article>
-    </div>
+    ))}
   </div>
-</section>
+</Section>

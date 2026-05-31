@@ -1,0 +1,14 @@
+---
+/**
+ * Display 2 — títulos de sección grandes (Lo último, Tesis, Trabajo).
+ * Token: `--text-display-2` (responsive via clamp).
+ */
+type Props = {
+  as?: 'h1' | 'h2' | 'div';
+  class?: string;
+};
+const { as: Tag = 'h2', class: className = '' } = Astro.props as Props;
+---
+<Tag class={`font-display text-display-2 leading-display tracking-display text-ink ${className}`}>
+  <slot />
+</Tag>

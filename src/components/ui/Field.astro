@@ -1,0 +1,38 @@
+---
+/**
+ * Field — input/textarea con bottom-border (no boxed). Label uppercase
+ * eyebrow arriba.
+ *
+ * Props:
+ *  - `name`: name del input.
+ *  - `label`: label visible.
+ *  - `type`: 'text' | 'email' | 'textarea'. Default 'text'.
+ *  - `required`: boolean.
+ *  - `rows`: para textarea.
+ *  - `dark`: si true, ajusta los colores para fondos oscuros.
+ */
+type Props = {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'textarea';
+  required?: boolean;
+  rows?: number;
+  dark?: boolean;
+};
+const { name, label, type = 'text', required = false, rows = 4, dark = false } = Astro.props as Props;
+
+const labelClass = dark
+  ? 'text-eyebrow uppercase tracking-label text-paper/60'
+  : 'text-eyebrow uppercase tracking-label text-mute';
+const inputClass = dark
+  ? 'bg-transparent border-b border-paper/25 focus:border-paper outline-none py-s2 text-body text-paper placeholder:text-paper/35'
+  : 'bg-transparent border-b border-ink/25 focus:border-ink outline-none py-s2 text-body text-ink';
+---
+<label class="grid gap-s2">
+  <span class={labelClass}>{label}</span>
+  {type === 'textarea' ? (
+    <textarea name={name} rows={rows} required={required} class={`${inputClass} resize-none`}></textarea>
+  ) : (
+    <input name={name} type={type} required={required} class={inputClass} />
+  )}
+</label>

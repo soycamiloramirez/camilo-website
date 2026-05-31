@@ -1,0 +1,15 @@
+---
+/**
+ * Display 1 — el título más grande del sitio (heroes principales).
+ * Se renderiza como `<h1>` por defecto. Token: `--text-display-1`
+ * (escala vía clamp para responsive automático).
+ */
+type Props = {
+  as?: 'h1' | 'h2' | 'div';
+  class?: string;
+};
+const { as: Tag = 'h1', class: className = '' } = Astro.props as Props;
+---
+<Tag class={`font-display text-display-1 leading-display tracking-display text-ink ${className}`}>
+  <slot />
+</Tag>

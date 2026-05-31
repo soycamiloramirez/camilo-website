@@ -1,0 +1,63 @@
+---
+/**
+ * Portrait — la foto de Camilo con sus variantes.
+ *
+ * Props:
+ *  - `variant`: 'rect' (4/5, default actual) | 'square' (1/1) | 'circle' (1/1 redondo)
+ *  - `ring`: si true, agrega el ring morado del DS (solo aplica si variant es
+ *    'circle' o 'square').
+ *  - `size`: 'sm' | 'md' | 'lg' — ancho aproximado. Por defecto md.
+ *  - `src` / `alt`: opcionales; por defecto el hero principal.
+ *  - `class`: clases extra (margin, etc.).
+ */
+type Props = {
+  variant?: 'rect' | 'square' | 'circle';
+  ring?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  src?: string;
+  alt?: string;
+  eager?: boolean;
+  class?: string;
+};
+const {
+  variant = 'rect',
+  ring = false,
+  size = 'md',
+  src = '/camilo-hero.jpg',
+  alt = 'Camilo Ramírez',
+  eager = false,
+  class: className = '',
+} = Astro.props as Props;
+
+const widthClass = size === 'sm' ? 'w-40 md:w-48' : size === 'lg' ? 'w-full max-w-md' : 'w-[280px] md:w-[340px]';
+const aspectClass = variant === 'rect' ? 'aspect-[4/5]' : 'aspect-square';
+const radiusClass = variant === 'circle' ? 'rounded-full' : '';
+const ringClass = ring ? 'p-s2 border-2 border-accent rounded-full' : '';
+
+const imgPositionClass = variant === 'circle' || variant === 'square'
+  ? 'object-cover object-[center_18%]'
+  : 'object-cover';
+---
+{ring ? (
+  <div class={`inline-block ${widthClass} ${ringClass} ${className}`}>
+    <div class={`${aspectClass} ${radiusClass} overflow-hidden`}>
+      <img
+        src={src}
+        alt={alt}
+        class={`w-full h-full grayscale contrast-[1.05] ${imgPositionClass}`}
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : 'auto'}
+      />
+    </div>
+  </div>
+) : (
+  <div class={`${widthClass} ${aspectClass} ${radiusClass} relative overflow-hidden bg-soft ${className}`}>
+    <img
+      src={src}
+      alt={alt}
+      class={`w-full h-full grayscale contrast-[1.05] ${imgPositionClass}`}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+    />
+  </div>
+)}

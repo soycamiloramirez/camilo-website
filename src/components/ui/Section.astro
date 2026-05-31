@@ -1,0 +1,44 @@
+---
+/**
+ * Section — wrapper estándar de cualquier bloque de la página.
+ * Aplica padding vertical, border-top opcional, contenedor centrado,
+ * y modo dark.
+ *
+ * Props:
+ *  - `id`: anchor opcional.
+ *  - `dark`: si true, fondo --dark + texto --paper.
+ *  - `bordered`: si true, agrega border-top hairline.
+ *  - `narrow`: si true, container max-w-3xl en vez de max-w-5xl.
+ *  - `wide`: si true, container max-w-6xl (default para layouts grandes).
+ *  - `tight`: si true, padding vertical reducido.
+ *  - `class`: clases extra.
+ */
+type Props = {
+  id?: string;
+  dark?: boolean;
+  bordered?: boolean;
+  narrow?: boolean;
+  wide?: boolean;
+  tight?: boolean;
+  class?: string;
+};
+const {
+  id,
+  dark = false,
+  bordered = false,
+  narrow = false,
+  wide = false,
+  tight = false,
+  class: className = '',
+} = Astro.props as Props;
+
+const py = tight ? 'py-s7 md:py-s8' : 'py-s8 md:py-s9';
+const surface = dark ? 'bg-ink text-paper' : '';
+const border = bordered ? 'border-t border-rule' : '';
+const container = narrow ? 'max-w-3xl' : wide ? 'max-w-6xl' : 'max-w-5xl';
+---
+<section id={id} class={`${py} ${surface} ${border} ${className}`}>
+  <div class={`mx-auto ${container} px-s6 lg:px-s7`}>
+    <slot />
+  </div>
+</section>

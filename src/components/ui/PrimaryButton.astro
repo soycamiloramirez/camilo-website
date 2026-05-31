@@ -1,0 +1,31 @@
+---
+/**
+ * PrimaryButton — CTA principal sólido. Fondo ink, texto paper.
+ * En hover: shift a accent (hereda override sobre dark surfaces).
+ *
+ * Props:
+ *  - `href`: si presente, se renderiza como `<a>`; sin él como `<button>`.
+ *  - `external`: si true, abre en pestaña nueva.
+ *  - `class`: clases extra (margins, etc.).
+ */
+type Props = {
+  href?: string;
+  external?: boolean;
+  class?: string;
+  type?: 'button' | 'submit';
+};
+const { href, external = false, class: className = '', type = 'button' } = Astro.props as Props;
+const Tag = href ? 'a' : 'button';
+const target = external ? '_blank' : undefined;
+const rel = external ? 'noopener' : undefined;
+const classes = `inline-flex items-center gap-s2 bg-ink text-paper px-s5 py-s3 text-button font-medium hover:opacity-80 transition-opacity ${className}`;
+---
+<Tag
+  href={href}
+  target={target}
+  rel={rel}
+  type={!href ? type : undefined}
+  class={classes}
+>
+  <slot />
+</Tag>

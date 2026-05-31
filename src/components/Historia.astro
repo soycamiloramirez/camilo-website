@@ -1,14 +1,20 @@
 ---
 import { COPY, type Lang } from '../content/copy';
 import BrandTicker from './BrandTicker.astro';
+import Eyebrow from './ui/Eyebrow.astro';
+import Display1 from './ui/Display1.astro';
+import Display3 from './ui/Display3.astro';
+import H2 from './ui/H2.astro';
+import LinkButton from './ui/LinkButton.astro';
+
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang].historia;
 const home = lang === 'es' ? '/' : '/en';
 ---
 <article class="pt-32 pb-20 md:pt-40 md:pb-28">
-  <header class="mx-auto max-w-3xl px-6 lg:px-10">
-    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">{t.eyebrow}</p>
-    <h1 class="font-display text-display-1 leading-display tracking-display text-ink">{t.title}</h1>
+  <header class="mx-auto max-w-3xl px-s6 lg:px-s7">
+    <Eyebrow class="mb-6">{t.eyebrow}</Eyebrow>
+    <Display1>{t.title}</Display1>
     <div class="mt-10 space-y-5 text-body-lg leading-relaxed text-ink/80">
       {t.lede.map((p) => <p>{p}</p>)}
     </div>
@@ -16,14 +22,17 @@ const home = lang === 'es' ? '/' : '/en';
 
   <BrandTicker lang={lang} />
 
-  <div class="mx-auto max-w-3xl px-6 lg:px-10 space-y-20 md:space-y-24">
+  <div class="mx-auto max-w-3xl px-s6 lg:px-s7 space-y-20 md:space-y-24">
     {t.chapters.map((c, i) => (
       <section class="border-t border-rule pt-10">
         <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-          <span class="text-caption uppercase tracking-eyebrow"><span class="text-accent font-semibold">{String(i + 1).padStart(2, '0')}</span> <span class="text-mute">· {c.tag}</span></span>
+          <span class="text-caption uppercase tracking-eyebrow">
+            <span class="text-accent font-semibold">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-mute">· {c.tag}</span>
+          </span>
           <span class="text-caption uppercase tracking-label text-mute">{c.years}</span>
         </div>
-        <h2 class="font-display text-display-3 leading-display tracking-tight text-ink mb-7">{c.h}</h2>
+        <Display3 class="mb-7">{c.h}</Display3>
         <div class="space-y-5 text-body-lg leading-relaxed text-ink/80">
           {c.body.map((p) => <p>{p}</p>)}
         </div>
@@ -31,11 +40,9 @@ const home = lang === 'es' ? '/' : '/en';
     ))}
   </div>
 
-  <footer class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-ink pt-12">
-    <h2 class="font-display text-h2 leading-snug tracking-tight text-ink mb-5">{t.closing.h}</h2>
+  <footer class="mx-auto max-w-3xl px-s6 lg:px-s7 mt-24 md:mt-32 border-t border-ink pt-12">
+    <H2 class="mb-5">{t.closing.h}</H2>
     <p class="text-body leading-relaxed text-ink/80 mb-8 max-w-xl">{t.closing.p}</p>
-    <a href={home} class="inline-flex items-center gap-2 text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
-      <span aria-hidden>←</span> {t.closing.cta}
-    </a>
+    <LinkButton href={home}><span aria-hidden>←</span> {t.closing.cta}</LinkButton>
   </footer>
 </article>
