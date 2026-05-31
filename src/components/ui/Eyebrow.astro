@@ -20,5 +20,5 @@ const { accent = false, as: Tag = 'p', class: className = '' } = Astro.props as 
 const color = accent ? 'text-accent' : 'text-mute';
 ---
 <Tag class={`text-eyebrow uppercase tracking-eyebrow ${color} ${className}`}>
-  <slot />
+  <span class="cr-franja" aria-hidden="true"></span><slot />
 </Tag>
