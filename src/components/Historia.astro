@@ -7,9 +7,9 @@ const home = lang === 'es' ? '/' : '/en';
 ---
 <article class="pt-32 pb-20 md:pt-40 md:pb-28">
   <header class="mx-auto max-w-3xl px-6 lg:px-10">
-    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">{t.eyebrow}</p>
-    <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink">{t.title}</h1>
-    <div class="mt-10 space-y-5 text-[17px] md:text-[18px] leading-relaxed text-ink/80">
+    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">{t.eyebrow}</p>
+    <h1 class="font-display text-display-1 leading-display tracking-display text-ink">{t.title}</h1>
+    <div class="mt-10 space-y-5 text-body-lg leading-relaxed text-ink/80">
       {t.lede.map((p) => <p>{p}</p>)}
     </div>
   </header>
@@ -20,11 +20,11 @@ const home = lang === 'es' ? '/' : '/en';
     {t.chapters.map((c, i) => (
       <section class="border-t border-rule pt-10">
         <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-          <span class="text-[12px] uppercase tracking-[0.18em]"><span class="text-accent font-semibold">{String(i + 1).padStart(2, '0')}</span> <span class="text-mute">· {c.tag}</span></span>
-          <span class="text-[12px] uppercase tracking-[0.14em] text-mute">{c.years}</span>
+          <span class="text-caption uppercase tracking-eyebrow"><span class="text-accent font-semibold">{String(i + 1).padStart(2, '0')}</span> <span class="text-mute">· {c.tag}</span></span>
+          <span class="text-caption uppercase tracking-label text-mute">{c.years}</span>
         </div>
-        <h2 class="font-display text-[28px] md:text-[34px] leading-[1.12] tracking-[-0.025em] text-ink mb-7">{c.h}</h2>
-        <div class="space-y-5 text-[16px] md:text-[17px] leading-relaxed text-ink/80">
+        <h2 class="font-display text-display-3 leading-display tracking-tight text-ink mb-7">{c.h}</h2>
+        <div class="space-y-5 text-body-lg leading-relaxed text-ink/80">
           {c.body.map((p) => <p>{p}</p>)}
         </div>
       </section>
@@ -32,9 +32,9 @@ const home = lang === 'es' ? '/' : '/en';
   </div>
 
   <footer class="mx-auto max-w-3xl px-6 lg:px-10 mt-24 md:mt-32 border-t border-ink pt-12">
-    <h2 class="font-display text-[26px] md:text-[32px] leading-snug tracking-tight text-ink mb-5">{t.closing.h}</h2>
-    <p class="text-[16px] leading-relaxed text-ink/80 mb-8 max-w-xl">{t.closing.p}</p>
-    <a href={home} class="inline-flex items-center gap-2 text-[14px] font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
+    <h2 class="font-display text-h2 leading-snug tracking-tight text-ink mb-5">{t.closing.h}</h2>
+    <p class="text-body leading-relaxed text-ink/80 mb-8 max-w-xl">{t.closing.p}</p>
+    <a href={home} class="inline-flex items-center gap-2 text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
       <span aria-hidden>←</span> {t.closing.cta}
     </a>
   </footer>

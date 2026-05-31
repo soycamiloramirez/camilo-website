@@ -75,11 +75,11 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
   <main class="pb-20 md:pb-28">
     <!-- Hero -->
     <header class="mx-auto max-w-5xl px-6 lg:px-10 pt-28 md:pt-36 mb-12 md:mb-16">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-6">Podcasts</p>
-      <h1 class="font-display text-[40px] sm:text-[54px] md:text-[64px] leading-[1.03] tracking-[-0.035em] text-ink max-w-4xl">
+      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">Podcasts</p>
+      <h1 class="font-display text-display-1 leading-display tracking-display text-ink max-w-4xl">
         Lo que publico y lo que escucho.
       </h1>
-      <p class="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/80 max-w-2xl">
+      <p class="mt-7 text-body-lg leading-relaxed text-ink/80 max-w-2xl">
         Curaduría personal, no lista pasiva. {PODCAST_ENTRIES.length} podcasts en total. Arriba los míos. Abajo todo agrupado por categoría para que pueda saltar al tema que le interesa.
       </p>
     </header>
@@ -87,18 +87,18 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
     <!-- Sticky chips nav -->
     <nav aria-label="Categorías" class="sticky top-14 z-30 bg-paper/95 backdrop-blur border-y border-rule">
       <div class="mx-auto max-w-5xl px-6 lg:px-10 py-3 flex items-center gap-x-2 gap-y-2 overflow-x-auto whitespace-nowrap scroll-px-6 scroll-pl-6">
-        <a href="#mis-podcasts" class="shrink-0 inline-flex items-center text-[12px] uppercase tracking-[0.14em] text-mute hover:text-ink transition-colors px-3 py-1.5 border border-rule rounded-full">Mis podcasts</a>
+        <a href="#mis-podcasts" class="shrink-0 inline-flex items-center text-caption uppercase tracking-label text-mute hover:text-ink transition-colors px-3 py-1.5 border border-rule rounded-full">Mis podcasts</a>
         <span class="text-rule">·</span>
-        <span class="shrink-0 text-[11px] uppercase tracking-[0.14em] text-mute/60">Negocios</span>
+        <span class="shrink-0 text-eyebrow uppercase tracking-label text-mute/60">Negocios</span>
         {TAGS_BY_SECTION.negocios.map((tag) => (
-          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-[12px] text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
+          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-caption text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
             {PODCAST_TAGS[tag].label}
           </a>
         ))}
         <span class="text-rule">·</span>
-        <span class="shrink-0 text-[11px] uppercase tracking-[0.14em] text-mute/60">Fuera del trabajo</span>
+        <span class="shrink-0 text-eyebrow uppercase tracking-label text-mute/60">Fuera del trabajo</span>
         {TAGS_BY_SECTION.fuera.map((tag) => (
-          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-[12px] text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
+          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-caption text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
             {PODCAST_TAGS[tag].label}
           </a>
         ))}
@@ -107,11 +107,11 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
 
     <!-- Sección 0: Mis podcasts -->
     <section id="mis-podcasts" class="mx-auto max-w-5xl px-6 lg:px-10 mt-16 md:mt-20 mb-20 md:mb-24 scroll-mt-32">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.mine.kicker}</p>
-      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.mine.kicker}</p>
+      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.mine.title}
       </h2>
-      <p class="text-[16px] leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.mine.intro}</p>
+      <p class="text-body leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.mine.intro}</p>
       <div class="space-y-16 md:space-y-20">
         <MinePodcastBlock
           variant="pertinente"
@@ -130,12 +130,12 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
 
     <!-- Sección 1: Negocios -->
     <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16 mb-20 md:mb-24">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.negocios.kicker}</p>
-      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.negocios.kicker}</p>
+      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.negocios.title}
       </h2>
-      <p class="text-[16px] leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
-      <p class="text-[12px] uppercase tracking-[0.14em] text-mute mt-3 mb-14">{negociosCount} podcasts · {TAGS_BY_SECTION.negocios.length} subcategorías</p>
+      <p class="text-body leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
+      <p class="text-caption uppercase tracking-label text-mute mt-3 mb-14">{negociosCount} podcasts · {TAGS_BY_SECTION.negocios.length} subcategorías</p>
 
       <div class="space-y-16 md:space-y-20">
         {TAGS_BY_SECTION.negocios.map((tag) => {
@@ -145,8 +145,8 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
           return (
             <div id={cat.slug} class="scroll-mt-32">
               <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
-                <h3 class="font-display text-[22px] md:text-[26px] tracking-tight text-ink">{cat.label}</h3>
-                <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{items.length}</span>
+                <h3 class="font-display text-h3 tracking-tight text-ink">{cat.label}</h3>
+                <span class="text-eyebrow uppercase tracking-label text-mute">{items.length}</span>
               </header>
               <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
                 {items.map((p) => <PodcastCard podcast={p} />)}
@@ -159,12 +159,12 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
 
     <!-- Sección 2: Fuera del trabajo -->
     <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{PODCAST_SECTIONS.fuera.kicker}</p>
-      <h2 class="font-display text-[32px] md:text-[42px] leading-[1.08] tracking-[-0.03em] text-ink mb-5 max-w-3xl">
+      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.fuera.kicker}</p>
+      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
         {PODCAST_SECTIONS.fuera.title}
       </h2>
-      <p class="text-[16px] leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
-      <p class="text-[12px] uppercase tracking-[0.14em] text-mute mt-3 mb-14">{fueraCount} podcasts · {TAGS_BY_SECTION.fuera.length} subcategorías</p>
+      <p class="text-body leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
+      <p class="text-caption uppercase tracking-label text-mute mt-3 mb-14">{fueraCount} podcasts · {TAGS_BY_SECTION.fuera.length} subcategorías</p>
 
       <div class="space-y-16 md:space-y-20">
         {TAGS_BY_SECTION.fuera.map((tag) => {
@@ -174,8 +174,8 @@ const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].len
           return (
             <div id={cat.slug} class="scroll-mt-32">
               <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
-                <h3 class="font-display text-[22px] md:text-[26px] tracking-tight text-ink">{cat.label}</h3>
-                <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{items.length}</span>
+                <h3 class="font-display text-h3 tracking-tight text-ink">{cat.label}</h3>
+                <span class="text-eyebrow uppercase tracking-label text-mute">{items.length}</span>
               </header>
               <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
                 {items.map((p) => <PodcastCard podcast={p} />)}

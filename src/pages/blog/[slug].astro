@@ -74,13 +74,13 @@ const extraJsonLd = [
         <div class="flex items-center gap-3 mb-6 flex-wrap">
           {cats.map((c) => (
             <a href={`/blog/categoria/${CATEGORIES[c].slug}`}
-              class="text-[10px] uppercase tracking-[0.18em] text-accent hover:text-ink transition-colors">
+              class="text-eyebrow uppercase tracking-eyebrow text-accent hover:text-ink transition-colors">
               {CATEGORIES[c].label}
             </a>
           ))}
-          <span class="text-[12px] text-mute tabular-nums">{dateFmt} · {readingMin} min de lectura</span>
+          <span class="text-caption text-mute tabular-nums">{dateFmt} · {readingMin} min de lectura</span>
         </div>
-        <h1 class="font-display text-[34px] sm:text-[44px] md:text-[54px] leading-[1.06] tracking-[-0.035em] text-ink">
+        <h1 class="font-display text-display-2 leading-display tracking-display text-ink">
           {post.data.title}
         </h1>
       </header>
@@ -91,17 +91,17 @@ const extraJsonLd = [
 
       <!-- Cierre con Pertinente -->
       <aside class="mt-16 md:mt-20 pt-10 border-t border-rule">
-        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-3">De Pertinente, mi podcast diario</p>
-        <p class="font-display text-[20px] md:text-[22px] leading-snug tracking-tight text-ink mb-6 max-w-xl">
+        <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-3">De Pertinente, mi podcast diario</p>
+        <p class="font-display text-h4 leading-snug tracking-tight text-ink mb-6 max-w-xl">
           Este análisis nació de un episodio del podcast. Ahí publico uno nuevo cada día.
         </p>
         <div class="flex flex-wrap gap-3">
           <a href={PODCASTS.pertinente.platforms[0].href} target="_blank" rel="noopener"
-            class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+            class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-button font-medium hover:opacity-80 transition-opacity">
             Escuchar en Spotify <span aria-hidden>↗</span>
           </a>
           <a href={PODCASTS.pertinente.platforms[1].href} target="_blank" rel="noopener"
-            class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-[14px] font-medium hover:border-ink transition-colors">
+            class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-button font-medium hover:border-ink transition-colors">
             Ver en YouTube <span aria-hidden>↗</span>
           </a>
         </div>
@@ -110,7 +110,7 @@ const extraJsonLd = [
 
     {related.length > 0 && (
       <section class="mx-auto max-w-5xl px-6 lg:px-10 mt-24 md:mt-32 pt-12 border-t border-rule">
-        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-8">Sigue leyendo</p>
+        <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-8">Sigue leyendo</p>
         <div class="grid md:grid-cols-3 gap-8">
           {related.map((p) => <PostCard post={p} size="sm" />)}
         </div>

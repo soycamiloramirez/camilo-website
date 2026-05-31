@@ -22,13 +22,13 @@ const spotifyShowEmbed = `https://open.spotify.com/embed/show/${cfg.spotifyShowI
           class="w-[96px] h-[96px] shrink-0 border border-rule" />
       )}
       <div>
-        <h3 class="font-display text-[24px] md:text-[26px] tracking-tight leading-none mb-2">{name}</h3>
-        <p class="text-[11px] text-mute uppercase tracking-[0.14em]">{frequency}</p>
+        <h3 class="font-display text-h3 tracking-tight leading-none mb-2">{name}</h3>
+        <p class="text-eyebrow text-mute uppercase tracking-label">{frequency}</p>
       </div>
     </div>
-    <p class="text-[15px] leading-relaxed text-ink/75 mb-5 max-w-xl">{description}</p>
+    <p class="text-body leading-relaxed text-ink/75 mb-5 max-w-xl">{description}</p>
     <div class="flex items-center gap-5 text-mute">
-      <span class="text-[10px] uppercase tracking-[0.18em]">Escuchar en</span>
+      <span class="text-eyebrow uppercase tracking-eyebrow">Escuchar en</span>
       {cfg.platforms.map((p) => (
         <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
           class="hover:text-accent transition-colors">

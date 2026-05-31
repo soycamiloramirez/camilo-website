@@ -5,38 +5,38 @@ const t = COPY[lang].contacto;
 ---
 <section id="contacto" class="py-24 md:py-32 border-t border-rule bg-ink text-paper">
   <div class="mx-auto max-w-3xl px-6 lg:px-10">
-    <p class="text-[11px] uppercase tracking-[0.18em] text-paper/60 mb-5">{t.kicker}</p>
-    <h2 class="font-display text-[34px] md:text-[48px] leading-[1.08] tracking-tight">{t.title}</h2>
-    <p class="mt-6 text-[17px] leading-relaxed text-paper/80">{t.lede}</p>
+    <p class="text-eyebrow uppercase tracking-eyebrow text-paper/60 mb-5">{t.kicker}</p>
+    <h2 class="font-display text-display-2 leading-display tracking-tight">{t.title}</h2>
+    <p class="mt-6 text-body-lg leading-relaxed text-paper/80">{t.lede}</p>
     <form id="contact-form" class="mt-12 grid gap-6" autocomplete="on" data-email={SITE.email}>
       <label class="grid gap-2">
-        <span class="text-[12px] uppercase tracking-[0.14em] text-paper/60">{t.form.name}</span>
-        <input required name="name" type="text" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-[16px] text-paper placeholder:text-paper/35" />
+        <span class="text-caption uppercase tracking-label text-paper/60">{t.form.name}</span>
+        <input required name="name" type="text" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-body text-paper placeholder:text-paper/35" />
       </label>
       <label class="grid gap-2">
-        <span class="text-[12px] uppercase tracking-[0.14em] text-paper/60">{t.form.company}</span>
-        <input required name="company" type="text" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-[16px] text-paper placeholder:text-paper/35" />
+        <span class="text-caption uppercase tracking-label text-paper/60">{t.form.company}</span>
+        <input required name="company" type="text" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-body text-paper placeholder:text-paper/35" />
       </label>
       <fieldset class="grid gap-3">
-        <legend class="text-[12px] uppercase tracking-[0.14em] text-paper/60 mb-1">{t.form.type}</legend>
+        <legend class="text-caption uppercase tracking-label text-paper/60 mb-1">{t.form.type}</legend>
         <div class="flex flex-wrap gap-2">
           {t.form.types.map((tp, i) => (
             <label class="cursor-pointer">
               <input type="radio" name="type" value={tp} required={i === 0} checked={i === 0} class="peer sr-only" />
-              <span class="inline-block px-4 py-2 border border-paper/25 text-[14px] peer-checked:bg-paper peer-checked:text-ink peer-checked:border-paper transition-colors">{tp}</span>
+              <span class="inline-block px-4 py-2 border border-paper/25 text-button peer-checked:bg-paper peer-checked:text-ink peer-checked:border-paper transition-colors">{tp}</span>
             </label>
           ))}
         </div>
       </fieldset>
       <label class="grid gap-2">
-        <span class="text-[12px] uppercase tracking-[0.14em] text-paper/60">{t.form.message}</span>
-        <textarea required name="message" rows="4" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-[16px] text-paper placeholder:text-paper/35 resize-none"></textarea>
+        <span class="text-caption uppercase tracking-label text-paper/60">{t.form.message}</span>
+        <textarea required name="message" rows="4" class="bg-transparent border-b border-paper/25 focus:border-paper outline-none py-2 text-body text-paper placeholder:text-paper/35 resize-none"></textarea>
       </label>
       <div class="flex items-center justify-between mt-2 gap-6 flex-wrap">
-        <button type="submit" class="inline-flex items-center gap-2 bg-paper text-ink px-6 py-3 text-[14px] font-medium hover:opacity-80 transition-opacity">
+        <button type="submit" class="inline-flex items-center gap-2 bg-paper text-ink px-6 py-3 text-button font-medium hover:opacity-80 transition-opacity">
           {t.form.send} <span aria-hidden>→</span>
         </button>
-        <p class="text-[13px] text-paper/60">
+        <p class="text-caption text-paper/60">
           {t.form.emailFallback}
           <a href={`mailto:${SITE.email}`} class="text-paper underline decoration-paper/40 hover:decoration-paper underline-offset-4 ml-1">{SITE.email}</a>
         </p>

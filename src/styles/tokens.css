@@ -50,17 +50,20 @@
   --font-serif:   "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* ---------- Tipografía: escala (mobile-first, los componentes
-       hacen escalado responsive con clamp() o variantes md:) ---------- */
-  --text-display-1: 40px;     /* hero h1 mobile (md:54px, lg:64px) */
-  --text-display-2: 34px;     /* section h2 mobile (md:48px) */
-  --text-h1:        34px;
-  --text-h2:        28px;
-  --text-h3:        22px;
+  /* ---------- Tipografía: escala (responsiva vía clamp).
+       Los componentes usan UNA sola clase (`text-display-1`) sin
+       variantes `md:` — el clamp escala entre mobile y desktop. ---------- */
+  --text-display-1: clamp(40px, 6vw, 64px);   /* hero h1 */
+  --text-display-2: clamp(34px, 5vw, 48px);   /* section h2 (Lo último, Tesis, Trabajo, etc.) */
+  --text-display-3: clamp(28px, 4vw, 36px);   /* sub-display (Roles, Speaking diferenciador) */
+  --text-h1:        clamp(32px, 4.5vw, 42px); /* page titles secundarios */
+  --text-h2:        clamp(24px, 3vw, 30px);   /* card titles, Historia chapter h */
+  --text-h3:        clamp(20px, 2.4vw, 24px); /* item titles (Tesis cards, etc.) */
   --text-h4:        18px;
   --text-eyebrow:   11px;
   --text-body-lg:   17px;
   --text-body:      15px;
+  --text-button:    14px;
   --text-caption:   13px;
   --text-meta:      11px;
 

@@ -12,12 +12,12 @@ if (podcast.web) links.push({ name: 'Web', href: podcast.web });
 ---
 <article class="border-t border-rule pt-6 md:pt-7 pb-1">
   <div class="flex items-baseline justify-between gap-4 flex-wrap mb-2">
-    <h3 class="font-display text-[18px] md:text-[20px] leading-snug tracking-tight text-ink">{podcast.name}</h3>
+    <h3 class="font-display text-h4 leading-snug tracking-tight text-ink">{podcast.name}</h3>
     {podcast.frequency && (
-      <span class="text-[11px] uppercase tracking-[0.14em] text-mute">{podcast.frequency}</span>
+      <span class="text-eyebrow uppercase tracking-label text-mute">{podcast.frequency}</span>
     )}
   </div>
-  <p class="text-[14px] md:text-[15px] leading-relaxed text-ink/70 mb-4 max-w-2xl">{podcast.description}</p>
+  <p class="text-button md:text-body leading-relaxed text-ink/70 mb-4 max-w-2xl">{podcast.description}</p>
   {links.length > 0 ? (
     <div class="flex items-center gap-5 text-mute">
       {links.map((l) => (
@@ -28,6 +28,6 @@ if (podcast.web) links.push({ name: 'Web', href: podcast.web });
       ))}
     </div>
   ) : (
-    <p class="text-[12px] text-mute italic">Búsquelo en su plataforma favorita.</p>
+    <p class="text-caption text-mute italic">Búsquelo en su plataforma favorita.</p>
   )}
 </article>

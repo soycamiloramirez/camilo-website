@@ -9,17 +9,17 @@ const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
 ---
 <header class="fixed top-0 inset-x-0 z-40 bg-paper/85 backdrop-blur border-b border-rule">
   <div class="mx-auto max-w-6xl px-6 lg:px-10 h-14 flex items-center justify-between">
-    <a href={home} class="font-display text-[15px] tracking-tight text-ink font-medium" aria-label="Camilo Ramírez">
+    <a href={home} class="font-display text-body tracking-tight text-ink font-medium" aria-label="Camilo Ramírez">
       Camilo Ramírez
     </a>
-    <nav class="hidden md:flex items-center gap-7 text-[13px] text-mute">
+    <nav class="hidden md:flex items-center gap-7 text-caption text-mute">
       {lang === 'es' && <a href="/blog" class="hover:text-ink transition-colors">{t.nav.blog}</a>}
       {lang === 'es' && <a href="/podcasts" class="hover:text-ink transition-colors">{t.nav.podcasts}</a>}
       <a href={lang === 'es' ? '/speaking' : '/en/speaking'} class="hover:text-ink transition-colors">{t.nav.speaking}</a>
       <a href={historiaHref} class="hover:text-ink transition-colors">{t.nav.historia}</a>
       <a href={`${home}#contacto`} class="hover:text-ink transition-colors">{t.nav.contacto}</a>
     </nav>
-    <a href={otherHref} class="text-[13px] text-mute hover:text-ink transition-colors uppercase tracking-wider" aria-label={`Switch to ${otherLang}`}>
+    <a href={otherHref} class="text-caption text-mute hover:text-ink transition-colors uppercase tracking-wider" aria-label={`Switch to ${otherLang}`}>
       {otherLang}
     </a>
   </div>

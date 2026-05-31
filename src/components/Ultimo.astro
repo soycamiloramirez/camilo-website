@@ -20,9 +20,9 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
 ---
 <section id="ultimo" class="py-24 md:py-32 border-t border-rule">
   <div class="mx-auto max-w-6xl px-6 lg:px-10">
-    <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-5">{t.kicker}</p>
-    <h2 class="font-display text-[34px] md:text-[48px] leading-[1.08] tracking-[-0.035em] max-w-3xl">{t.title}</h2>
-    <p class="mt-6 text-[17px] leading-relaxed text-ink/75 max-w-3xl">{t.lede}</p>
+    <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{t.kicker}</p>
+    <h2 class="font-display text-display-2 leading-display tracking-display max-w-3xl">{t.title}</h2>
+    <p class="mt-6 text-body-lg leading-relaxed text-ink/75 max-w-3xl">{t.lede}</p>
 
     <div class="mt-16 grid md:grid-cols-2 gap-12 md:gap-14">
       <!-- Pertinente -->
@@ -34,15 +34,15 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
               class="w-[88px] h-[88px] shrink-0 border border-rule" />
           )}
           <div>
-            <h3 class="font-display text-[28px] tracking-tight leading-none mb-2">{t.pertinente.title}</h3>
-            <p class="text-[12px] text-mute uppercase tracking-[0.14em]">{t.pertinente.tag}</p>
+            <h3 class="font-display text-h2 tracking-tight leading-none mb-2">{t.pertinente.title}</h3>
+            <p class="text-caption text-mute uppercase tracking-label">{t.pertinente.tag}</p>
           </div>
         </div>
-        <p class="text-[15px] leading-relaxed text-ink/75 mb-6 max-w-xl">{t.pertinente.oneLine}</p>
+        <p class="text-body leading-relaxed text-ink/75 mb-6 max-w-xl">{t.pertinente.oneLine}</p>
 
         {pertinenteLatest && (
-          <p class="text-[12px] text-mute mb-4">
-            <span class="uppercase tracking-[0.14em]">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
+          <p class="text-caption text-mute mb-4">
+            <span class="uppercase tracking-label">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
             <span class="text-ink/80 ml-1">{pertinenteLatest.title}</span>
             <span class="ml-1">· {fmt(pertinenteLatest.published)}</span>
           </p>
@@ -62,7 +62,7 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
         </div>
 
         <div class="flex items-center gap-5 mt-6 text-mute">
-          <span class="text-[10px] uppercase tracking-[0.18em]">{t.pertinente.listenLabel}</span>
+          <span class="text-eyebrow uppercase tracking-eyebrow">{t.pertinente.listenLabel}</span>
           {PODCASTS.pertinente.platforms.map((p) => (
             <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
               class="text-mute hover:text-accent transition-colors">
@@ -81,15 +81,15 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
               class="w-[88px] h-[88px] shrink-0 border border-rule" />
           )}
           <div>
-            <h3 class="font-display text-[28px] tracking-tight leading-none mb-2">{t.memc.title}</h3>
-            <p class="text-[12px] text-mute uppercase tracking-[0.14em]">{t.memc.tag}</p>
+            <h3 class="font-display text-h2 tracking-tight leading-none mb-2">{t.memc.title}</h3>
+            <p class="text-caption text-mute uppercase tracking-label">{t.memc.tag}</p>
           </div>
         </div>
-        <p class="text-[15px] leading-relaxed text-ink/75 mb-6 max-w-xl">{t.memc.oneLine}</p>
+        <p class="text-body leading-relaxed text-ink/75 mb-6 max-w-xl">{t.memc.oneLine}</p>
 
         {memcLatest && (
-          <p class="text-[12px] text-mute mb-4">
-            <span class="uppercase tracking-[0.14em]">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
+          <p class="text-caption text-mute mb-4">
+            <span class="uppercase tracking-label">{lang === 'es' ? 'Último episodio' : 'Latest episode'} ·</span>
             <span class="text-ink/80 ml-1">{memcLatest.title}</span>
             <span class="ml-1">· {fmt(memcLatest.published)}</span>
           </p>
@@ -109,7 +109,7 @@ const spotifyShowEmbed = (id: string) => `https://open.spotify.com/embed/show/${
         </div>
 
         <div class="flex items-center gap-5 mt-6 text-mute">
-          <span class="text-[10px] uppercase tracking-[0.18em]">{t.memc.listenLabel}</span>
+          <span class="text-eyebrow uppercase tracking-eyebrow">{t.memc.listenLabel}</span>
           {PODCASTS.memc.platforms.map((p) => (
             <a href={p.href} target="_blank" rel="noopener" aria-label={p.name} title={p.name}
               class="text-mute hover:text-accent transition-colors">

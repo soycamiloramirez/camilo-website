@@ -35,6 +35,7 @@
   /* ---------- Type scale (Tailwind: text-display-1, text-h1, ...) ---------- */
   --text-display-1: var(--text-display-1);
   --text-display-2: var(--text-display-2);
+  --text-display-3: var(--text-display-3);
   --text-h1:        var(--text-h1);
   --text-h2:        var(--text-h2);
   --text-h3:        var(--text-h3);
@@ -42,6 +43,7 @@
   --text-eyebrow:   var(--text-eyebrow);
   --text-body-lg:   var(--text-body-lg);
   --text-body:      var(--text-body);
+  --text-button:    var(--text-button);
   --text-caption:   var(--text-caption);
   --text-meta:      var(--text-meta);
 

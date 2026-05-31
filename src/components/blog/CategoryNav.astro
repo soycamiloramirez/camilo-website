@@ -11,7 +11,7 @@ const items = [
   {items.map((it) => (
     <a href={it.href}
       class:list={[
-        'text-[13px] uppercase tracking-[0.14em] transition-colors',
+        'text-caption uppercase tracking-label transition-colors',
         it.slug === current ? 'text-ink font-medium underline decoration-accent decoration-2 underline-offset-[6px]' : 'text-mute hover:text-ink',
       ]}>
       {it.label}

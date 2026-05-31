@@ -10,18 +10,18 @@ const nav = COPY[lang].navigamo;
     <!-- Navigamo -->
     <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
       <div class="md:col-span-4">
-        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-4">{nav.kicker}</p>
+        <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-4">{nav.kicker}</p>
         <a href={nav.href} target="_blank" rel="noopener" class="inline-block group" aria-label="Navigamo">
           <img src="/navigamo-logo.svg" alt="Navigamo" width="160" height="63"
             class="h-12 md:h-14 w-auto group-hover:opacity-70 transition-opacity" loading="lazy" />
         </a>
       </div>
       <div class="md:col-span-8">
-        <h2 class="font-display text-[26px] md:text-[32px] leading-[1.1] tracking-[-0.03em] mb-5">{nav.title}</h2>
-        <p class="text-[16px] leading-relaxed text-ink/80 mb-6 max-w-xl">{nav.p}</p>
-        <p class="text-[14px] text-ink/70 mb-3 max-w-xl italic">{nav.ctaIntro}</p>
+        <h2 class="font-display text-h2 leading-display tracking-heading mb-5">{nav.title}</h2>
+        <p class="text-body leading-relaxed text-ink/80 mb-6 max-w-xl">{nav.p}</p>
+        <p class="text-button text-ink/70 mb-3 max-w-xl italic">{nav.ctaIntro}</p>
         <a href={nav.href} target="_blank" rel="noopener"
-          class="inline-flex items-center gap-2 text-[14px] font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
+          class="inline-flex items-center gap-2 text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
           {nav.cta} <span aria-hidden>↗</span>
         </a>
       </div>
@@ -30,27 +30,27 @@ const nav = COPY[lang].navigamo;
     <!-- AI Collective -->
     <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
       <div class="md:col-span-4">
-        <p class="text-[11px] uppercase tracking-[0.18em] text-mute mb-4">{aic.kicker}</p>
+        <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-4">{aic.kicker}</p>
         <a href={aic.href} target="_blank" rel="noopener" class="inline-block group" aria-label="The AI Collective">
           <img src="/aicollective-logo.svg" alt="The AI Collective" width="180" height="86"
             class="h-12 md:h-14 w-auto group-hover:opacity-70 transition-opacity" loading="lazy" />
         </a>
       </div>
       <div class="md:col-span-8">
-        <h2 class="font-display text-[26px] md:text-[32px] leading-[1.1] tracking-[-0.03em] mb-5">{aic.title}</h2>
-        <p class="text-[16px] leading-relaxed text-ink/80 mb-6 max-w-xl">{aic.p}</p>
+        <h2 class="font-display text-h2 leading-display tracking-heading mb-5">{aic.title}</h2>
+        <p class="text-body leading-relaxed text-ink/80 mb-6 max-w-xl">{aic.p}</p>
         <a href={aic.href} target="_blank" rel="noopener"
-          class="inline-flex items-center gap-2 text-[14px] font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
+          class="inline-flex items-center gap-2 text-button font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent transition-colors">
           {aic.cta} <span aria-hidden>↗</span>
         </a>
 
         <div class="mt-10 pt-8 border-t border-rule">
-          <p class="text-[10px] uppercase tracking-[0.18em] text-mute mb-5">{aic.partnersLabel}</p>
+          <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{aic.partnersLabel}</p>
           <ul class="flex flex-wrap items-center gap-x-7 gap-y-4">
             {AIC_PARTNERS.map((p) => (
               <li class="flex items-center gap-2 text-ink/70">
                 <PartnerIcon name={p} className="h-4 w-auto shrink-0" />
-                <span class="text-[13px] tracking-tight">{p}</span>
+                <span class="text-caption tracking-tight">{p}</span>
               </li>
             ))}
           </ul>
