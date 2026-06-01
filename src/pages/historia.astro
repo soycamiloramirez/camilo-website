@@ -21,7 +21,7 @@ const extraJsonLd = [
   },
 ];
 
-const tickerBrands = [...CLIENT_BRANDS.map((b) => b.name), ...CLIENT_BRANDS.map((b) => b.name)];
+const tickerBrands = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
 
 const chapters = [
   {
@@ -121,12 +121,52 @@ const chapters = [
       <div class="cr-ticker__track">
         {tickerBrands.map((b) => (
           <>
-            <span class="cr-ticker__brand">{b}</span>
+            <span class="cr-ticker__brand">
+              {b.file ? (
+                <img src={`/brands/${b.file}`} alt={b.name} loading="lazy" />
+              ) : (
+                <span class="cr-ticker__wordmark">{b.name}</span>
+              )}
+            </span>
             <span class="cr-ticker__sep"></span>
           </>
         ))}
       </div>
     </section>
+
+    <style>
+      /* Override DS ticker to use real logos in place of wordmarks */
+      .cr-ticker__brand {
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+      }
+      @media (min-width: 768px) {
+        .cr-ticker__brand { height: 48px; }
+      }
+      .cr-ticker__brand img {
+        display: block;
+        height: 100%;
+        width: auto;
+        max-width: 140px;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        filter: grayscale(100%) contrast(1.05);
+        opacity: 0.85;
+      }
+      @media (min-width: 768px) {
+        .cr-ticker__brand img { max-width: 160px; }
+      }
+      .cr-ticker__wordmark {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+    </style>
 
     <section class="cr-histpage">
       <div class="cr-container">
