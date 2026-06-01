@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Plantilla de artículo · Camilo Ramírez</title>
+<meta name="description" content="Style guide universal del post: todos los elementos editoriales del blog.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+<header class="cr-header">
+  <div class="cr-header__inner">
+    <a class="cr-header__brand" href="index.html"><span class="cr-mark cr-mark--sm"><img src="assets/camilo-hero.jpg" alt=""></span><span class="cr-header__brand-mark">Camilo <span class="cr-header__brand-r">Ramírez</span></span></a>
+    <nav class="cr-header__nav">
+      <a class="cr-header__navlink is-active" aria-current="page" href="blog.html">Blog</a>
+      <a class="cr-header__navlink" href="podcasts.html">Podcasts</a>
+      <a class="cr-header__navlink" href="speaking.html">Speaking</a>
+      <a class="cr-header__navlink" href="historia.html">Historia</a>
+    </nav>
+    <div class="cr-header__right">
+      <span class="cr-header__lang">ES <span class="cr-header__lang-sep">/</span> <span class="cr-header__lang-off">EN</span></span>
+      <a class="cr-btn cr-btn--primary cr-header__cta" href="index.html#contacto">Contacto</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <article class="cr-article">
+    <div class="cr-container">
+      <div class="cr-article__wrap">
+
+        <!-- HEADER -->
+        <p class="cr-breadcrumb"><a href="blog.html">Blog</a> · Plantilla</p>
+        <p class="cr-eyebrow" style="margin-top:24px"><span class="cr-franja"></span>Negocios y estrategia · 27 may 2026</p>
+        <h1 class="cr-article__title"><span class="cr-d-thin">Título del artículo con</span> <em class="cr-d-em">tratamiento editorial.</em></h1>
+        <p class="cr-article__lede">Este es el lede del frontmatter: un párrafo en body-lg que resume la pieza. Plantilla universal, no un post real: muestra todos los elementos para que cualquier post futuro herede el tratamiento del design system.</p>
+        <p class="cr-article__meta">Por <strong>Camilo Ramírez</strong> · 5 min de lectura</p>
+
+        <!-- TL;DR (frontmatter opcional) -->
+        <div class="cr-article__tldr">
+          <p class="cr-article__tldr-lbl">TL;DR</p>
+          <p>Caja de resumen opcional vía frontmatter <code>tldr</code>. Si el campo está vacío, no aparece.</p>
+        </div>
+
+        <!-- BODY: todos los elementos -->
+        <div class="cr-article__body">
+          <aside class="cr-article__aside">Nota lateral opcional (frontmatter <code>aside</code>): flota a la derecha en desktop, pasa a bloque en móvil.</aside>
+
+          <p>Párrafo normal en body-lg con interlineado holgado. Dentro del texto pueden ir <strong>negritas</strong>, <em>itálicas</em> y <a href="#">enlaces con acento</a>. El criterio de lectura es de 720px de ancho.</p>
+
+          <h2>Heading 2 con franja</h2>
+          <h2>Heading 2 seguido de otro H2</h2>
+          <p>Dos <code>## Heading 2</code> consecutivos respiran entre sí: el segundo deja aire arriba aunque no haya párrafo en medio.</p>
+
+          <h3>Heading 3 sin franja</h3>
+          <p>El <code>### Heading 3</code> es un subtítulo más discreto, sin franja, para subdividir dentro de una sección.</p>
+
+          <blockquote>
+            <p>Cita de varios párrafos en Fraunces itálica con barra de acento. El primer párrafo plantea la idea, con una <a href="#">fuente enlazada</a> y una palabra en <strong>negrita</strong> que deben ganar el estilo.</p>
+            <p>El segundo párrafo cierra el argumento, manteniendo el tratamiento sin cortarse entre bloques.</p>
+          </blockquote>
+
+          <p>Lista desordenada con viñeta de franja:</p>
+          <ul>
+            <li>Primer punto de la lista.</li>
+            <li>Segundo punto, con su marcador de franja.</li>
+            <li>Tercer punto.</li>
+          </ul>
+
+          <p>Lista ordenada con números de acento, con una lista desordenada anidada:</p>
+          <ol>
+            <li>Primer paso.</li>
+            <li>Segundo paso, con sub-puntos:
+              <ul>
+                <li>Sub-punto anidado uno.</li>
+                <li>Sub-punto anidado dos.</li>
+              </ul>
+            </li>
+            <li>Tercer paso, con <strong>negrita</strong> y <a href="#">enlace</a> dentro del ítem.</li>
+          </ol>
+
+          <p>Y una lista desordenada con una lista ordenada anidada:</p>
+          <ul>
+            <li>Punto principal.
+              <ol>
+                <li>Paso anidado uno.</li>
+                <li>Paso anidado dos.</li>
+              </ol>
+            </li>
+            <li>Otro punto principal.</li>
+          </ul>
+
+          <p>Código en línea como <code>npm install</code> dentro de una frase, y un bloque de código:</p>
+          <pre><code>const criterio = (ruido, señal) =&gt; {
+  return señal.filter(x =&gt; x.importa);
+};</code></pre>
+
+          <hr>
+
+          <figure class="cr-article__fig">
+            <div style="width:100%;aspect-ratio:16/9;border-radius:var(--radius-md);background:var(--bg-pure);border:1px solid var(--hairline);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-family:var(--font-mono);font-size:12px">Imagen del post · 16:9</div>
+            <figcaption>Pie de imagen en estilo eyebrow, debajo de la figura full-width.</figcaption>
+          </figure>
+
+          <p class="cr-article__pull">Pull-quote grande en Fraunces itálica: la frase que ancla el artículo, separada del flujo con aire arriba y abajo.</p>
+
+          <p>Párrafo de cierre del cuerpo. A partir de acá viene el footer del post.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER DEL POST -->
+    <div class="cr-container">
+      <div class="cr-artfoot">
+        <div class="cr-artfoot__franja"></div>
+        <div class="cr-artfoot__bio">
+          <img src="assets/camilo-hero.jpg" alt="Camilo Ramírez">
+          <p><strong>Camilo Ramírez</strong> · Advisor, speaker y host de Pertinente. <a href="historia.html">Su historia →</a></p>
+        </div>
+
+        <div class="cr-artfoot__useful">
+          <p class="cr-artfoot__useful-lbl">Si esto le sirvió</p>
+          <div class="cr-artfoot__useful-row">
+            <a class="cr-btn cr-btn--accent" href="pertinente.html">Escuchar Pertinente</a>
+            <a class="cr-btn cr-btn--ghost" href="speaking.html" style="color:#fff;border-color:rgba(255,255,255,.3)">Speaking</a>
+          </div>
+        </div>
+
+        <div class="cr-artfoot__more">
+          <a class="cr-btn cr-btn--link" href="blog.html">Más en el blog →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer class="cr-footer">
+  <div class="cr-container cr-footer__inner">
+    <div class="cr-footer__top">
+      <div class="cr-footer__brand">
+        <span class="cr-mark cr-mark--md cr-mark--ondark"><img src="assets/camilo-hero.jpg" alt=""></span>
+        <span class="cr-footer__name">Camilo <span class="cr-footer__name-ac">Ramírez</span></span>
+        <p class="cr-footer__tag">Criterio sobre IA, negocios y LATAM. Publicado todos los días.</p>
+      </div>
+      <div class="cr-footer__cols">
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">Contenido</span>
+          <a href="pertinente.html">Pertinente</a>
+          <a href="metase.html">Métase en mi cabeza</a>
+          <a href="blog.html">Blog</a>
+        </div>
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">Trabajo</span>
+          <a href="speaking.html">Speaking</a>
+          <a href="historia.html">Historia</a>
+          <a href="index.html#contacto">Contacto</a>
+        </div>
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">Redes</span>
+          <a href="#">YouTube</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="cr-footer__bottom">
+      <span>© 2026 Camilo Ramírez.</span>
+      <span>Hecho con criterio en Bogotá.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
