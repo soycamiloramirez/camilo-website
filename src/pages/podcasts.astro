@@ -2,189 +2,237 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PodcastCard from '../components/podcasts/PodcastCard.astro';
-import MinePodcastBlock from '../components/podcasts/MinePodcastBlock.astro';
+import { SITE } from '../content/copy';
 import {
   PODCAST_ENTRIES,
   PODCAST_SECTIONS,
   PODCAST_TAGS,
-  TAGS_BY_SECTION,
-  type PodcastEntry,
   type PodcastSection,
   type PodcastTag,
 } from '../content/podcasts';
-import { SITE } from '../content/copy';
 
 const lang = 'es' as const;
 
-const mine = PODCAST_ENTRIES.filter((p) => p.section === 'mine');
+const pageTitle = 'Podcasts · Camilo Ramírez · curaduría de IA, negocios y vida';
+const pageDescription = 'Lo que publico (Pertinente y Métase en mi cabeza) y los podcasts que escucho. Curaduría personal de IA, negocios, geopolítica, ciencia y filosofía, navegable por categoría.';
 
-function bySection(section: Exclude<PodcastSection, 'mine'>): Record<PodcastTag, PodcastEntry[]> {
-  const out = {} as Record<PodcastTag, PodcastEntry[]>;
-  for (const tag of TAGS_BY_SECTION[section]) out[tag] = [];
-  for (const p of PODCAST_ENTRIES) {
-    if (p.section === section && out[p.tag]) out[p.tag].push(p);
-  }
-  return out;
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Podcasts · Camilo Ramírez',
+    description: pageDescription,
+    url: `${SITE.url}/podcasts`,
+    inLanguage: 'es-CO',
+  },
+];
+
+// Mine first (manually rendered as mediacards). The rest agrupados por tag.
+const mineEntries = PODCAST_ENTRIES.filter((p) => p.section === 'mine');
+const negociosEntries = PODCAST_ENTRIES.filter((p) => p.section === 'negocios');
+const fueraEntries = PODCAST_ENTRIES.filter((p) => p.section === 'fuera');
+
+// Color spectrum por tag (purple → magenta → red → orange para distinguir grupos)
+const TAG_COLORS: Record<PodcastTag, string> = {
+  'ia-tech':         '#800080',
+  estrategia:        '#9B1C70',
+  ventas:            '#B33067',
+  inversion:         '#C84260',
+  'alto-rendimiento':'#D55256',
+  geopolitica:       '#B33067',
+  historia:          '#9B5BBF',
+  ciencia:           '#5DA9C9',
+  psicologia:        '#3D8B6E',
+  espiritualidad:    '#6B7280',
+  cultura:           '#A06A2A',
+};
+
+// Lucide-like icon mark (small SVG inline) for each tag
+function tagIcon(_: PodcastTag) {
+  // simple square + dot mark, color via currentColor (--cat)
+  return `<svg class="cr-pcat__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/></svg>`;
 }
 
-const negociosGroups = bySection('negocios');
-const fueraGroups = bySection('fuera');
+// Agrupa entries por tag dentro de una sección, devolviendo arr ordenado por orden de PODCAST_TAGS
+function groupByTag(entries: typeof PODCAST_ENTRIES, sec: PodcastSection) {
+  const tags = Object.entries(PODCAST_TAGS).filter(([, v]) => v.section === sec) as [PodcastTag, typeof PODCAST_TAGS[PodcastTag]][];
+  return tags
+    .map(([tag, info]) => ({ tag, info, items: entries.filter((e) => e.tag === tag) }))
+    .filter((g) => g.items.length > 0);
+}
 
-const url = `${SITE.url}/podcasts`;
-const pageTitle = 'Podcasts · Mi lista de IA, negocios y vida | Camilo Ramírez';
-const pageDescription =
-  'Los podcasts que escucho para pensar negocios, IA y tecnología en LATAM, más lo que escucho fuera del trabajo. Curaduría personal de Camilo Ramírez, navegable por categoría.';
+const negociosGroups = groupByTag(negociosEntries, 'negocios');
+const fueraGroups = groupByTag(fueraEntries, 'fuera');
 
-const firstUrl = (p: PodcastEntry): string =>
-  p.spotify ?? p.apple ?? p.youtube ?? p.web ?? p.amazon ?? url;
+// Chips: Todos + 11 tags en orden de definición
+const chips: { slug: string; label: string }[] = [
+  { slug: 'todos', label: 'Todos' },
+  ...Object.entries(PODCAST_TAGS).map(([slug, info]) => ({ slug, label: info.label })),
+];
 
-const itemListJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Podcasts que escucha Camilo Ramírez',
-  description: pageDescription,
-  url,
-  inLanguage: 'es-CO',
-  author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-  numberOfItems: PODCAST_ENTRIES.length,
-  itemListElement: PODCAST_ENTRIES.map((p, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    name: p.name,
-    url: firstUrl(p),
-  })),
-};
-
-const breadcrumbJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
-    { '@type': 'ListItem', position: 2, name: 'Podcasts', item: url },
-  ],
-};
-
-const extraJsonLd = [itemListJsonLd, breadcrumbJsonLd];
-
-const negociosCount = TAGS_BY_SECTION.negocios.reduce((n, t) => n + negociosGroups[t].length, 0);
-const fueraCount = TAGS_BY_SECTION.fuera.reduce((n, t) => n + fueraGroups[t].length, 0);
+function platformLinks(p: typeof PODCAST_ENTRIES[number]) {
+  const items: { label: string; href: string }[] = [];
+  if (p.spotify) items.push({ label: 'Spotify', href: p.spotify });
+  if (p.youtube) items.push({ label: 'YouTube', href: p.youtube });
+  if (p.apple) items.push({ label: 'Apple', href: p.apple });
+  if (p.amazon) items.push({ label: 'Amazon', href: p.amazon });
+  if (p.web) items.push({ label: 'Web', href: p.web });
+  return items;
+}
 ---
-<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/podcasts" extraJsonLd={extraJsonLd} hasAlternate={false}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/podcasts" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
-  <main class="pb-20 md:pb-28">
-    <!-- Hero -->
-    <header class="mx-auto max-w-5xl px-6 lg:px-10 pt-28 md:pt-36 mb-12 md:mb-16">
-      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">Podcasts</p>
-      <h1 class="font-display text-display-1 leading-display tracking-display text-ink max-w-4xl">
-        Lo que publico y lo que escucho.
-      </h1>
-      <p class="mt-7 text-body-lg leading-relaxed text-ink/80 max-w-2xl">
-        Curaduría personal, no lista pasiva. {PODCAST_ENTRIES.length} podcasts en total. Arriba los míos. Abajo todo agrupado por categoría para que pueda saltar al tema que le interesa.
-      </p>
-    </header>
 
-    <!-- Sticky chips nav -->
-    <nav aria-label="Categorías" class="sticky top-14 z-30 bg-paper/95 backdrop-blur border-y border-rule">
-      <div class="mx-auto max-w-5xl px-6 lg:px-10 py-3 flex items-center gap-x-2 gap-y-2 overflow-x-auto whitespace-nowrap scroll-px-6 scroll-pl-6">
-        <a href="#mis-podcasts" class="shrink-0 inline-flex items-center text-caption uppercase tracking-label text-mute hover:text-ink transition-colors px-3 py-1.5 border border-rule rounded-full">Mis podcasts</a>
-        <span class="text-rule">·</span>
-        <span class="shrink-0 text-eyebrow uppercase tracking-label text-mute/60">Negocios</span>
-        {TAGS_BY_SECTION.negocios.map((tag) => (
-          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-caption text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
-            {PODCAST_TAGS[tag].label}
-          </a>
-        ))}
-        <span class="text-rule">·</span>
-        <span class="shrink-0 text-eyebrow uppercase tracking-label text-mute/60">Fuera del trabajo</span>
-        {TAGS_BY_SECTION.fuera.map((tag) => (
-          <a href={`#${PODCAST_TAGS[tag].slug}`} class="shrink-0 inline-flex items-center text-caption text-mute hover:text-accent hover:border-accent transition-colors px-3 py-1.5 border border-rule rounded-full">
-            {PODCAST_TAGS[tag].label}
-          </a>
-        ))}
-      </div>
-    </nav>
-
-    <!-- Sección 0: Mis podcasts -->
-    <section id="mis-podcasts" class="mx-auto max-w-5xl px-6 lg:px-10 mt-16 md:mt-20 mb-20 md:mb-24 scroll-mt-32">
-      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.mine.kicker}</p>
-      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
-        {PODCAST_SECTIONS.mine.title}
-      </h2>
-      <p class="text-body leading-relaxed text-ink/75 mb-12 max-w-2xl">{PODCAST_SECTIONS.mine.intro}</p>
-      <div class="space-y-16 md:space-y-20">
-        <MinePodcastBlock
-          variant="pertinente"
-          name="Pertinente con Camilo Ramírez"
-          frequency="Diario, lunes a viernes, menos de 10 minutos"
-          description={mine[0].description}
-        />
-        <MinePodcastBlock
-          variant="memc"
-          name="Métase en mi cabeza"
-          frequency="Semanal, un episodio en vivo por semana"
-          description={mine[1].description}
-        />
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Podcasts</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">Lo que publico y</span> lo que escucho.</h1>
+        <p class="cr-lead cr-pagehead__lead">Curaduría personal, no lista pasiva. {PODCAST_ENTRIES.length} podcasts en total. Arriba los míos. Abajo todo agrupado por categoría para que pueda saltar al tema que le interesa.</p>
       </div>
     </section>
 
-    <!-- Sección 1: Negocios -->
-    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16 mb-20 md:mb-24">
-      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.negocios.kicker}</p>
-      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
-        {PODCAST_SECTIONS.negocios.title}
-      </h2>
-      <p class="text-body leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.negocios.intro}</p>
-      <p class="text-caption uppercase tracking-label text-mute mt-3 mb-14">{negociosCount} podcasts · {TAGS_BY_SECTION.negocios.length} subcategorías</p>
+    <div class="cr-pchips-wrap">
+      <div class="cr-container">
+        <nav class="cr-pchips" aria-label="Filtrar por categoría">
+          {chips.map((c, i) => (
+            <button class={`cr-pchip ${i === 0 ? 'is-on' : ''}`} data-filter={c.slug} type="button">{c.label}</button>
+          ))}
+        </nav>
+      </div>
+    </div>
 
-      <div class="space-y-16 md:space-y-20">
-        {TAGS_BY_SECTION.negocios.map((tag) => {
-          const items = negociosGroups[tag];
-          if (items.length === 0) return null;
-          const cat = PODCAST_TAGS[tag];
-          return (
-            <div id={cat.slug} class="scroll-mt-32">
-              <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
-                <h3 class="font-display text-h3 tracking-tight text-ink">{cat.label}</h3>
-                <span class="text-eyebrow uppercase tracking-label text-mute">{items.length}</span>
-              </header>
-              <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
-                {items.map((p) => <PodcastCard podcast={p} />)}
-              </div>
-            </div>
-          );
-        })}
+    <!-- MIS PODCASTS -->
+    <section id="mis-podcasts" class="cr-blogix">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{PODCAST_SECTIONS.mine.kicker}</p>
+        <h2 class="cr-display-2" style="margin:8px 0 8px"><span class="cr-d-thin">Lo que yo</span> publico.</h2>
+        <p class="cr-lead" style="max-width:60ch;margin-bottom:32px">{PODCAST_SECTIONS.mine.intro}</p>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          {mineEntries.map((p, i) => {
+            const cover = i === 0 ? '/ds-assets/pertinente-cover.jpg' : '/ds-assets/memc-cover.jpg';
+            const isPert = i === 0;
+            const ctaHref = isPert ? '/pertinente' : '/metase';
+            const ctaLabel = isPert ? 'Escuchar Pertinente' : 'Ver las conversaciones';
+            const platforms = platformLinks(p).map((pl) => pl.label).join(' · ');
+            return (
+              <a class="cr-mediacard" href={ctaHref}>
+                <div class="cr-mediacard__art" style={`background-image:url('${cover}')`}></div>
+                <div class="cr-mediacard__body">
+                  <div class="cr-mediacard__meta">{p.frequency ?? ''}</div>
+                  <h3 class="cr-mediacard__title">{p.name}</h3>
+                  <p class="cr-mediacard__desc">{p.description}</p>
+                  <p class="cr-mediacard__foot">Escuchar en {platforms}</p>
+                  <span class={`cr-btn ${isPert ? 'cr-btn--accent' : 'cr-btn--ghost'} cr-mediacard__cta`}>{ctaLabel}</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
       </div>
     </section>
 
-    <!-- Sección 2: Fuera del trabajo -->
-    <section class="mx-auto max-w-5xl px-6 lg:px-10 border-t border-rule pt-12 md:pt-16">
-      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-5">{PODCAST_SECTIONS.fuera.kicker}</p>
-      <h2 class="font-display text-display-3 leading-display tracking-heading text-ink mb-5 max-w-3xl">
-        {PODCAST_SECTIONS.fuera.title}
-      </h2>
-      <p class="text-body leading-relaxed text-ink/75 max-w-2xl">{PODCAST_SECTIONS.fuera.intro}</p>
-      <p class="text-caption uppercase tracking-label text-mute mt-3 mb-14">{fueraCount} podcasts · {TAGS_BY_SECTION.fuera.length} subcategorías</p>
+    <!-- NEGOCIOS GROUP -->
+    <section class="cr-blogix" style="padding-top:0">
+      <div class="cr-container">
+        <div class="cr-pgroup cr-pgroup--first" data-section="negocios">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>{PODCAST_SECTIONS.negocios.kicker} · {negociosEntries.length} podcasts</p>
+          <h2 class="cr-pgroup__h"><span class="cr-d-thin">Los que escucho para</span> pensar el negocio y la IA.</h2>
+          <p class="cr-pgroup__sub">{PODCAST_SECTIONS.negocios.intro}</p>
+        </div>
 
-      <div class="space-y-16 md:space-y-20">
-        {TAGS_BY_SECTION.fuera.map((tag) => {
-          const items = fueraGroups[tag];
-          if (items.length === 0) return null;
-          const cat = PODCAST_TAGS[tag];
-          return (
-            <div id={cat.slug} class="scroll-mt-32">
-              <header class="flex items-baseline justify-between gap-4 mb-8 pb-3 border-b border-ink">
-                <h3 class="font-display text-h3 tracking-tight text-ink">{cat.label}</h3>
-                <span class="text-eyebrow uppercase tracking-label text-mute">{items.length}</span>
-              </header>
-              <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
-                {items.map((p) => <PodcastCard podcast={p} />)}
-              </div>
+        {negociosGroups.map((g) => (
+          <div id={g.info.slug} class="cr-pcat" style={`--cat:${TAG_COLORS[g.tag]}`} data-tag={g.tag}>
+            <div class="cr-pcat__head">
+              <Fragment set:html={tagIcon(g.tag)} />
+              <h3 class="cr-pcat__title">{g.info.label}</h3>
+              <span class="cr-pcat__count">{g.items.length}</span>
             </div>
-          );
-        })}
+            <div class="cr-pcat__grid">
+              {g.items.map((p) => (
+                <div class="cr-pcast">
+                  <h4 class="cr-pcast__name">{p.name}</h4>
+                  {p.frequency && <p class="cr-pcast__cadence">{p.frequency}</p>}
+                  <p class="cr-pcast__desc">{p.description}</p>
+                  <div class="cr-pcast__links">
+                    {platformLinks(p).map((pl) => (
+                      <a href={pl.href} target="_blank" rel="noopener">{pl.label}</a>
+                    ))}
+                    {platformLinks(p).length === 0 && <span class="cr-pcast__plat">Sin enlace público</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FUERA GROUP -->
+    <section class="cr-blogix" style="padding-top:0">
+      <div class="cr-container">
+        <div class="cr-pgroup" data-section="fuera">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>{PODCAST_SECTIONS.fuera.kicker} · {fueraEntries.length} podcasts</p>
+          <h2 class="cr-pgroup__h"><span class="cr-d-thin">Lo que escucho cuando</span> no estoy pensando en IA.</h2>
+          <p class="cr-pgroup__sub">{PODCAST_SECTIONS.fuera.intro}</p>
+        </div>
+
+        {fueraGroups.map((g) => (
+          <div id={g.info.slug} class="cr-pcat" style={`--cat:${TAG_COLORS[g.tag]}`} data-tag={g.tag}>
+            <div class="cr-pcat__head">
+              <Fragment set:html={tagIcon(g.tag)} />
+              <h3 class="cr-pcat__title">{g.info.label}</h3>
+              <span class="cr-pcat__count">{g.items.length}</span>
+            </div>
+            <div class="cr-pcat__grid">
+              {g.items.map((p) => (
+                <div class="cr-pcast">
+                  <h4 class="cr-pcast__name">{p.name}</h4>
+                  {p.frequency && <p class="cr-pcast__cadence">{p.frequency}</p>}
+                  <p class="cr-pcast__desc">{p.description}</p>
+                  <div class="cr-pcast__links">
+                    {platformLinks(p).map((pl) => (
+                      <a href={pl.href} target="_blank" rel="noopener">{pl.label}</a>
+                    ))}
+                    {platformLinks(p).length === 0 && <span class="cr-pcast__plat">Sin enlace público</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   </main>
+
   <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('.cr-pchip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var f = chip.getAttribute('data-filter');
+        document.querySelectorAll('.cr-pchip').forEach(function (c) { c.classList.remove('is-on'); });
+        chip.classList.add('is-on');
+        var cats = document.querySelectorAll('.cr-pcat');
+        var groups = document.querySelectorAll('.cr-pgroup');
+        if (f === 'todos') {
+          cats.forEach(function (el) { el.style.display = ''; });
+          groups.forEach(function (el) { el.style.display = ''; });
+        } else {
+          cats.forEach(function (el) {
+            el.style.display = el.getAttribute('data-tag') === f ? '' : 'none';
+          });
+          // hide section headers whose tag children are all hidden
+          groups.forEach(function (el) {
+            var sec = el.getAttribute('data-section');
+            var anyVisible = Array.from(cats).some(function (c) {
+              return c.style.display !== 'none' && c.closest('section').contains(el);
+            });
+            el.style.display = anyVisible ? '' : 'none';
+          });
+        }
+      });
+    });
+  </script>
 </Base>
