@@ -5,6 +5,9 @@ date: 2026-05-17
 categories:
   - aprende
 episode: 6
+tldr: ''
+pullquote: ''
+aside: ''
 ---
 
 Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son. Y la confusión no es un detalle de pedantes: hace que uno tome malas decisiones, porque mezcla lo que ya está pasando con lo que tal vez pase en una década.
@@ -17,7 +20,7 @@ La inteligencia artificial general, la AGI, no es ciencia ficción ni un "a ver 
 
 No es un concepto que se inventó Sam Altman para vender. Viene de atrás: se nombró por primera vez a finales de los noventa, y lleva décadas de discusión seria. Empresas como Google DeepMind ni siquiera se preguntan tanto si ya "llegamos", sino que miden niveles, para ir viendo qué tan cerca estamos.
 
-## La singularidad: el momento en que dejamos de entender
+## La >singularidad: el momento en que dejamos de entender
 
 La singularidad es otra cosa. No es un software ni un modelo nuevo. Es una época, un momento histórico. El punto hipotético en que el avance tecnológico se vuelve tan rápido y tan profundo que los humanos perdemos la capacidad de predecirlo y controlarlo.
 
