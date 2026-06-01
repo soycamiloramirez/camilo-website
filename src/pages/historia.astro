@@ -1,42 +1,162 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import Historia from '../components/Historia.astro';
 import Footer from '../components/Footer.astro';
-import { COPY, SITE } from '../content/copy';
+import { SITE, CLIENT_BRANDS } from '../content/copy';
 
 const lang = 'es' as const;
-const page = COPY[lang].historia.meta;
-const url = `${SITE.url}/historia`;
+
+const pageTitle = 'Historia · Camilo Ramírez · 20+ años en negocios digitales';
+const pageDescription = 'Una carrera no lineal: broadcast design en CMI y RCN, Netbangers, Custom Built Show, Navigamo y The AI Collective. El mismo movimiento aplicado en mundos distintos.';
 
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: page.title,
-    description: page.description,
-    url,
+    '@type': 'AboutPage',
+    name: 'Historia · Camilo Ramírez',
+    url: `${SITE.url}/historia`,
+    description: pageDescription,
     inLanguage: 'es-CO',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    publisher: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    image: `${SITE.url}/og-image.jpg`,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    datePublished: '2026-05-29',
+    mainEntity: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+  },
+];
+
+const tickerBrands = [...CLIENT_BRANDS.map((b) => b.name), ...CLIENT_BRANDS.map((b) => b.name)];
+
+const chapters = [
+  {
+    n: '01',
+    years: '1999 – 2010',
+    kicker: 'La base creativa',
+    logo: { src: '/ds-assets/logos/rcn.svg', alt: 'Noticias RCN', cls: 'cr-chapter__logo--rcn' },
+    titleThin: 'Broadcast design en',
+    titleBold: 'televisión.',
+    paragraphs: [
+      'Empecé en 1999 como Diseñador Jr. en Buena Imagen TV. Cinco años después dirigía el Departamento de Diseño y Animación del Noticiero CM&; entre 2005 y 2010 hice lo mismo en Noticias RCN. Aprendí a comunicar con disciplina de tiempo y de marca: producir cien piezas semanales sin perder coherencia ni fidelidad al noticiero detrás.',
+    ],
+    pullquote: 'Acá aprendí que comunicar bien es una disciplina, no un talento.',
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
-      { '@type': 'ListItem', position: 2, name: 'Historia', item: url },
+    n: '02',
+    years: '2007 – 2026',
+    kicker: 'El oficio',
+    logo: { src: '/ds-assets/logos/netbangers-bw.png', alt: 'Netbangers', cls: 'cr-chapter__logo--nb' },
+    titleThin: 'Diecinueve años haciendo',
+    titleBold: 'negocios digitales.',
+    paragraphs: [
+      'Cofundé Netbangers en enero de 2007. Una agencia digital boutique en Bogotá, especializada en marcas de consumo masivo. En diecinueve años recogimos premios en Effie, FIAP, New York Festivals y Cyber, construimos un estudio propio de audio y video, y desarrollamos metodologías propias de auditoría digital y tableros de control. Esa fue la raíz de mi disciplina financiera, operativa y de marketing real, años antes de que la IA fuera tema.',
+      'Pero también fue donde vi el desgaste. Con la llegada de las redes sociales, los clientes se volcaron a perseguir likes. El SEO dejó de importarles. El día a día se redujo a producir cientos de piezas que no duraban más de cinco horas con vida.',
+    ],
+    pullquote: 'Mi convicción de construir desde el dolor real, no para vender, no nació de un libro. Nació de hartarme de lo contrario.',
+  },
+  {
+    n: '03',
+    years: '2018 – 2023',
+    kicker: 'La prueba',
+    logo: { src: '/ds-assets/logos/custombuiltshow.png', alt: 'Custom Built Show', cls: 'cr-chapter__logo--cbs' },
+    titleThin: 'El día que tuve que traer',
+    titleEm: 'un juez de Australia.',
+    paragraphs: [
+      'En 2018 fundé Custom Built Show, el primer festival de motos modificadas de Latinoamérica. Empezó porque modifico mis propias motos y, conociendo talleres en Bogotá, me di cuenta de que a esos constructores no les pagaban como artistas. Los trataban como mecánicos. Para mí estaban haciendo arte sobre dos ruedas.',
+      'Para que el show fuera válido descubrí algo incómodo: no podía tener jueces locales. Salí a buscar afuera y conseguí a Marlon Slack, redactor de Pipeburn, la publicación de motos custom más importante del mundo.',
+    ],
+    pullquote: 'Tuve que traer un juez de Australia para que un gremio se creyera bueno. Esa frase resume el problema de LATAM con su propio valor.',
+  },
+  {
+    n: '04',
+    years: '2024 – hoy',
+    kicker: 'La síntesis',
+    logo: { src: '/navigamo-logo.svg', alt: 'Navigamo' },
+    titleThin: 'La IA dejó de ser un chat',
+    titleBold: 'y se volvió propósito.',
+    paragraphs: [
+      'Venía jugando con IA desde 2022. A finales de 2023 empecé a pensar algo clave: más allá de una interfaz de chat, esto tenía que traducirse en un servicio de valor real. Con mi equipo creamos un agente de atención al cliente para un e-commerce de alimentos para mascotas: capaz de recomendar alimentos según raza, edad y enfermedades, dar precios por ración y calcular el mejor precio según el tamaño de cada referencia.',
+      'Esa es la diferencia entre usar IA y resolver un problema con IA. De ahí nació Navigamo. Hoy soy cofundador y Director LATAM. Construimos soluciones con IA que mejoran vidas y generan eficiencias reales para empresas en LATAM.',
+    ],
+  },
+  {
+    n: '05',
+    years: '2025 – hoy',
+    kicker: 'El rol regional',
+    logo: { src: '/aicollective-logo.svg', alt: 'The AI Collective' },
+    titleThin: 'The AI Collective LATAM.',
+    titleBold: 'El contrapeso humano.',
+    paragraphs: [
+      'En julio de 2025 asumí la Dirección Regional de LATAM de The AI Collective. Es la comunidad de IA más grande del planeta: más de 200.000 miembros, más de 180 capítulos en 40+ países, partners como Anthropic, Microsoft, Nvidia, Amazon, Perplexity y Meta. Su misión es ser el contrapeso humano en la era de aceleración de la IA.',
+    ],
+    pullquote: 'LATAM puede ser potencia con reglas propias. El modelo es commodity. El terreno, no.',
+  },
+  {
+    n: '06',
+    years: '2025 – hoy',
+    kicker: 'La voz pública',
+    logo: { src: '/ds-assets/memc-cover.jpg', alt: 'Métase en mi cabeza', cls: 'cr-chapter__logo--cover' },
+    titleThin: 'El criterio,',
+    titleBold: 'todos los días.',
+    paragraphs: [
+      'Métase en mi cabeza arrancó en abril de 2025. Un episodio en vivo por semana, ~60 minutos, con líderes que están construyendo el presente y el futuro de la región: ex CEO de Google Colombia, ex Ministro TIC, VP de Caracol, fundadores. IA con visión humana, no técnica.',
+      'Pertinente es lo más reciente. Yo solo, todos los días, ~10 minutos analizando un tema clave de IA, negocios o geopolítica en LATAM. Sin invitados, sin hype. El objetivo: que dueños de empresa y líderes entiendan hacia dónde va el dinero y la innovación.',
     ],
   },
 ];
 ---
-<Base lang={lang} pageTitle={page.title} pageDescription={page.description} pageType="article" path="/historia" extraJsonLd={extraJsonLd}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="profile" path="/historia" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
+
   <main>
-    <Historia lang={lang} />
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Historia</p>
+        <h1 class="cr-pagehead__title">Cinco capítulos,<br>un mismo movimiento.</h1>
+        <p class="cr-lead cr-pagehead__lead">De afuera mi trayectoria parece dispersa: televisión, agencia digital, una comunidad de motos, IA, podcast diario. Por dentro siempre fue lo mismo: ver un problema, construir el sistema que lo resuelve, al servicio de las personas. No soy experto en una industria. Soy bueno leyendo la estructura del problema y diseñando el sistema que lo resuelve, independiente del dominio. Lo demás son las herramientas de cada época.</p>
+      </div>
+    </section>
+
+    <section class="cr-ticker">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Marcas</p>
+        <h2 class="cr-ticker__h">Marcas que han confiado en mi criterio.</h2>
+        <p class="cr-ticker__p">Más de 20 años trabajando con marcas globales: antes desde Netbangers, hoy desde Navigamo.</p>
+      </div>
+      <div class="cr-ticker__track">
+        {tickerBrands.map((b) => (
+          <>
+            <span class="cr-ticker__brand">{b}</span>
+            <span class="cr-ticker__sep"></span>
+          </>
+        ))}
+      </div>
+    </section>
+
+    <section class="cr-histpage">
+      <div class="cr-container">
+        {chapters.map((c) => (
+          <article class="cr-chapter">
+            <div class="cr-chapter__aside">
+              <div class="cr-chapter__num">{c.n}</div>
+              <div class="cr-chapter__years">{c.years}</div>
+              <div class="cr-chapter__kicker">{c.kicker}</div>
+              <img class={`cr-chapter__logo ${c.logo.cls ?? ''}`} src={c.logo.src} alt={c.logo.alt}>
+            </div>
+            <div class="cr-chapter__body">
+              <h2 class="cr-chapter__title">
+                <span class="cr-d-thin">{c.titleThin}</span>{' '}
+                {c.titleEm ? <em class="cr-d-em">{c.titleEm}</em> : c.titleBold}
+              </h2>
+              {c.paragraphs.map((p) => <p>{p}</p>)}
+              {c.pullquote && <p class="cr-chapter__pull">{c.pullquote}</p>}
+            </div>
+          </article>
+        ))}
+
+        <div class="cr-hist-close">
+          <h2 class="cr-build__h"><span class="cr-d-thin">Eso es todo. Y por eso</span> este sitio existe.</h2>
+          <p>No tengo una historia recta porque nunca me interesó tenerla. La trayectoria entera fue un mismo movimiento aplicado en mundos distintos. La IA es el capítulo actual, no la identidad. El propósito sigue siendo el mismo de siempre: poner el talento al servicio de mejorar la vida de las personas.</p>
+          <a class="cr-btn cr-btn--accent" href="/#contacto" style="margin-top:24px">Trabajar conmigo</a>
+        </div>
+      </div>
+    </section>
   </main>
+
   <Footer lang={lang} />
 </Base>
