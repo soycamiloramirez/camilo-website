@@ -135,6 +135,11 @@ const chapters = [
     </section>
 
     <style>
+      /* Fondo blanco puro para que el blend-mode darken funcione perfecto
+         contra los JPGs con fondo blanco "baked in". Visualmente queda una
+         franja blanca de marca entre pagehead y capítulos. */
+      .cr-ticker { background: #FFFFFF; }
+
       /* Override DS ticker to use real logos in place of wordmarks */
       .cr-ticker__brand {
         display: inline-flex;
