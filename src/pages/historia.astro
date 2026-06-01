@@ -150,9 +150,11 @@ const chapters = [
         width: auto;
         max-width: 140px;
         object-fit: contain;
-        mix-blend-mode: multiply;
-        filter: grayscale(100%) contrast(1.05);
-        opacity: 0.85;
+        /* darken: anula el fondo blanco/claro de los JPG sobre el bg
+           off-white, y conserva los trazos oscuros del logo */
+        mix-blend-mode: darken;
+        filter: grayscale(100%) contrast(1.1);
+        opacity: 0.9;
       }
       @media (min-width: 768px) {
         .cr-ticker__brand img { max-width: 160px; }
