@@ -1,9 +1,12 @@
 ---
 title: 'Musk demandó a OpenAI por 138.000 millones. El juicio pone a prueba una promesa que nos hicieron a todos.'
-description: 'Mientras las empresas de inteligencia artificial mueven cifras de vértigo, hay una novela judicial que vale la pena seguir, no por el morbo de ver a dos multimillonarios pelear, sino porque en el fond'
+description: 'La demanda de Musk a OpenAI por 138.000 millones es el primer test serio de si sobrevive la promesa de "IA para el bien común" cuando hay cientos de miles de millones sobre la mesa.'
 date: 2026-05-28
 episode: 17
 categories: [geopolitica]
+tldr: 'La demanda de Musk a OpenAI por 138.000 millones no es chisme. Es el primer test serio de hasta dónde sobrevive la promesa de "IA para el bien de la humanidad" cuando hay cientos de miles de millones sobre la mesa.'
+pullquote: 'Cuando la plata en juego es tan brutal, ¿sobrevive el propósito original, o termina siendo un eslogan que se archiva cuando estorba?'
+aside: 'Musk fue cofundador y financió buena parte del capital inicial de OpenAI en 2015. Se fue en 2018 cuando empezaron a mutar a fines de lucro. Hoy demanda a la organización que él mismo ayudó a crear.'
 ---
 
 Mientras las empresas de inteligencia artificial mueven cifras de vértigo, hay una novela judicial que vale la pena seguir, no por el morbo de ver a dos multimillonarios pelear, sino porque en el fondo se está juzgando algo que nos prometieron a todos: que esta tecnología se iba a desarrollar para el bien de la humanidad. Elon Musk demandó a OpenAI y a Sam Altman, y pide hasta 138.000 millones de dólares en daños. Para entender el lío hay que devolverse al principio.

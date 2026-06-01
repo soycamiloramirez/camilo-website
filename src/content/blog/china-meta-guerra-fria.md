@@ -1,9 +1,12 @@
 ---
 title: 'China le quitó una empresa a Meta por una razón nueva: el origen de sus fundadores'
-description: 'Acaba de pasar algo que cambia las reglas del juego tecnológico mundial, y que en Latinoamérica deberíamos mirar con atención, porque dice mucho sobre el mundo en el que vamos a construir nuestros neg'
+description: 'China bloqueó la compra de una startup por Meta basándose en el origen étnico de sus fundadores. Primera vez que reclama jurisdicción sobre un negocio hecho fuera del país.'
 date: 2026-05-29
 episode: 18
 categories: [geopolitica]
+tldr: 'China bloqueó la compra de una startup por parte de Meta basándose en el origen étnico de sus fundadores. Es la primera vez que reclama jurisdicción sobre un negocio hecho fuera de su territorio. El precedente no tiene límites legales claros.'
+pullquote: 'Lo que se inventa en China, o lo inventan chinos, se queda en China.'
+aside: 'La estrategia que usaron los fundadores se conoce como "lavado de Singapur": presentarse como empresa del sudeste asiático para acceder a capital occidental. Acaba de morir como táctica.'
 ---
 
 Acaba de pasar algo que cambia las reglas del juego tecnológico mundial, y que en Latinoamérica deberíamos mirar con atención, porque dice mucho sobre el mundo en el que vamos a construir nuestros negocios. China le echó para atrás a Meta la compra de una empresa de inteligencia artificial, un negocio de unos 2.500 millones de dólares que ya estaba prácticamente cerrado. Y la razón por la que lo hizo es lo verdaderamente inquietante.

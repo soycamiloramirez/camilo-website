@@ -1,12 +1,13 @@
 ---
 title: 'Las empresas dejaron de comprar la IA más famosa. Empezaron a comprar la que funciona.'
-description: 'Casi todos, cuando pensamos en inteligencia artificial, pensamos en ChatGPT. Se volvió como Kleenex: la marca que se tragó la categoría entera. Nadie decía "pásame un pañuelo", decía "pásame un Kleene'
+description: 'Anthropic superó a OpenAI en adopción corporativa. Pasó del 9% al liderazgo en doce meses. Las empresas ya no eligen por fama: eligen por la que de verdad funciona.'
 date: 2026-05-20
 episode: 9
 categories: [negocios]
+tldr: 'Por primera vez Anthropic superó a OpenAI en adopción corporativa: 34,4% vs 32,3%. Pasó del 9% al liderazgo en doce meses. Cuando los equipos técnicos evalúan las dos plataformas de frente, Anthropic gana 7 de cada 10 contratos. No es marketing, es criterio.'
+pullquote: 'Elegir por fama es lo fácil. Elegir por criterio es lo que separa a las empresas que aprovechan la IA de las que solo la pagan.'
+aside: 'Cuando el Pentágono pidió acceso sin restricciones para vigilar ciudadanos y construir armas, una de las dos compañías dijo que no. La otra aceptó. En el mundo corporativo, eso pesa al elegir.'
 ---
-
-# Las empresas dejaron de comprar la IA más famosa. Empezaron a comprar la que funciona.
 
 Casi todos, cuando pensamos en inteligencia artificial, pensamos en ChatGPT. Se volvió como Kleenex: la marca que se tragó la categoría entera. Nadie decía "pásame un pañuelo", decía "pásame un Kleenex". Con la IA pasó igual: la gente no dice inteligencia artificial, dice ChatGPT. Por eso esta noticia es tan reveladora, porque muestra que en el mundo donde se toman las decisiones con plata de verdad, la fama ya no manda.
 

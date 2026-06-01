@@ -1,6 +1,275 @@
-/* DS v2 page styles (styles.css + pages.css from Claude Design entrega 2)
-   Imported globally by Layout. Do not edit; replace from design-handoff/. */
+/* DS v2.2 styles · order: semantic base FIRST, page-specific overrides SECOND */
 
+/* ---------- Semantic base classes ---------- */
+.cr-display-1, h1.cr-display {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: var(--display-1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.cr-display-2 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--display-2);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ---------- Display treatments (weight-contrast signature) ---------- */
+.cr-d-thin { font-weight: 200; letter-spacing: -0.005em; }
+.cr-d-bold { font-weight: 700; }
+.cr-d-em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.cr-d-em--ondark { color: #C75CA6; }
+
+.cr-h1, h1 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--h1);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cr-h2, h2 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--h2);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cr-h3, h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--h3);
+  line-height: 1.3;
+  letter-spacing: var(--tracking-heading);
+  color: var(--ink);
+  margin: 0;
+}
+
+.cr-h4, h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--h4);
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cr-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.cr-eyebrow--accent { color: var(--accent); }
+
+.cr-lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.cr-body, p {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.cr-caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--caption);
+  line-height: 1.45;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+.cr-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cr-mono, code {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+.cr-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- Buttons ---------- */
+.cr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+  text-decoration: none;
+}
+.cr-btn--primary {
+  background: var(--ink);
+  color: var(--ink-on-dark);
+}
+.cr-btn--primary:hover { background: var(--accent); color: #fff; }
+
+.cr-btn--accent {
+  background: var(--accent);
+  color: #fff;
+}
+.cr-btn--accent:hover { background: var(--accent-deep); }
+
+.cr-btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+}
+.cr-btn--ghost:hover { border-color: var(--ink); }
+
+.cr-btn--link {
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--ink);
+}
+.cr-btn--link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- Form fields (bottom-border only) ---------- */
+.cr-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.cr-field__label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.cr-field__input {
+  font-family: var(--font-sans);
+  font-size: var(--body);
+  color: var(--ink);
+  padding: 10px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.cr-field__input:focus {
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Card ---------- */
+.cr-card {
+  background: var(--bg-pure);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--s-6);
+  transition: box-shadow var(--dur-base) var(--ease);
+}
+.cr-card:hover { box-shadow: var(--elev-1); }
+
+/* ---------- Media card (podcast / show / episode promo) ---------- */
+.cr-mediacard { display: flex; flex-direction: row; border: 1px solid var(--hairline); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-pure); transition: box-shadow var(--dur-base) var(--ease); text-decoration: none; color: inherit; }
+.cr-mediacard:hover { box-shadow: var(--elev-1); }
+.cr-mediacard__art { width: 200px; aspect-ratio: 1 / 1; flex: none; background-size: cover; background-position: center; }
+.cr-mediacard__body { padding: var(--s-6); display: flex; flex-direction: column; gap: var(--s-3); flex: 1; min-width: 0; }
+.cr-mediacard__meta { font-size: var(--eyebrow); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.cr-mediacard__title { font-weight: 700; font-size: var(--h2); letter-spacing: var(--tracking-heading); line-height: 1.1; margin: 0; color: var(--ink); }
+.cr-mediacard__desc { font-size: var(--body-lg); line-height: var(--lh-body); color: var(--ink-2); margin: 0; }
+.cr-mediacard__foot { font-size: var(--caption); color: var(--ink-3); margin: 0; }
+.cr-mediacard__cta { align-self: flex-start; margin-top: var(--s-2); }
+.cr-mediacard--feature .cr-mediacard__art { width: 360px; }
+.cr-mediacard--feature .cr-mediacard__body { padding: var(--s-7); gap: var(--s-4); justify-content: center; }
+.cr-mediacard--feature .cr-mediacard__title { font-size: clamp(26px, 3vw, 38px); line-height: 1.05; }
+@media (max-width: 720px) { .cr-mediacard--feature .cr-mediacard__art { width: 100%; aspect-ratio: 16 / 9; } }
+@media (max-width: 560px) { .cr-mediacard { flex-direction: column; } .cr-mediacard__art { width: 100%; aspect-ratio: 16 / 9; } }
+
+/* ---------- Portrait ring (the signature mark) ---------- */
+.cr-ring {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px solid var(--accent);
+}
+.cr-ring > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* ---------- Container utilities ---------- */
+.cr-container { max-width: var(--container); margin: 0 auto; padding: 0 var(--s-6); }
+.cr-container--narrow { max-width: var(--container-narrow); margin: 0 auto; padding: 0 var(--s-6); }
+
+/* ---------- Body baseline ---------- */
+html, body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); }
+* { box-sizing: border-box; }
+
+/* ---------- styles.css ---------- */
 /* UI Kit · camilo-ramirez.com — rebuilt on real site data, our design system */
 @import url("tokens.css");
 
@@ -51,7 +320,7 @@ img { max-width: 100%; }
 .cr-hero__actions { margin-top: var(--s-6); display: flex; gap: var(--s-5); align-items: center; flex-wrap: wrap; }
 .cr-hero__foot { margin-top: var(--s-7); font-size: var(--caption); color: var(--ink-3); font-weight: 500; }
 .cr-hero__media { display: flex; justify-content: center; align-items: center; }
-.cr-hero__photo { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1 / 1; border-radius: var(--radius-md); background-image: url("assets/camilo-hero.jpg"); background-size: cover; background-position: 50% 24%; filter: grayscale(1) contrast(1.04); box-shadow: inset 0 0 0 1px var(--hairline); }
+.cr-hero__photo { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1 / 1; border-radius: var(--radius-md); background-image: url("/ds-assets/camilo-hero.jpg"); background-size: cover; background-position: 50% 24%; filter: grayscale(1) contrast(1.04); box-shadow: inset 0 0 0 1px var(--hairline); }
 
 /* ---------- Building (Navigamo / AI Collective / partners) ---------- */
 .cr-build { padding: var(--s-9) 0; background: var(--bg-pure); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
@@ -184,12 +453,12 @@ img { max-width: 100%; }
 .cr-footer__col a:hover { color: #C75CA6; }
 .cr-footer__bottom { border-top: 1px solid rgba(244,244,243,.12); padding-top: var(--s-4); display: flex; justify-content: space-between; font-size: var(--caption); color: var(--ink-3); }
 
+/* ---------- Mobile menu (checkbox hack, no JS) ---------- */
+.cr-burger-cb { display: none; }
+.cr-burger { display: none; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 920px) {
-  .cr-header__inner { gap: var(--s-4); flex-wrap: wrap; }
-  .cr-header__nav { gap: var(--s-4); margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
-  .cr-header__navlink { font-size: var(--body); }
-  .cr-header__lang { display: none; }
   .cr-hero__grid, .cr-build__row, .cr-ultimo__grid, .cr-work__grid, .cr-contact__inner, .cr-footer__top { grid-template-columns: 1fr; }
   .cr-pod { flex-direction: column; }
   .cr-pod__art { width: 100%; aspect-ratio: 16/9; }
@@ -197,8 +466,51 @@ img { max-width: 100%; }
   .cr-post { grid-template-columns: 1fr; gap: var(--s-2); }
   .cr-tray__item { grid-template-columns: 1fr; gap: var(--s-2); }
 }
-@media (max-width: 560px) {
-  .cr-header__nav { display: none; }
+
+@media (max-width: 760px) {
+  /* container breathes less on phones */
+  .cr-container, .cr-container--narrow { padding: 0 var(--s-4); }
+
+  /* header: brand left, Contact + burger right; nav collapses to dropdown */
+  .cr-header__inner { gap: var(--s-3); position: relative; }
+  .cr-header__brand { order: 1; }
+  .cr-header__lang { display: none; }
+  .cr-header__right { order: 4; margin-left: auto; }
+  .cr-header__cta { padding: 10px 16px !important; }
+  .cr-burger {
+    order: 5;
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 11px;
+    background: transparent; border: 0; cursor: pointer; flex: none;
+  }
+  .cr-burger span { display: block; height: 2px; width: 100%; background: var(--ink); border-radius: 2px; transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease); }
+  .cr-burger-cb:checked ~ .cr-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .cr-burger-cb:checked ~ .cr-burger span:nth-child(2) { opacity: 0; }
+  .cr-burger-cb:checked ~ .cr-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .cr-header__nav {
+    order: 6; display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0; margin: 0;
+    background: var(--bg-pure); border-bottom: 1px solid var(--hairline);
+    box-shadow: var(--elev-1); padding: var(--s-2) var(--s-4) var(--s-4);
+  }
+  .cr-burger-cb:checked ~ .cr-header__nav { display: flex; }
+  .cr-header__navlink { font-size: var(--h4); padding: var(--s-4) 0; border-bottom: 1px solid var(--hairline); width: 100%; }
+  .cr-header__navlink:last-child { border-bottom: 0; }
+  .cr-header__navlink.is-active { border-bottom-color: var(--hairline); color: var(--accent); }
+}
+
+/* ---------- Mobile type scale (headings shrink) ---------- */
+@media (max-width: 600px) {
+  :root {
+    --h1: 30px;
+    --h2: 25px;
+    --h3: 20px;
+    --body-lg: 18px;
+  }
+}
+@media (max-width: 400px) {
+  :root { --h1: 27px; --h2: 23px; }
 }
 
 /* EN site: marker for Spanish-only content (transparency) */

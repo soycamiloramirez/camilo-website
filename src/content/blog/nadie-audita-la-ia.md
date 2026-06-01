@@ -1,9 +1,12 @@
 ---
 title: 'Su negocio depende de una tecnología que nadie está auditando'
-description: 'Le voy a hacer una pregunta que probablemente no se ha hecho, aunque ya esté usando inteligencia artificial en su empresa: ¿quién garantiza que el modelo sobre el que montó su operación hace lo que di'
+description: 'La regulación de IA en Estados Unidos se cayó horas antes de firmarse. Hoy las empresas se auditan solas y los científicos admiten que no controlan del todo lo que construyen.'
 date: 2026-05-13
 episode: 2
 categories: [geopolitica]
+tldr: 'La regulación de IA en Estados Unidos se cayó horas antes de firmarse. Hoy las empresas se auditan solas, son juez y parte, y los propios científicos admiten que no controlan del todo lo que construyen. Su negocio depende de eso.'
+pullquote: 'Depender de algo que nadie audita no es necesariamente un error. Hacerlo sin saberlo, sí.'
+aside: 'Tres de los hombres más poderosos de la tecnología llamaron al presidente de Estados Unidos horas antes de la firma. Lo convencieron con un argumento simple: regular frena a Estados Unidos frente a China.'
 ---
 
 Le voy a hacer una pregunta que probablemente no se ha hecho, aunque ya esté usando inteligencia artificial en su empresa: ¿quién garantiza que el modelo sobre el que montó su operación hace lo que dice que hace? ¿Quién lo revisa? ¿Quién responde si falla?

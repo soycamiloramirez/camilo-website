@@ -1,9 +1,12 @@
 ---
 title: 'ChatGPT empezó a venderte publicidad. El problema no es el anuncio.'
-description: 'Durante años, el jefe de OpenAI habló mal de la publicidad. Decía que ese no era su camino, que sus ingresos vendrían de suscripciones y de vender acceso a su tecnología, no de anuncios. La publicidad'
+description: 'ChatGPT empezó a vender publicidad después de años de prometer que nunca lo haría. El problema no es el anuncio: es que un asistente íntimo pierde la línea entre consejo y negocio.'
 date: 2026-05-22
 episode: 11
 categories: [negocios]
+tldr: 'OpenAI atacó la publicidad durante años. Acaba de meter anuncios en ChatGPT porque la presión financiera ganó. El problema no es el anuncio: es que un asistente íntimo pierde la línea entre consejo honesto y negocio pagado.'
+pullquote: 'Una empresa que se vendía como la excepción terminó pareciéndose cada vez más a la industria que decía venir a corregir.'
+aside: 'Sam Altman llevaba años diciendo en público que OpenAI nunca iría por publicidad. El cambio no llegó por inspiración. Llegó porque los inversionistas piden una ruta clara a ingresos sostenibles.'
 ---
 
 Durante años, el jefe de OpenAI habló mal de la publicidad. Decía que ese no era su camino, que sus ingresos vendrían de suscripciones y de vender acceso a su tecnología, no de anuncios. La publicidad era, en su discurso, la mala palabra. Por eso lo que acaba de pasar llama tanto la atención: ChatGPT empezó a mostrar publicidad. Y cuando una empresa rompe así con algo que defendió durante años, no lo hace por inspiración. Lo hace porque algo la está apretando.

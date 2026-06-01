@@ -116,8 +116,8 @@
   --tracking-label: 0.14em;
 
   /* ---------- Type: scale ---------- */
-  --display-1:    clamp(56px, 8vw, 88px);
-  --display-2:    clamp(40px, 5.5vw, 56px);
+  --display-1:    clamp(38px, 8vw, 88px);
+  --display-2:    clamp(30px, 5.5vw, 56px);
   --h1:           40px;
   --h2:           30px;
   --h3:           22px;

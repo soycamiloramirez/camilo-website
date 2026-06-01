@@ -65,8 +65,8 @@
   --font-mono:    "Helvetica Neue", "Helvetica", Arial, sans-serif;
 
   /* ---------- Type scale (DS v2) ---------- */
-  --text-display-1: clamp(56px, 8vw, 88px);
-  --text-display-2: clamp(40px, 5.5vw, 56px);
+  --text-display-1: clamp(38px, 8vw, 88px);
+  --text-display-2: clamp(30px, 5.5vw, 56px);
   --text-display-3: clamp(28px, 4vw, 36px);
   --text-h1:        40px;
   --text-h2:        30px;
@@ -131,6 +131,27 @@
   --container-narrow: 960px;
   --container-text:   720px;
   --header-h:         80px;
+
+  /* ---------- DS v2 aliases (nombres que usa el CSS de Claude Design) ---------- */
+  --display-1:        var(--text-display-1);
+  --display-2:        var(--text-display-2);
+  --display-3:        var(--text-display-3);
+  --h1:               var(--text-h1);
+  --h2:               var(--text-h2);
+  --h3:               var(--text-h3);
+  --h4:               var(--text-h4);
+  --eyebrow:          var(--text-eyebrow);
+  --body-lg:          var(--text-body-lg);
+  --body:             var(--text-body);
+  --caption:          var(--text-caption);
+  --hairline:         var(--rule);
+  --hairline-strong:  var(--rule-strong);
+  --hairline-on-dark: var(--rule-on-dark);
+  --lh-tight:         var(--leading-tight);
+  --lh-display:       var(--leading-display);
+  --lh-heading:       var(--leading-heading);
+  --lh-body:          var(--leading-body);
+  --font-label:       var(--font-sans);
 }
 
 /* =================================================================

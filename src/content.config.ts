@@ -19,6 +19,11 @@ const blog = defineCollection({
     categories: z.array(z.enum(['negocios', 'geopolitica', 'latam', 'aprende'])).min(1),
     episode: z.number().int().positive().optional(),
     draft: z.boolean().default(false),
+    hidden: z.boolean().default(false),
+    tldr: z.string().optional(),
+    pullquote: z.string().optional(),
+    aside: z.string().optional(),
+    hero_image: z.string().optional(),
   }),
 });
 

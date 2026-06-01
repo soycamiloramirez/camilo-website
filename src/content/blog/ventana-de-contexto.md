@@ -1,9 +1,12 @@
 ---
 title: 'La IA no se le "olvidan" las cosas. Pasa algo más simple, y entenderlo le ahorra plata.'
-description: 'A todos nos ha pasado. Uno lleva un rato largo trabajando con ChatGPT, le ha explicado el contexto con paciencia, y de repente la herramienta responde como si acabara de llegar a la conversación. "Per'
+description: 'Cuando ChatGPT se olvida de algo no es magia ni falla: es que su ventana de contexto se llenó. Entender esto le ahorra plata y mejora cada respuesta que recibe.'
 date: 2026-05-14
 episode: 3
 categories: [aprende]
+tldr: 'Cuando ChatGPT "se olvida" de algo, no es magia ni falla. Es que su ventana de contexto se llenó y la información que necesitaba se cayó de la sala. Entender esto le ahorra plata y mejora cada respuesta que recibe.'
+pullquote: 'La IA no le entiende. Está convirtiendo sus palabras en números y devolviéndolos en el orden que tiene más probabilidad de sonar bien.'
+aside: 'Cada token que entra a la conversación es plata saliendo de su billetera. Llenar la ventana de basura no solo empeora las respuestas: le sale caro.'
 ---
 
 A todos nos ha pasado. Uno lleva un rato largo trabajando con ChatGPT, le ha explicado el contexto con paciencia, y de repente la herramienta responde como si acabara de llegar a la conversación. "Pero si esto te lo expliqué hace rato", le reclama uno, casi ofendido. Y la sensación es que la máquina se volvió bruta, o perezosa, o que le está tomando el pelo.

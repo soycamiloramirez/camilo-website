@@ -1,12 +1,13 @@
 ---
 title: 'El gobierno de EE.UU. ya prueba los modelos de IA antes que usted. Y nosotros ni miramos.'
-description: 'La mayoría de las noticias sobre inteligencia artificial hablan de funciones nuevas, de modelos más rápidos, de precios que bajan. Pero la noticia que de verdad cambia las reglas del juego no tiene qu'
+description: 'Estados Unidos audita los modelos de IA por dentro antes de que salgan al público. Ningún país latinoamericano tiene silla en esa mesa, ni siquiera como observador.'
 date: 2026-05-24
 episode: 13
 categories: [geopolitica]
+tldr: 'Estados Unidos audita por dentro los modelos de IA de los cinco laboratorios principales antes de que salgan al público. Ningún país latinoamericano tiene silla en esa mesa, ni siquiera como observador.'
+pullquote: 'Estados Unidos no está afuera tratando de regular desde lejos. Está adentro, viendo el detalle de cada modelo antes de que salga.'
+aside: 'Kenia es el único país del sur global con silla en la red internacional de institutos de seguridad de IA. Ningún país latinoamericano participa, ni siquiera como observador.'
 ---
-
-# El gobierno de EE.UU. ya prueba los modelos de IA antes que usted. Y nosotros ni miramos.
 
 La mayoría de las noticias sobre inteligencia artificial hablan de funciones nuevas, de modelos más rápidos, de precios que bajan. Pero la noticia que de verdad cambia las reglas del juego no tiene que ver con código. Tiene que ver con poder. Y es esta: los cinco laboratorios que definen la frontera de la IA en el mundo ya le dan acceso a sus modelos al gobierno de Estados Unidos antes de que usted o yo podamos probarlos.
 

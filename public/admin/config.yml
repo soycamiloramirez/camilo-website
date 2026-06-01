@@ -75,4 +75,39 @@ collections:
         }
       - { name: episode, label: 'Episodio de Pertinente (opcional)', widget: number, required: false, value_type: int, min: 1 }
       - { name: draft, label: 'Borrador', widget: boolean, default: false, required: false, hint: 'Marca como borrador para que no salga publicado todavía.' }
-      - { name: body, label: 'Cuerpo', widget: markdown, required: true }
+      - { name: hidden, label: 'Oculto del listado', widget: boolean, default: false, required: false, hint: 'Si está activo, no aparece en /blog pero la URL sigue funcionando. Útil para style guide o piezas internas.' }
+      - {
+          name: tldr,
+          label: 'TL;DR (opcional)',
+          widget: text,
+          required: false,
+          hint: 'Resumen de 1-2 líneas que aparece como caja destacada arriba del cuerpo. Si lo dejas vacío, no aparece.',
+        }
+      - {
+          name: pullquote,
+          label: 'Pull-quote (opcional)',
+          widget: text,
+          required: false,
+          hint: 'Frase fuerte del artículo que se renderiza grande en Fraunces italic con acento morado. Aparece al final del cuerpo. Si lo dejas vacío, no aparece.',
+        }
+      - {
+          name: aside,
+          label: 'Nota lateral (opcional)',
+          widget: text,
+          required: false,
+          hint: 'Texto corto que flota a la derecha en desktop, debajo en mobile. Para datos secundarios o aclaraciones. Si lo dejas vacío, no aparece.',
+        }
+      - {
+          name: hero_image,
+          label: 'Imagen hero (opcional)',
+          widget: image,
+          required: false,
+          hint: 'Imagen grande arriba del título. Si no la cargas, el post empieza con el título directo.',
+        }
+      - {
+          name: body,
+          label: 'Cuerpo',
+          widget: markdown,
+          required: true,
+          hint: 'Markdown estándar. Elementos disponibles: ## (h2 con franja), ### (h3), > (cita Fraunces), - (lista con franja), 1. (lista numerada accent), --- (divider), `código`, ```bloques```, ![](imagen). NO uses # h1 (el título va arriba en el campo Título).',
+        }

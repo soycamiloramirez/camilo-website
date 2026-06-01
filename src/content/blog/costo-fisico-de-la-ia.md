@@ -1,9 +1,12 @@
 ---
 title: 'Cada respuesta de la IA cuesta lo que consume una ciudad. Vale la pena saberlo.'
-description: 'Usamos la inteligencia artificial como si fuera magia. Le pedimos algo, nos responde en segundos, y seguimos con el día. Pero detrás de esa respuesta instantánea hay una realidad física descomunal que'
+description: 'Detrás de cada respuesta de la IA hay reactores de energía, turbinas de gas y comunidades afectadas. La fábrica que entrena a Anthropic consume 300 megavatios. Vale la pena saberlo.'
 date: 2026-05-23
 episode: 12
 categories: [geopolitica, aprende]
+tldr: 'Detrás de cada respuesta instantánea de la IA hay reactores de energía, turbinas de gas y comunidades afectadas. La fábrica de Musk en Memphis que entrena a Anthropic consume 300 megavatios. Es lo que produce un pequeño reactor nuclear entero.'
+pullquote: 'Cuando uno entiende que detrás de cada respuesta hay reactores, turbinas y comunidades, deja de tratar la IA como magia gratuita.'
+aside: 'Una casa promedio consume 0,0005 megavatios. Un hospital mediano, entre 1 y 5. Colossus, la fábrica de Musk en Memphis, consume 300. Lo equivalente a un reactor nuclear pequeño.'
 ---
 
 Usamos la inteligencia artificial como si fuera magia. Le pedimos algo, nos responde en segundos, y seguimos con el día. Pero detrás de esa respuesta instantánea hay una realidad física descomunal que casi nadie ve, y conviene verla, no para satanizar la tecnología, sino para entender de qué depende de verdad. La historia de una vieja fábrica en Memphis lo explica perfecto.

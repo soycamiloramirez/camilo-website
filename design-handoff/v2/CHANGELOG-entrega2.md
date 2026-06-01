@@ -29,3 +29,7 @@ Fecha: 2026-06-01
 - Conectar /podcasts a podcasts.ts (51 entries)
 - Conectar /blog a content collection (20 .md actuales)
 - Header/footer extraídos a layout compartido
+
+## Responsive (añadido post-entrega)
+- Menú mobile (hamburguesa) con checkbox-hack sin JS: visible ≤760px, despliega los 4 links + el botón Contacto permanece en la barra.
+- Escala tipográfica mobile: display y headings (--h1/--h2/--h3) se reducen en ≤600px y ≤400px vía media queries en styles.css; display clamps con piso bajo (38/30px).

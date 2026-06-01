@@ -1,12 +1,13 @@
 ---
 title: 'OpenAI le dio mil millones a un exconvicto. La razón nos deja a todos en evidencia.'
-description: 'Voy a empezar por el dato que parece un titular amarillista pero es completamente real: OpenAI, los de ChatGPT, le firmaron un cheque de mil millones de dólares a una empresa dirigida por un hombre qu'
+description: 'OpenAI le adelantó mil millones a Cerebras y se comprometió a comprarle 20.000 millones más en chips. Más capital que todo el venture latinoamericano de un año entero.'
 date: 2026-05-19
 episode: 8
 categories: [geopolitica]
+tldr: 'OpenAI le adelantó 1.000 millones a Cerebras para rescatarla de un bloqueo regulatorio y se comprometió a comprarle 20.000 millones más en chips. En una sola maniobra movió más capital que todo el venture capital latinoamericano en su mejor año.'
+pullquote: 'Nuestra participación real en toda esta cadena de valor se reduce a una cosa: pagar la cuenta a fin de mes.'
+aside: 'Toda América Latina levantó menos de 16.000 millones en venture capital en su mejor año. OpenAI movió más que eso en una sola empresa solo para abaratar el costo de operar ChatGPT.'
 ---
-
-# OpenAI le dio mil millones a un exconvicto. La razón nos deja a todos en evidencia.
 
 Voy a empezar por el dato que parece un titular amarillista pero es completamente real: OpenAI, los de ChatGPT, le firmaron un cheque de mil millones de dólares a una empresa dirigida por un hombre que se declaró culpable de un delito financiero grave. No es chisme. Y entender por qué lo hicieron dice más sobre el futuro de su negocio que cualquier anuncio de un modelo nuevo.
 

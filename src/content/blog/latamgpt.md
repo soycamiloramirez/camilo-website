@@ -1,9 +1,12 @@
 ---
 title: 'Latinoamérica acaba de construir su propia IA. No es la mejor, y no importa.'
-description: 'En febrero de este año, en Santiago de Chile, se lanzó LatamGPT: el primer gran modelo de lenguaje abierto hecho en y para América Latina. Y la primera reacción de mucha gente, sobre todo de la que sa'
+description: 'Chile lanzó LatamGPT, el primer modelo grande hecho por y para América Latina. Los críticos no entendieron por qué: no nació para ganarle a OpenAI sino para que dejemos de ser invisibles.'
 date: 2026-05-16
 episode: 5
 categories: [latam]
+tldr: 'Chile lanzó LatamGPT, el primer modelo grande hecho por y para América Latina. Está dos años atrás del estado del arte y los críticos no entendieron. El modelo no nació para ganarle a OpenAI: nació para que dejemos de ser invisibles dentro de la tecnología que vamos a usar todos los días.'
+pullquote: 'Las cosas que de verdad cambian la región no pasan porque un ministerio las anuncie, sino porque suficientes personas decidan ponerles el hombro.'
+aside: 'LatamGPT incluye pilotos en lenguas indígenas como el rapanui y el mapudungun. Los modelos comerciales nunca van a tenerlas en cuenta porque no les interesa el mercado.'
 ---
 
 En febrero de este año, en Santiago de Chile, se lanzó LatamGPT: el primer gran modelo de lenguaje abierto hecho en y para América Latina. Y la primera reacción de mucha gente, sobre todo de la que sabe de tecnología, fue tibia. "Está dos o tres años atrasado frente a los modelos de frontera." "La inversión es ridícula al lado de los gringos." "Eso no compite con nadie."

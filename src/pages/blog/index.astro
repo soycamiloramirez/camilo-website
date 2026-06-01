@@ -3,13 +3,14 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import PostCard from '../../components/blog/PostCard.astro';
-import CategoryNav from '../../components/blog/CategoryNav.astro';
 import { SITE } from '../../content/copy';
 
 const lang = 'es' as const;
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const featured = posts[0];
+const rest = posts.slice(1);
 
 const pageTitle = 'Blog · Criterio sobre IA, negocios y LATAM | Camilo Ramírez';
 const pageDescription = 'Análisis editorial diario sobre IA, negocios, geopolítica y oportunidades en Latinoamérica. Cada artículo nace de un episodio de Pertinente.';
@@ -26,31 +27,101 @@ const extraJsonLd = [
     blogPost: posts.slice(0, 10).map((p) => ({
       '@type': 'BlogPosting',
       headline: p.data.title,
-      url: `${SITE.url}/blog/${p.id}`,
+      url: `${SITE.url}/blog/${p.slug}`,
       datePublished: p.data.date.toISOString(),
     })),
   },
 ];
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function readingMin(body: string) {
+  return Math.max(1, Math.round(body.split(/\s+/).length / 220));
+}
+
+// Categorías para el filtro chip-nav. Mantener slugs estables.
+const categories = [
+  { slug: 'todos', label: 'Todos' },
+  { slug: 'negocios', label: 'Negocios y estrategia' },
+  { slug: 'geopolitica', label: 'Geopolítica y mercado' },
+  { slug: 'latam', label: 'LATAM' },
+  { slug: 'aprende', label: 'Aprende' },
+];
+
+// Normaliza la categoría del post a uno de los slugs del filtro.
+function catSlug(cat?: string): string {
+  if (!cat) return 'negocios';
+  const c = cat.toLowerCase();
+  if (c.includes('geopol')) return 'geopolitica';
+  if (c.includes('latam')) return 'latam';
+  if (c.includes('aprende')) return 'aprende';
+  return 'negocios';
+}
 ---
 <Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/blog" extraJsonLd={extraJsonLd} hasAlternate={false}>
   <Header lang={lang} />
-  <main class="pt-28 pb-20 md:pt-36 md:pb-28">
-    <header class="mx-auto max-w-5xl px-6 lg:px-10 mb-14 md:mb-20">
-      <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">Blog</p>
-      <h1 class="font-display text-display-1 leading-display tracking-display text-ink">
-        Criterio sobre IA, negocios y LATAM.
-      </h1>
-      <p class="mt-7 text-body-lg leading-relaxed text-ink/80 max-w-2xl">
-        Cada artículo nace de un episodio de <a href="/#ultimo" class="underline decoration-accent underline-offset-4 hover:text-accent transition-colors">Pertinente</a>, mi análisis diario. Acá los puedes leer: el mismo criterio, en formato editorial.
-      </p>
-    </header>
 
-    <div class="mx-auto max-w-5xl px-6 lg:px-10">
-      <CategoryNav current="all" />
-      <div class="grid gap-10 md:gap-12">
-        {posts.map((post) => <PostCard post={post} />)}
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Blog</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">El mismo criterio, en formato</span> <em class="cr-d-em">editorial.</em></h1>
+        <p class="cr-lead cr-pagehead__lead">Cada artículo nace de un episodio de Pertinente, mi análisis diario. Para fundadores, ejecutivos y operadores que necesitan entender hacia dónde va el dinero y la innovación en la región, sin hype.</p>
       </div>
-    </div>
+    </section>
+
+    <section class="cr-blogix">
+      <div class="cr-container">
+        <div class="cr-filter" role="group" aria-label="Filtrar por categoría">
+          {categories.map((c, i) => (
+            <button class={`cr-filter__chip ${i === 0 ? 'is-on' : ''}`} data-cat={c.slug} type="button">{c.label}</button>
+          ))}
+        </div>
+
+        {featured && (
+          <a class="cr-mediacard cr-mediacard--feature" href={`/blog/${featured.slug}`} data-cat={catSlug(featured.data.categories?.[0])}>
+            <div class="cr-mediacard__art" style="background-image:url('/camilo-hero.jpg')"></div>
+            <div class="cr-mediacard__body">
+              <div class="cr-mediacard__meta">Destacado · {featured.data.categories?.[0] ?? 'Blog'}</div>
+              <h2 class="cr-mediacard__title">{featured.data.title}</h2>
+              <p class="cr-mediacard__desc">{featured.data.description}</p>
+              <p class="cr-mediacard__foot">{fmtDate(featured.data.date)} · {readingMin(featured.body ?? '')} min de lectura</p>
+              <span class="cr-btn cr-btn--link cr-mediacard__cta">Leer el ensayo →</span>
+            </div>
+          </a>
+        )}
+
+        <div class="cr-ix__list cr-blog__list">
+          {rest.map((post) => (
+            <a class="cr-post" href={`/blog/${post.slug}`} data-cat={catSlug(post.data.categories?.[0])}>
+              <span class="cr-post__cat">{post.data.categories?.[0] ?? 'Blog'}</span>
+              <h3 class="cr-post__title">{post.data.title}</h3>
+              <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   </main>
+
   <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('.cr-filter__chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var cat = chip.getAttribute('data-cat');
+        document.querySelectorAll('.cr-filter__chip').forEach(function (c) { c.classList.remove('is-on'); });
+        chip.classList.add('is-on');
+        document.querySelectorAll('[data-cat]:not(.cr-filter__chip)').forEach(function (el) {
+          if (cat === 'todos' || el.getAttribute('data-cat') === cat) {
+            el.style.display = '';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </Base>

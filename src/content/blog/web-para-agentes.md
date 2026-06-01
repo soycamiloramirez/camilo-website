@@ -1,12 +1,13 @@
 ---
 title: 'Su página web fue construida para humanos. Pronto la van a leer máquinas.'
-description: 'Durante veinte años, todos los que hacemos cosas en digital aprendimos la misma lección: hay que diseñar para personas. Botones claros, navegación intuitiva, un checkout en tres pasos para que el clie'
+description: 'Su página web fue diseñada para humanos. Pronto la van a leer agentes de IA. Quien gana ya no es quien tiene la web más bonita: quien tiene la información mejor estructurada.'
 date: 2026-05-15
 episode: 4
 categories: [negocios, aprende]
+tldr: 'Su página web fue diseñada para humanos. Pronto el que la va a leer será un agente de IA que busca y compara por sus clientes. Quien gana ya no es quien tiene la web más bonita: es quien tiene la información más útil y mejor estructurada.'
+pullquote: 'Se acabó la carrera por volumen. Ahora gana quien da la información más relevante, no la más larga.'
+aside: 'Google estandarizó web MCP, un protocolo para que las páginas estén dispuestas a ser leídas por agentes. No es teoría futura: es la próxima capa de internet, anunciada en su último evento.'
 ---
-
-# Su página web fue construida para humanos. Pronto la van a leer máquinas.
 
 Durante veinte años, todos los que hacemos cosas en digital aprendimos la misma lección: hay que diseñar para personas. Botones claros, navegación intuitiva, un checkout en tres pasos para que el cliente no se pierda ni se aburra. Esa fue la regla. Y en el último evento de Google quedó claro que esa regla está a punto de cambiar de raíz.
 
