@@ -1,25 +1,56 @@
 ---
-import { COPY, SOCIALS, type Lang } from '../content/copy';
+import { SOCIALS, type Lang } from '../content/copy';
 import PlatformIcon from './PlatformIcon.astro';
 const { lang } = Astro.props as { lang: Lang };
-const t = COPY[lang].footer;
+const home = lang === 'es' ? '/' : '/en';
+const pertinenteHref = lang === 'es' ? '/pertinente' : '/en/pertinente';
+const metaseHref = lang === 'es' ? '/metase' : '/en/metase';
+const blogHref = lang === 'es' ? '/blog' : '/en/blog';
+const advisoryHref = `${home}#trabajar`;
+const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
+const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
+const labels = lang === 'es'
+  ? { contenido: 'Contenido', trabajo: 'Trabajo', redes: 'Redes', tag: 'Hecho con criterio en Bogotá.' }
+  : { contenido: 'Content', trabajo: 'Work', redes: 'Social', tag: 'Built with judgment in Bogotá.' };
+const tagline = lang === 'es'
+  ? 'Criterio sobre IA, negocios y LATAM. Publicado todos los días.'
+  : 'Judgment on AI, business and LATAM. Published every day.';
 ---
-<footer class="py-14 border-t border-rule">
-  <div class="mx-auto max-w-6xl px-6 lg:px-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-    <div class="max-w-md">
-      <p class="font-display text-h4 tracking-tight text-ink">Camilo Ramírez</p>
-      <p class="mt-2 text-caption text-mute leading-relaxed">{t.legal}</p>
+<footer class="cr-footer">
+  <div class="cr-container cr-footer__inner">
+    <div class="cr-footer__top">
+      <div class="cr-footer__brand">
+        <span class="cr-mark cr-mark--md cr-mark--ondark"><img src="/camilo-hero.jpg" alt=""></span>
+        <span class="cr-footer__name">Camilo <span class="cr-footer__name-ac">Ramírez</span></span>
+        <p class="cr-footer__tag">{tagline}</p>
+      </div>
+      <div class="cr-footer__cols">
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">{labels.contenido}</span>
+          <a href={pertinenteHref}>Pertinente</a>
+          <a href={metaseHref}>Métase en mi cabeza</a>
+          <a href={blogHref}>Blog</a>
+        </div>
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">{labels.trabajo}</span>
+          <a href={advisoryHref}>Advisory</a>
+          <a href={speakingHref}>Speaking</a>
+          <a href={historiaHref}>{lang === 'es' ? 'Historia' : 'Story'}</a>
+        </div>
+        <div class="cr-footer__col">
+          <span class="cr-footer__lbl">{labels.redes}</span>
+          {SOCIALS.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+              <PlatformIcon name={s.label} className="cr-social-ic" />
+              {s.label}
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
-    <ul class="flex flex-wrap gap-x-5 gap-y-3 items-center">
-      {SOCIALS.map((s) => (
-        <li>
-          <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}
-            class="text-mute hover:text-accent transition-colors inline-flex">
-            <PlatformIcon name={s.label} className="h-5 w-5" />
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="cr-footer__bottom">
+      <span>© 2026 Camilo Ramírez.</span>
+      <span>{labels.tag}</span>
+    </div>
   </div>
-  <p class="mx-auto max-w-6xl px-6 lg:px-10 mt-8 text-caption text-mute">{t.tagline}</p>
 </footer>

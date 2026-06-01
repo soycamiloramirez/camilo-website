@@ -2,25 +2,35 @@
 import { COPY, type Lang } from '../content/copy';
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang];
-const otherLang: Lang = lang === 'es' ? 'en' : 'es';
-const otherHref = lang === 'es' ? '/en' : '/';
 const home = lang === 'es' ? '/' : '/en';
+const blogHref = lang === 'es' ? '/blog' : '/en/blog';
+const podcastsHref = '/podcasts';
+const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
 const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
+const contactoHref = `${home}#contacto`;
+const otherHref = lang === 'es' ? '/en' : '/';
 ---
-<header class="fixed top-0 inset-x-0 z-40 bg-paper/85 backdrop-blur border-b border-rule">
-  <div class="mx-auto max-w-6xl px-6 lg:px-10 h-14 flex items-center justify-between">
-    <a href={home} class="font-display text-body tracking-tight text-ink font-medium" aria-label="Camilo Ramírez">
-      Camilo Ramírez
+<header class="cr-header">
+  <div class="cr-header__inner">
+    <a class="cr-header__brand" href={home}>
+      <span class="cr-mark cr-mark--sm"><img src="/camilo-hero.jpg" alt=""></span>
+      <span class="cr-header__brand-mark">Camilo <span class="cr-header__brand-r">Ramírez</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-7 text-caption text-mute">
-      {lang === 'es' && <a href="/blog" class="hover:text-ink transition-colors">{t.nav.blog}</a>}
-      {lang === 'es' && <a href="/podcasts" class="hover:text-ink transition-colors">{t.nav.podcasts}</a>}
-      <a href={lang === 'es' ? '/speaking' : '/en/speaking'} class="hover:text-ink transition-colors">{t.nav.speaking}</a>
-      <a href={historiaHref} class="hover:text-ink transition-colors">{t.nav.historia}</a>
-      <a href={`${home}#contacto`} class="hover:text-ink transition-colors">{t.nav.contacto}</a>
+    <nav class="cr-header__nav">
+      <a class="cr-header__navlink" href={blogHref}>{t.nav.blog}</a>
+      <a class="cr-header__navlink" href={podcastsHref}>Podcasts</a>
+      <a class="cr-header__navlink" href={speakingHref}>{t.nav.speaking}</a>
+      <a class="cr-header__navlink" href={historiaHref}>{t.nav.historia}</a>
     </nav>
-    <a href={otherHref} class="text-caption text-mute hover:text-ink transition-colors uppercase tracking-wider" aria-label={`Switch to ${otherLang}`}>
-      {otherLang}
-    </a>
+    <div class="cr-header__right">
+      <span class="cr-header__lang">
+        {lang === 'es' ? (
+          <>ES <span class="cr-header__lang-sep">/</span> <a href={otherHref} class="cr-header__lang-off">EN</a></>
+        ) : (
+          <><a href={otherHref} class="cr-header__lang-off">ES</a> <span class="cr-header__lang-sep">/</span> EN</>
+        )}
+      </span>
+      <a class="cr-btn cr-btn--primary cr-header__cta" href={contactoHref}>{t.nav.contacto}</a>
+    </div>
   </div>
 </header>
