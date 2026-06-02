@@ -85,7 +85,7 @@ const extraJsonLd = [
           <p class="cr-partners__lbl">{t.aic.partnersLabel}</p>
           <div class="cr-partners__row">
             {AIC_PARTNERS.map((p) => (
-              <span class="cr-partner"><img src={`/ds-assets/partners/${p.toLowerCase()}.svg`} alt="">{p}</span>
+              <span class="cr-partner"><img src={`/ds-assets/partners/${p.toLowerCase()}.svg`} alt={`Logo of ${p}`}>{p}</span>
             ))}
           </div>
         </div>
