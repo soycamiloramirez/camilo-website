@@ -19,6 +19,29 @@ function fmtDate(d: Date) {
   return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+const faqItems = [
+  {
+    q: '¿Cuál es la diferencia entre AGI y singularidad?',
+    a: 'La AGI (Inteligencia Artificial General) es una tecnología: un sistema capaz de igualar las capacidades mentales de un humano promedio en muchas tareas. La singularidad es un momento histórico hipotético en el que el avance tecnológico se vuelve tan rápido que los humanos perdemos la capacidad de predecirlo. La AGI es el detonante; la singularidad es la explosión. Confundirlas hace tomar malas decisiones porque mezcla lo que ya está pasando con lo que tal vez pase en una década.',
+  },
+  {
+    q: '¿Qué es la ventana de contexto en IA y por qué me cuesta plata?',
+    a: 'La ventana de contexto es la cantidad de información que la IA puede tener "en memoria" durante una conversación. Piénsela como una sala de juntas con sillas contadas: cuando se acaban, alguien tiene que salir. Si la información que la IA necesita ya se cayó de la sala, inventa cualquier respuesta con tono de seguridad (eso son las alucinaciones). Y como las herramientas cobran por tokens (la unidad mínima de texto), llenar la ventana de basura no solo empeora las respuestas: le sale caro.',
+  },
+  {
+    q: '¿Cuál es la diferencia entre un chatbot y un agente de IA?',
+    a: 'Un chatbot conversa: responde preguntas, redacta, sugiere. El humano sigue siendo quien actúa (copia, pega, ejecuta). Un agente ejecuta: tiene acceso a herramientas (bases de datos, APIs, sistemas) y puede tomar acciones por su cuenta como actualizar un registro o disparar una orden de compra. Cuando una empresa le ofrece "un agente de IA", probablemente le está ofreciendo un chatbot caro. La diferencia importa: un chatbot reduce esfuerzo; un agente reduce personas.',
+  },
+  {
+    q: '¿Cuánto consume la IA realmente en energía?',
+    a: 'Mucho más de lo que parece. Anthropic entrena y opera Claude en una fábrica de cómputo en Memphis que necesita 300 megavatios de potencia. Una casa promedio consume 0,0005 megavatios. Un hospital mediano, entre 1 y 5. Esa fábrica consume lo equivalente a un pequeño reactor nuclear. Tuvieron que instalar 30 turbinas de gas para alimentarla. Detrás de cada respuesta instantánea de la IA hay reactores, turbinas y comunidades afectadas.',
+  },
+  {
+    q: '¿Qué debería saber un CEO sobre IA en una hora?',
+    a: 'Cinco cosas: qué es un modelo de lenguaje (un sistema entrenado para predecir la siguiente palabra), qué es un agente (modelo + acceso a herramientas), qué es la ventana de contexto y cómo afecta su factura, qué es una alucinación y cuándo es probable, y dónde está el dinero (no en chatbots, en agentes operando sobre datos internos ordenados). Con eso puede tomar buenas decisiones; lo demás lo pide a su equipo técnico.',
+  },
+];
+
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
@@ -58,6 +81,17 @@ const extraJsonLd = [
       { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
       { '@type': 'ListItem', position: 3, name: 'Aprende IA', item: url },
     ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    inLanguage: 'es-CO',
+    mainEntity: faqItems.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
   },
 ];
 ---
@@ -141,6 +175,21 @@ const extraJsonLd = [
 
           </div>
 
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Preguntas frecuentes</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">Lo que más</span> preguntan sobre IA.</h2>
+          <div class="cr-spk-faq">
+            {faqItems.map((it) => (
+              <div class="cr-spk-faq__item">
+                <h3 class="cr-spk-faq__q">{it.q}</h3>
+                <p class="cr-spk-faq__a">{it.a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

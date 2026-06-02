@@ -61,6 +61,14 @@ const extraJsonLd = [
     articleSection: cats.map((c) => CATEGORIES[c].label),
     keywords: [...cats.map((c) => CATEGORIES[c].label), 'IA', 'inteligencia artificial', 'Latinoamérica', 'negocios'].join(', '),
     wordCount,
+    /* Speakable: marca las partes del artículo aptas para Google Assistant /
+       Alexa / lectores de pantalla. Le decimos que el título y el lede son
+       los bloques que tienen sentido leer en voz alta cuando alguien busca
+       el tema vía voice search. */
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.cr-article__title', '.cr-article__lede', '.cr-article__tldr p'],
+    },
     /* Citation: el post nace de un episodio de Pertinente. Linkear como fuente
        primaria refuerza que es contenido editorial derivado, no parafraseo. */
     isPartOf: { '@type': 'Blog', '@id': `${SITE.url}/blog#blog` },

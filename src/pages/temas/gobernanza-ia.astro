@@ -19,6 +19,25 @@ function fmtDate(d: Date) {
   return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+const faqItems = [
+  {
+    q: '¿Quién audita los modelos de IA antes de que salgan al público?',
+    a: 'Estados Unidos los audita por dentro: los cinco laboratorios principales (OpenAI, Anthropic, Google, Meta, xAI) le dan acceso a sus modelos al gobierno gringo antes del lanzamiento público. El gobierno hace pruebas de ciberseguridad y de riesgo biológico, y puede obligar a cambiar la arquitectura o demorar el lanzamiento. Ningún país latinoamericano participa en esa red. Kenia, sí. Nosotros, no.',
+  },
+  {
+    q: '¿Qué tan concentrado está el mercado de la IA?',
+    a: 'Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de modelos de IA. Hace seis meses tenían el 84%. La consolidación va rapidísimo en una sola dirección, no hacia más competencia. Cualquier producto de IA que use, por debajo de la superficie, casi seguro paga a uno de esos dos.',
+  },
+  {
+    q: '¿Cuál es la diferencia entre la regulación de IA en Estados Unidos, Europa y China?',
+    a: 'Tres filosofías opuestas. Estados Unidos audita por dentro pero no regula públicamente. Europa regula los usos según el riesgo y exige auditorías externas (EU AI Act), con multas hasta 7% de ingresos globales. China reclama jurisdicción extraterritorial: bloqueó la compra de una startup por Meta basándose en el origen étnico de los fundadores. Construir un negocio sobre IA sin entender estas tres lógicas es operar a ciegas.',
+  },
+  {
+    q: '¿Qué debería preguntarse antes de adoptar un proveedor de IA?',
+    a: 'Pregúntese: dónde está incorporado el proveedor, dónde están los servidores, bajo qué régimen regulatorio opera, y qué pasa con sus datos si ese régimen cambia mañana. Si es Estados Unidos, su servicio puede cambiar por decisiones del gobierno gringo. Si es China, puede dejar de estar disponible en cualquier momento. Si es europeo, tiene más garantías pero menos features. Documentar esa cadena de dependencias es la mínima diligencia.',
+  },
+];
+
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
@@ -52,6 +71,17 @@ const extraJsonLd = [
       { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
       { '@type': 'ListItem', position: 3, name: 'Gobernanza de IA', item: url },
     ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    inLanguage: 'es-CO',
+    mainEntity: faqItems.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
   },
 ];
 ---
@@ -128,6 +158,21 @@ const extraJsonLd = [
 
           </div>
 
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Preguntas frecuentes</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">Lo que más</span> me preguntan sobre gobernanza.</h2>
+          <div class="cr-spk-faq">
+            {faqItems.map((it) => (
+              <div class="cr-spk-faq__item">
+                <h3 class="cr-spk-faq__q">{it.q}</h3>
+                <p class="cr-spk-faq__a">{it.a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

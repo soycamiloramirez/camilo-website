@@ -23,6 +23,25 @@ function fmtDate(d: Date) {
   return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+const faqItems = [
+  {
+    q: '¿Puede Latinoamérica competir construyendo modelos de IA?',
+    a: 'No tiene sentido competir construyendo modelos de IA en Latinoamérica. Anthropic gasta 1.250 millones de dólares al mes solo en cómputo, con un techo de 45.000 millones al año hasta 2029. Todo el venture capital latinoamericano en su mejor año fue menos de 16.000 millones. La pelea de modelos es de otra liga. Lo que sí podemos ganar es aplicar esos modelos a problemas que solo nosotros entendemos.',
+  },
+  {
+    q: '¿Cuál es la ventaja competitiva real de Latinoamérica en IA?',
+    a: 'La ventaja real de LATAM no es construir los modelos, es conocer los problemas en primera persona. El modelo es commodity. El terreno, no. Casos como Palenca en México lo prueban: usaron machine learning sobre ingresos diarios de trabajadores informales para crear un perfil de riesgo que ningún banco gringo podría haber construido sin conocer la región. Eso no es inventar la IA, es apuntar tecnología de punta a un problema nuestro.',
+  },
+  {
+    q: '¿Cómo sé si mi empresa está usando IA de verdad o solo como decoración?',
+    a: 'La diferencia entre un chatbot caro y una ventaja real no está en qué modelo usa, está en si el sistema entiende el negocio. Si la "adopción de IA" en su empresa se reduce a que los empleados resuman correos y hagan presentaciones, no es transformación, es un juguete caro. Pregúntese: ¿la IA está afectando una decisión operativa real, o solo facilita tareas individuales?',
+  },
+  {
+    q: '¿Debería diseñar mi producto de IA según el estándar gringo o el europeo?',
+    a: 'Diseñe desde el día uno para el estándar europeo, que es el más exigente. Si cumple con el EU AI Act, entrar a Estados Unidos después es trámite. Lo difícil siempre contiene a lo fácil. El error caro es montar para un solo mercado y rehacer todo para entrar al otro.',
+  },
+];
+
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
@@ -56,6 +75,17 @@ const extraJsonLd = [
       { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
       { '@type': 'ListItem', position: 3, name: 'IA en Latinoamérica', item: url },
     ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    inLanguage: 'es-CO',
+    mainEntity: faqItems.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
   },
 ];
 ---
@@ -128,6 +158,21 @@ const extraJsonLd = [
 
           </div>
 
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Preguntas frecuentes</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">Lo que más</span> me preguntan.</h2>
+          <div class="cr-spk-faq">
+            {faqItems.map((it) => (
+              <div class="cr-spk-faq__item">
+                <h3 class="cr-spk-faq__q">{it.q}</h3>
+                <p class="cr-spk-faq__a">{it.a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
