@@ -34,7 +34,9 @@ const related = all
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const pageTitle = `${post.data.title} · Camilo Ramírez`;
+// Title sin sufijo " · Camilo Ramírez" para mantenerlo bajo 60 chars (Google SERP).
+// La autoría se establece via schema.org Person + author meta.
+const pageTitle = post.data.title;
 const pageDescription = post.data.description;
 
 const extraJsonLd = [
@@ -148,8 +150,6 @@ const primaryLabel = CATEGORIES[primary].label;
 </Base>
 
 <style is:global>
-  /* Hide first H1 in markdown body: the title is already rendered from frontmatter */
-  .cr-article__body h1 { display: none; }
   /* Breathing room before article body starts */
   .cr-article__body { margin-top: var(--s-7); }
 </style>

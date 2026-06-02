@@ -1,6 +1,6 @@
 ---
 title: 'OpenAI va a entrar a las empresas por la puerta grande. Las consultoras deberían preocuparse.'
-description: 'OpenAI armó una empresa de consultoría de IA valorada en 10.000 millones desde el nacimiento. La adopción ya no es opción de cada CEO: viene impuesta por los grandes fondos de inversión.'
+description: 'OpenAI armó una empresa de consultoría de IA valorada en 10.000 millones. La adopción ya no es opción del CEO: viene impuesta por los fondos de inversión.'
 date: 2026-05-25
 episode: 14
 categories: [negocios]

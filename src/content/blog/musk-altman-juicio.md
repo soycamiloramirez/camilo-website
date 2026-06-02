@@ -1,6 +1,6 @@
 ---
 title: 'Musk demandó a OpenAI por 138.000 millones. El juicio pone a prueba una promesa que nos hicieron a todos.'
-description: 'La demanda de Musk a OpenAI por 138.000 millones es el primer test serio de si sobrevive la promesa de "IA para el bien común" cuando hay cientos de miles de millones sobre la mesa.'
+description: 'La demanda de Musk a OpenAI por 138.000 millones es el primer test serio de si sobrevive la promesa de IA para el bien común cuando hay miles en juego.'
 date: 2026-05-28
 episode: 17
 categories: [geopolitica]

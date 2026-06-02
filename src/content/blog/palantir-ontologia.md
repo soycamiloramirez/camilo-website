@@ -1,6 +1,6 @@
 ---
 title: 'Por qué la IA en su empresa probablemente es solo un chatbot caro'
-description: 'Palantir cobra el doble por su IA y los clientes pagan felices. No por el modelo: porque ya tenían un sistema que entiende el negocio, no solo busca palabras en datos sueltos.'
+description: 'Palantir cobra el doble por su IA y los clientes pagan felices. No por el modelo: porque su sistema entiende el negocio, no solo busca palabras.'
 date: 2026-05-26
 episode: 15
 categories: [negocios]

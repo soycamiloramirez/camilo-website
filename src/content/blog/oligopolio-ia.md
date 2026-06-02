@@ -1,6 +1,6 @@
 ---
 title: 'El 89% del mercado de la IA está en dos manos. Su negocio depende de eso.'
-description: 'Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de IA. La consolidación va rapidísimo y en una sola dirección: hacia más concentración, no hacia más competencia.'
+description: 'Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de IA. La consolidación va rápido y en una sola dirección: más concentración.'
 date: 2026-05-18
 episode: 7
 categories: [geopolitica, negocios]

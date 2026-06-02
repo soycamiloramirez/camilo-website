@@ -1,6 +1,6 @@
 ---
 title: 'Su negocio depende de una tecnología que nadie está auditando'
-description: 'La regulación de IA en Estados Unidos se cayó horas antes de firmarse. Hoy las empresas se auditan solas y los científicos admiten que no controlan del todo lo que construyen.'
+description: 'La regulación de IA en EE.UU. se cayó horas antes de firmarse. Hoy las empresas se auditan solas y los científicos admiten que no controlan todo.'
 date: 2026-05-13
 episode: 2
 categories: [geopolitica]

@@ -1,6 +1,6 @@
 ---
 title: 'China le quitó una empresa a Meta por una razón nueva: el origen de sus fundadores'
-description: 'China bloqueó la compra de una startup por Meta basándose en el origen étnico de sus fundadores. Primera vez que reclama jurisdicción sobre un negocio hecho fuera del país.'
+description: 'China bloqueó la compra de una startup por Meta basándose en el origen étnico de sus fundadores. Primera vez que reclama jurisdicción fuera del país.'
 date: 2026-05-29
 episode: 18
 categories: [geopolitica]

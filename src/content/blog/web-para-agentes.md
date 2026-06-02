@@ -1,6 +1,6 @@
 ---
 title: 'Su página web fue construida para humanos. Pronto la van a leer máquinas.'
-description: 'Su página web fue diseñada para humanos. Pronto la van a leer agentes de IA. Quien gana ya no es quien tiene la web más bonita: quien tiene la información mejor estructurada.'
+description: 'Su página web fue diseñada para humanos. Pronto la van a leer agentes de IA. Gana quien tiene la información mejor estructurada, no la web más bonita.'
 date: 2026-05-15
 episode: 4
 categories: [negocios, aprende]

@@ -1,6 +1,6 @@
 ---
 title: 'OpenAI le dio mil millones a un exconvicto. La razón nos deja a todos en evidencia.'
-description: 'OpenAI le adelantó mil millones a Cerebras y se comprometió a comprarle 20.000 millones más en chips. Más capital que todo el venture latinoamericano de un año entero.'
+description: 'OpenAI le adelantó mil millones a Cerebras y se comprometió a comprarle 20.000 millones más en chips. Más capital que todo el venture latinoamericano.'
 date: 2026-05-19
 episode: 8
 categories: [geopolitica]

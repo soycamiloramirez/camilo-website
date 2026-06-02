@@ -1,6 +1,6 @@
 ---
 title: 'Latinoamérica acaba de construir su propia IA. No es la mejor, y no importa.'
-description: 'Chile lanzó LatamGPT, el primer modelo grande hecho por y para América Latina. Los críticos no entendieron por qué: no nació para ganarle a OpenAI sino para que dejemos de ser invisibles.'
+description: 'Chile lanzó LatamGPT, el primer modelo grande hecho por y para América Latina. No nació para ganarle a OpenAI: nació para que dejemos de ser invisibles.'
 date: 2026-05-16
 episode: 5
 categories: [latam]

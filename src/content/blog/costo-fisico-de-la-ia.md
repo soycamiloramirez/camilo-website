@@ -1,6 +1,6 @@
 ---
 title: 'Cada respuesta de la IA cuesta lo que consume una ciudad. Vale la pena saberlo.'
-description: 'Detrás de cada respuesta de la IA hay reactores de energía, turbinas de gas y comunidades afectadas. La fábrica que entrena a Anthropic consume 300 megavatios. Vale la pena saberlo.'
+description: 'Detrás de cada respuesta de la IA hay reactores, turbinas y comunidades afectadas. La fábrica que entrena a Anthropic consume 300 megavatios.'
 date: 2026-05-23
 episode: 12
 categories: [geopolitica, aprende]

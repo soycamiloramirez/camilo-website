@@ -12,7 +12,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hi
 const featured = posts[0];
 const rest = posts.slice(1);
 
-const pageTitle = 'Blog · Criterio sobre IA, negocios y LATAM | Camilo Ramírez';
+const pageTitle = 'Blog · Criterio sobre IA y negocios · Camilo Ramírez';
 const pageDescription = 'Análisis editorial diario sobre IA, negocios, geopolítica y oportunidades en Latinoamérica. Cada artículo nace de un episodio de Pertinente.';
 
 const extraJsonLd = [

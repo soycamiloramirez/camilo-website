@@ -1,6 +1,6 @@
 ---
 title: 'ChatGPT empezó a venderte publicidad. El problema no es el anuncio.'
-description: 'ChatGPT empezó a vender publicidad después de años de prometer que nunca lo haría. El problema no es el anuncio: es que un asistente íntimo pierde la línea entre consejo y negocio.'
+description: 'ChatGPT empezó a vender publicidad tras años de prometer que no. El problema no es el anuncio: es la línea borrosa entre consejo y negocio pagado.'
 date: 2026-05-22
 episode: 11
 categories: [negocios]

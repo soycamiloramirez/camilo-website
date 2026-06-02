@@ -239,15 +239,15 @@ export const COPY = {
         'Para que un CEO, un curador de eventos o alguien que llega por el podcast entienda en segundos quién soy y por qué tiene sentido escucharme.',
     },
     meta: {
-      title: 'Camilo Ramírez · IA, negocios y LATAM · Pertinente, MEMC, advisory',
+      title: 'Camilo Ramírez · IA, negocios y LATAM',
       description:
         'Criterio diario sobre IA, negocios y LATAM. Cofundador de Navigamo, Director Regional LATAM de The AI Collective. Host de Pertinente y MEMC.',
       ogAlt: 'Camilo Ramírez · IA, negocios y LATAM',
     },
     speaking: {
       meta: {
-        title: 'Speaking · Camilo Ramírez · Conferencista IA, negocios y LATAM',
-        description: 'Keynotes, hosting y talleres sobre IA, negocios y la oportunidad de LATAM. Para CEOs, juntas y conferencias. Español o inglés, presencial o virtual, en cualquier parte del mundo.',
+        title: 'Speaking · Camilo Ramírez',
+        description: 'Conferencista sobre IA, negocios y la oportunidad de LATAM. Keynotes, hosting y talleres para CEOs y juntas. Español o inglés, presencial o virtual.',
       },
       eyebrow: 'Speaking',
       title: 'Conferencista sobre IA, negocios y la oportunidad de LATAM.',
@@ -384,7 +384,7 @@ export const COPY = {
     },
     historia: {
       meta: {
-        title: 'Historia y trayectoria de Camilo Ramírez · Broadcast Design, Netbangers, Custom Built Show, Navigamo y The AI Collective',
+        title: 'Historia · Camilo Ramírez',
         description:
           'Más de 20 años de Camilo Ramírez: de Broadcast Design en CMI y RCN, a Netbangers, Custom Built Show, Navigamo y The AI Collective. Un mismo patrón en cinco mundos.',
       },
@@ -627,15 +627,15 @@ export const COPY = {
         'So a CEO, an event curator or someone who arrives through the podcast can understand in seconds who I am and why it makes sense to listen.',
     },
     meta: {
-      title: 'Camilo Ramírez · AI, business and LATAM · Pertinente, MEMC, advisory',
+      title: 'Camilo Ramírez · AI, business and LATAM',
       description:
         'Daily judgment on AI, business and LATAM. Co-founder of Navigamo, Regional Director for LATAM at The AI Collective. Host of Pertinente and MEMC.',
       ogAlt: 'Camilo Ramírez · AI, business and LATAM',
     },
     speaking: {
       meta: {
-        title: 'Speaking · Camilo Ramírez · AI, business and LATAM keynote speaker',
-        description: 'Keynotes, event hosting and workshops on AI, business and the LATAM opportunity. For CEOs, boards and conferences. Spanish or English, in person or virtual, anywhere in the world.',
+        title: 'Speaking · Camilo Ramírez',
+        description: 'Keynote speaker on AI, business and the LATAM opportunity. Keynotes, hosting and workshops for CEOs and boards. Spanish or English, in person or virtual.',
       },
       eyebrow: 'Speaking',
       title: 'Keynote speaker on AI, business and the LATAM opportunity.',
@@ -772,7 +772,7 @@ export const COPY = {
     },
     historia: {
       meta: {
-        title: 'Story and track record of Camilo Ramírez · Broadcast Design, Netbangers, Custom Built Show, Navigamo and The AI Collective',
+        title: 'Story · Camilo Ramírez',
         description:
           'Over 20 years of Camilo Ramírez: from Broadcast Design at CMI and RCN to Netbangers, Custom Built Show, Navigamo and The AI Collective. One pattern across five worlds.',
       },

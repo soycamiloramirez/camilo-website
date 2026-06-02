@@ -1,6 +1,6 @@
 ---
 title: 'OpenAI y Microsoft abrieron su matrimonio. Lo que revela debería interesarle.'
-description: 'OpenAI bajó su deuda con Microsoft de 135.000 a 38.000 millones y soltó la exclusividad de nube. La pelea de la IA no se decide por inteligencia: se decide por infraestructura.'
+description: 'OpenAI bajó su deuda con Microsoft de 135.000 a 38.000 millones y soltó la exclusividad de nube. La pelea de la IA se decide por infraestructura.'
 date: 2026-05-21
 episode: 10
 categories: [geopolitica, negocios]
