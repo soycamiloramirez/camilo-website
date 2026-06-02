@@ -23,7 +23,7 @@ Aquí es donde la magia se vuelve física, y los números son los que cuentan la
 
 Como la red eléctrica de Memphis no daba abasto, Musk instaló treinta turbinas de gas en el predio para generar esa energía. Eso le trajo quejas por ruido, por emisiones, por operar sin permisos de calidad del aire. Los vecinos empezaron a sentir el gas. La promesa de prosperidad terminó, otra vez, en un sabor amargo.
 
-¿Y quién usa toda esa potencia? Anthropic firmó para tomar el 100% de la capacidad de Colossus —los 220.000 chips— para entrenar y servir sus modelos. La empresa que se vende como la alternativa responsable y consciente, alimentándose de una infraestructura que ya nació con un conflicto con sus vecinos. Las dos cosas son ciertas al mismo tiempo, y por eso la historia es interesante: no hay villanos limpios ni héroes limpios.
+¿Y quién usa toda esa potencia? Anthropic firmó para tomar el 100% de la capacidad de Colossus, los 220.000 chips, para entrenar y servir sus modelos. La empresa que se vende como la alternativa responsable y consciente, alimentándose de una infraestructura que ya nació con un conflicto con sus vecinos. Las dos cosas son ciertas al mismo tiempo, y por eso la historia es interesante: no hay villanos limpios ni héroes limpios.
 
 ## Lo que quiero que se lleve
 

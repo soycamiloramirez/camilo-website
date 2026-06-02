@@ -7,6 +7,8 @@ import { CATEGORIES, type CategorySlug } from '../../content.config';
 import { SITE, PODCASTS } from '../../content/copy';
 
 export async function getStaticPaths() {
+  // Include hidden posts so they're reachable by direct URL (e.g. style guide),
+  // but they're filtered out of listings and we add noindex in the layout.
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((post) => ({ params: { slug: post.id }, props: { post, all: posts } }));
 }
@@ -65,7 +67,7 @@ const extraJsonLd = [
 
 const primaryLabel = CATEGORIES[primary].label;
 ---
-<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path={`/blog/${post.id}`} extraJsonLd={extraJsonLd} hasAlternate={false}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path={`/blog/${post.id}`} extraJsonLd={extraJsonLd} hasAlternate={false} noindex={post.data.hidden}>
   <Header lang={lang} />
 
   <main>

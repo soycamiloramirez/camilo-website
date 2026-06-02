@@ -19,7 +19,7 @@ La inteligencia artificial no "entiende" lo que usted le escribe como lo entende
 
 Y aquí viene lo importante. Todo lo que usted le escribe, más todo lo que la IA le responde, se va guardando en algo que se llama la ventana de contexto. Piénsela como una sala de juntas con un número fijo de sillas. Cada persona en esa sala trae información: una preside, otra toma notas, otra sabe de finanzas, otra de operaciones.
 
-¿Qué pasa cuando usted sigue invitando gente a la reunión? Llega un momento en que se acaban las sillas. Y para que entren los nuevos, alguien tiene que salir. Si el que sacó fue el experto en temas fiscales y usted de repente pregunta algo de impuestos, le va a responder quien quedó en la sala —digamos, alguien de arquitectura— y le va a inventar cualquier disparate con tono de seguridad.
+¿Qué pasa cuando usted sigue invitando gente a la reunión? Llega un momento en que se acaban las sillas. Y para que entren los nuevos, alguien tiene que salir. Si el que sacó fue el experto en temas fiscales y usted de repente pregunta algo de impuestos, le va a responder quien quedó en la sala, digamos, alguien de arquitectura, y le va a inventar cualquier disparate con tono de seguridad.
 
 Eso son las famosas "alucinaciones". No es que la IA falle por mala. Es que la información que necesitaba ya se salió de la sala porque usted la llenó de gente.
 
@@ -31,7 +31,7 @@ Primero: en conversaciones largas, saque resúmenes y guárdelos. Cuando empiece
 
 Segundo: no le tire archivos enormes a la conversación sin pensar. Cada documento que sube mete decenas de personas a esa sala de juntas, muchas de las cuales no tienen nada que hacer ahí. Y eso nos lleva al tercer punto, el del bolsillo: casi todas las herramientas ya cobran por cantidad de tokens usados. Cada token es plata saliendo de su billetera. Llenar la ventana de basura no solo empeora las respuestas: le sale caro.
 
-Si necesita que cierta información nunca se pierda, existen sistemas que la dejan siempre disponible —una especie de biblioteca al lado de la sala de juntas, de donde se traen documentos cuando hacen falta sin ocupar las sillas. Las "carpetas" o "proyectos" que ya traen muchas de estas herramientas hacen justamente eso.
+Si necesita que cierta información nunca se pierda, existen sistemas que la dejan siempre disponible, una especie de biblioteca al lado de la sala de juntas, de donde se traen documentos cuando hacen falta sin ocupar las sillas. Las "carpetas" o "proyectos" que ya traen muchas de estas herramientas hacen justamente eso.
 
 ## Lo que de verdad hay que recordar
 

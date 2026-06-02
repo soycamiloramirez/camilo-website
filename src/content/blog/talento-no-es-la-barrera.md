@@ -21,7 +21,7 @@ Lo que esos números nos dicen es que la barrera para construir inteligencia art
 
 Y eso se confirma con algo que parece un chisme de industria pero no lo es: el talento de primer nivel está migrando hacia donde están las máquinas más grandes, no hacia donde está la mejor idea. Cuando uno de los cofundadores de OpenAI deja su propio proyecto para irse a la competencia, no se va por la plata. Se va por el acceso al hardware. Porque sin las máquinas, la mejor idea del mundo no se puede entrenar.
 
-Esa es la mala noticia para nosotros. Podemos tener —y tenemos— ingenieros brillantes en la región. Pero el talento ya no alcanza para entrar al juego de construir los modelos, porque ese juego ahora se gana con un capital que aquí no tenemos. Competir de tú a tú con estos gigantes, hoy, no tiene sentido. Y conviene decirlo sin romanticismo.
+Esa es la mala noticia para nosotros. Podemos tener, y tenemos, ingenieros brillantes en la región. Pero el talento ya no alcanza para entrar al juego de construir los modelos, porque ese juego ahora se gana con un capital que aquí no tenemos. Competir de tú a tú con estos gigantes, hoy, no tiene sentido. Y conviene decirlo sin romanticismo.
 
 ## La buena noticia está en aceptar la mala
 
@@ -29,7 +29,7 @@ Aquí es donde está lo interesante, y por eso traje el tema. El día que uno ac
 
 Porque hay una diferencia enorme entre *construir* la inteligencia artificial y *usarla* con criterio. Lo primero requiere el PIB de un país pequeño. Lo segundo requiere entender un problema mejor que nadie. Y eso último sí lo tenemos: conocemos nuestra región, nuestros mercados, nuestros líos, de una forma que nadie en San Francisco va a entender por más millones que tenga.
 
-El talento latinoamericano no se desperdicia tratando de construir el próximo modelo gigante. Se aprovecha tomando esos modelos —que otros pagan a 1.250 millones al mes— y aplicándolos a problemas que solo nosotros sabemos resolver.
+El talento latinoamericano no se desperdicia tratando de construir el próximo modelo gigante. Se aprovecha tomando esos modelos, que otros pagan a 1.250 millones al mes, y aplicándolos a problemas que solo nosotros sabemos resolver.
 
 ## La pregunta que no nos estamos haciendo
 

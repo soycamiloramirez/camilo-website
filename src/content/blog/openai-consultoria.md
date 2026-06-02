@@ -13,7 +13,7 @@ OpenAI acaba de crear una empresa nueva, con un nombre aburrido a propósito, va
 
 ## La jugada: dejar de vender herramientas, vender resultados
 
-La idea es elegante y un poco maquiavélica. OpenAI se asoció con grandes fondos de inversión —de esos que tienen cientos de empresas en su portafolio— para poner ingenieros de alto nivel metidos dentro de esas compañías. No a venderles una suscripción, sino a rediseñarles los procesos, automatizarles flujos y construirles aplicaciones sobre sus modelos. Consultoría de altísimo nivel, con resultados que se vean en el bolsillo de la empresa.
+La idea es elegante y un poco maquiavélica. OpenAI se asoció con grandes fondos de inversión, de esos que tienen cientos de empresas en su portafolio, para poner ingenieros de alto nivel metidos dentro de esas compañías. No a venderles una suscripción, sino a rediseñarles los procesos, automatizarles flujos y construirles aplicaciones sobre sus modelos. Consultoría de altísimo nivel, con resultados que se vean en el bolsillo de la empresa.
 
 ¿Por qué con los fondos de inversión? Porque ahí está el truco. Esos fondos tienen tanta plata metida en sus empresas que pueden, básicamente, ordenar la adopción. Ya no depende de que dentro de cada compañía haya un valiente que se ponga la camiseta de la IA y luche por sacarla adelante. Ahora viene de arriba, del que maneja la plata, como una decisión de portafolio. La ventana de "experimentemos tranquilos a ver qué pasa" se cierra, y la adopción se vuelve prácticamente obligatoria.
 

@@ -13,7 +13,7 @@ Casi todos, cuando pensamos en inteligencia artificial, pensamos en ChatGPT. Se 
 
 ## El dato que cambia la foto
 
-Por primera vez en toda esta carrera, Anthropic —la empresa detrás de Claude— superó a OpenAI en adopción corporativa. No en usuarios curiosos, ojo. En empresas que pagan todos los meses.
+Por primera vez en toda esta carrera, Anthropic, la empresa detrás de Claude, superó a OpenAI en adopción corporativa. No en usuarios curiosos, ojo. En empresas que pagan todos los meses.
 
 Los números vienen de una plataforma que administra pagos de más de 50.000 compañías reales en Estados Unidos. En abril, el 34,4% de esas empresas registró al menos un pago a Anthropic, contra el 32,3% de OpenAI. Le gana por poquito, sí, pero la dirección es lo impresionante: hace doce meses Claude tenía apenas el 9% de adopción en ese mismo universo. Pasó de 9 a liderar en un año. Es la liebre y la tortuga, en versión corporativa.
 

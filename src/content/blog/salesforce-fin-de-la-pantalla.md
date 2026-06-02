@@ -23,7 +23,7 @@ En 2024 lanzaron una fuerza de agentes que no solo sugieren, sino que ejecutan: 
 
 Si la IA hace el trabajo que antes hacían las personas metiendo datos, ¿para qué necesito pagar por tantas sillas humanas? El modelo de cobrar por usuario, el que los hizo gigantes, de repente se vuelve irrelevante. Probaron cobrar por conversación, pero eso generó pánico entre los clientes, porque nadie quiere que su factura sea una sorpresa a fin de mes. Y ese es un dolor real que cualquiera que use estas herramientas ya conoce: cuando pagas por consumo, pierdes la certeza de cuánto vas a gastar.
 
-Su respuesta fue radical: una plataforma donde la información sigue siendo de ellos, pero uno puede conectarle el agente que quiera para operar sobre esos datos, sea el de ellos o uno externo. Piénselo como un hipódromo: los caballos son los distintos sistemas de IA, usted corre con el que prefiera, pero la pista —la información— sigue siendo de Salesforce. Le dan superpoderes a los agentes para hacer cambios en las bases de datos más rápido de lo que podría cualquier equipo humano.
+Su respuesta fue radical: una plataforma donde la información sigue siendo de ellos, pero uno puede conectarle el agente que quiera para operar sobre esos datos, sea el de ellos o uno externo. Piénselo como un hipódromo: los caballos son los distintos sistemas de IA, usted corre con el que prefiera, pero la pista, la información, sigue siendo de Salesforce. Le dan superpoderes a los agentes para hacer cambios en las bases de datos más rápido de lo que podría cualquier equipo humano.
 
 ## Lo que de verdad se está decidiendo
 

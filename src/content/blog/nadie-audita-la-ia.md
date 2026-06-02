@@ -25,7 +25,7 @@ Y hay un detalle que lo vuelve más serio: ni siquiera los científicos que crea
 
 ## Por qué esto es un problema suyo, no de ellos
 
-Aquí es donde aterrizo, porque esto no es una discusión de política gringa lejana. Si usted está montando un negocio sobre las APIs de estas empresas —y casi todos los que usan IA hoy lo están haciendo— entonces está construyendo sobre arenas movedizas. No tiene control sobre hacia dónde va esa tecnología, ni certeza de cómo se va a comportar, ni a quién reclamarle si algo sale mal. Está confiando, y ya.
+Aquí es donde aterrizo, porque esto no es una discusión de política gringa lejana. Si usted está montando un negocio sobre las APIs de estas empresas, y casi todos los que usan IA hoy lo están haciendo, entonces está construyendo sobre arenas movedizas. No tiene control sobre hacia dónde va esa tecnología, ni certeza de cómo se va a comportar, ni a quién reclamarle si algo sale mal. Está confiando, y ya.
 
 Eso no significa no usarla. Significa usarla sabiendo dónde está parado.
 
