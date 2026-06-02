@@ -15,6 +15,19 @@ const contactoHref = `${home}#contacto`;
  * (ej: /blog/SLUG no tiene EN), cae al fallback (/en/blog o /blog).
  */
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+/**
+ * Marca el navlink correspondiente como activo. Match por prefix porque
+ * `/blog/foo` y `/blog/categoria/x` también deben marcar "Blog" como activo.
+ */
+function isActive(href: string): boolean {
+  if (href === currentPath) return true;
+  // Match prefix: /blog matches /blog/foo; /podcasts matches /podcasts#tag
+  // pero no /historia matches / (home).
+  if (href !== '/' && href !== '/en' && currentPath.startsWith(href + '/')) return true;
+  return false;
+}
+const cls = (href: string) => `cr-header__navlink${isActive(href) ? ' is-active' : ''}`;
 const PEERED = ['/historia', '/podcasts', '/speaking', '/pertinente', '/metase', '/blog'];
 
 let otherHref: string;
@@ -48,10 +61,10 @@ if (lang === 'es') {
     <input type="checkbox" id="cr-nav-toggle" class="cr-burger-cb" aria-hidden="true">
     <label for="cr-nav-toggle" class="cr-burger" aria-label="Menu"><span></span><span></span><span></span></label>
     <nav class="cr-header__nav">
-      <a class="cr-header__navlink" href={blogHref}>{t.nav.blog}</a>
-      <a class="cr-header__navlink" href={podcastsHref}>Podcasts</a>
-      <a class="cr-header__navlink" href={speakingHref}>{t.nav.speaking}</a>
-      <a class="cr-header__navlink" href={historiaHref}>{t.nav.historia}</a>
+      <a class={cls(blogHref)} href={blogHref} aria-current={isActive(blogHref) ? 'page' : undefined}>{t.nav.blog}</a>
+      <a class={cls(podcastsHref)} href={podcastsHref} aria-current={isActive(podcastsHref) ? 'page' : undefined}>Podcasts</a>
+      <a class={cls(speakingHref)} href={speakingHref} aria-current={isActive(speakingHref) ? 'page' : undefined}>{t.nav.speaking}</a>
+      <a class={cls(historiaHref)} href={historiaHref} aria-current={isActive(historiaHref) ? 'page' : undefined}>{t.nav.historia}</a>
     </nav>
     <div class="cr-header__right">
       <span class="cr-header__lang">
