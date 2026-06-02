@@ -126,7 +126,21 @@ const personJsonLd = {
     'Board member · IAB Colombia (2014-2022)',
   ],
   address: { '@type': 'PostalAddress', addressLocality: 'Bogotá', addressRegion: 'Cundinamarca', addressCountry: 'CO' },
+  /* identifier: Wikidata QID como PropertyValue. Estructura explícita que Google
+     reconoce para vincular la entidad al Knowledge Graph (mejor que solo sameAs). */
+  identifier: {
+    '@type': 'PropertyValue',
+    propertyID: 'https://www.wikidata.org/entity/P31',
+    name: 'Wikidata',
+    value: 'Q140030061',
+    url: 'https://www.wikidata.org/wiki/Q140030061',
+  },
+  /* sameAs: lista canonical de URLs externos que describen a esta misma entidad.
+     Wikidata (Q140030061) primero — es la fuente de autoridad para Knowledge
+     Graph de Google y para que LLMs (ChatGPT, Claude, Perplexity, Gemini)
+     reconozcan la entidad como una sola persona verificada cross-platform. */
   sameAs: [
+    'https://www.wikidata.org/wiki/Q140030061',
     ...SOCIALS.map((s) => s.href),
     'https://open.spotify.com/show/2bOwCqIBN1uRj5Ms84CnFe',
     'https://podcasts.apple.com/us/podcast/pertinente-con-camilo-ram%C3%ADrez/id1894335566',
