@@ -141,6 +141,10 @@ const personJsonLd = {
      reconozcan la entidad como una sola persona verificada cross-platform. */
   sameAs: [
     'https://www.wikidata.org/wiki/Q140030061',
+    /* URL canónica de YouTube usando channel ID (UCeR6eg0Hph25YqSBKQjZkJw)
+       — Wikidata usa esta, mantenerla aquí ayuda a LLMs a cross-referenciar
+       con la entidad. La URL con @handle sigue en SOCIALS para usuarios. */
+    'https://www.youtube.com/channel/UCeR6eg0Hph25YqSBKQjZkJw',
     ...SOCIALS.map((s) => s.href),
     'https://open.spotify.com/show/2bOwCqIBN1uRj5Ms84CnFe',
     'https://podcasts.apple.com/us/podcast/pertinente-con-camilo-ram%C3%ADrez/id1894335566',
