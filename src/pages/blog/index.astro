@@ -27,7 +27,7 @@ const extraJsonLd = [
     blogPost: posts.slice(0, 10).map((p) => ({
       '@type': 'BlogPosting',
       headline: p.data.title,
-      url: `${SITE.url}/blog/${p.slug}`,
+      url: `${SITE.url}/blog/${p.id}`,
       datePublished: p.data.date.toISOString(),
     })),
   },
@@ -81,7 +81,7 @@ function catSlug(cat?: string): string {
         </div>
 
         {featured && (
-          <a class="cr-mediacard cr-mediacard--feature" href={`/blog/${featured.slug}`} data-cat={catSlug(featured.data.categories?.[0])}>
+          <a class="cr-mediacard cr-mediacard--feature" href={`/blog/${featured.id}`} data-cat={catSlug(featured.data.categories?.[0])}>
             <div class="cr-mediacard__art" style="background-image:url('/camilo-hero.jpg')"></div>
             <div class="cr-mediacard__body">
               <div class="cr-mediacard__meta">Destacado · {featured.data.categories?.[0] ?? 'Blog'}</div>
@@ -95,7 +95,7 @@ function catSlug(cat?: string): string {
 
         <div class="cr-ix__list cr-blog__list">
           {rest.map((post) => (
-            <a class="cr-post" href={`/blog/${post.slug}`} data-cat={catSlug(post.data.categories?.[0])}>
+            <a class="cr-post" href={`/blog/${post.id}`} data-cat={catSlug(post.data.categories?.[0])}>
               <span class="cr-post__cat">{post.data.categories?.[0] ?? 'Blog'}</span>
               <h3 class="cr-post__title">{post.data.title}</h3>
               <span class="cr-post__meta">{fmtDate(post.data.date)}</span>

@@ -131,7 +131,7 @@ const primaryLabel = CATEGORIES[primary].label;
             <p class="cr-eyebrow"><span class="cr-franja"></span>Sigue leyendo</p>
             <div class="cr-blog__list" style="margin-top: var(--s-5)">
               {related.map((p) => (
-                <a class="cr-post" href={`/blog/${p.slug}`}>
+                <a class="cr-post" href={`/blog/${p.id}`}>
                   <span class="cr-post__cat">{CATEGORIES[(p.data.categories as CategorySlug[])[0]].label}</span>
                   <h3 class="cr-post__title">{p.data.title}</h3>
                   <span class="cr-post__meta">{new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'short', year: 'numeric' }).format(p.data.date)}</span>

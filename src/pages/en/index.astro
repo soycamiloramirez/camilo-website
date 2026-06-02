@@ -140,7 +140,7 @@ const extraJsonLd = [
 
         <div class="cr-blog__list">
           {posts.map((post) => (
-            <a class="cr-post" href={`/blog/${post.slug}`}>
+            <a class="cr-post" href={`/blog/${post.id}`}>
               <span class="cr-post__cat">{post.data.categories?.[0] ?? 'Blog'} <span class="cr-intag">· In Spanish</span></span>
               <h3 class="cr-post__title">{post.data.title}</h3>
               <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
