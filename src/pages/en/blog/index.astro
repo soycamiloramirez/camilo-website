@@ -46,7 +46,7 @@ function catLabel(slug?: string) {
   return slug ? (CATEGORY_EN[slug] ?? slug) : 'Blog';
 }
 ---
-<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/en/blog" extraJsonLd={extraJsonLd} hasAlternate={false}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/en/blog" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
 
   <main>

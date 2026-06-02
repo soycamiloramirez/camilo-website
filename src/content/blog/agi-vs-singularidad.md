@@ -5,9 +5,9 @@ date: 2026-05-17
 categories:
   - aprende
 episode: 6
-tldr: ''
-pullquote: ''
-aside: ''
+tldr: 'AGI y singularidad no son sinónimos. La AGI es la tecnología: una máquina tan capaz como un humano promedio en muchas tareas. La singularidad es el momento histórico en que dejamos de poder predecirla. Confundirlas le nubla las decisiones de hoy.'
+pullquote: 'La AGI es el detonante. La singularidad es la explosión.'
+aside: 'El concepto de singularidad es de 1965. El de AGI se nombró por primera vez a finales de los noventa. Ninguno de los dos lo inventó Sam Altman para vender.'
 ---
 
 Hay dos palabras que aparecen en casi toda conversación seria sobre inteligencia artificial, y que la mayoría de la gente usa como si fueran sinónimos: AGI y singularidad. No lo son. Y la confusión no es un detalle de pedantes: hace que uno tome malas decisiones, porque mezcla lo que ya está pasando con lo que tal vez pase en una década.
