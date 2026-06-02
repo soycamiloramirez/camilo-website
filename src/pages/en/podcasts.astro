@@ -1,0 +1,247 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../content/copy';
+import {
+  PODCAST_ENTRIES,
+  PODCAST_TAGS,
+  type PodcastSection,
+  type PodcastTag,
+} from '../../content/podcasts';
+
+const lang = 'en' as const;
+
+const pageTitle = 'Podcasts · Camilo Ramírez · curated AI, business and life listening';
+const pageDescription = 'What I publish (Pertinente and Métase en mi cabeza) and the podcasts I listen to. A personal curation of AI, business, geopolitics, science and philosophy, navigable by category. Most are in Spanish.';
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Podcasts · Camilo Ramírez',
+    description: pageDescription,
+    url: `${SITE.url}/en/podcasts`,
+    inLanguage: 'en',
+  },
+];
+
+const mineEntries = PODCAST_ENTRIES.filter((p) => p.section === 'mine');
+const negociosEntries = PODCAST_ENTRIES.filter((p) => p.section === 'negocios');
+const fueraEntries = PODCAST_ENTRIES.filter((p) => p.section === 'fuera');
+
+const TAG_COLORS: Record<PodcastTag, string> = {
+  'ia-tech':         '#800080',
+  estrategia:        '#9B1C70',
+  ventas:            '#B33067',
+  inversion:         '#C84260',
+  'alto-rendimiento':'#D55256',
+  geopolitica:       '#B33067',
+  historia:          '#9B5BBF',
+  ciencia:           '#5DA9C9',
+  psicologia:        '#3D8B6E',
+  espiritualidad:    '#6B7280',
+  cultura:           '#A06A2A',
+};
+
+// EN labels mirror PODCAST_TAGS keys
+const TAG_EN: Record<PodcastTag, string> = {
+  'ia-tech': 'AI & technology',
+  estrategia: 'Strategy & business',
+  ventas: 'Sales & growth',
+  inversion: 'Investment & finance',
+  'alto-rendimiento': 'High performance',
+  geopolitica: 'Geopolitics & current affairs',
+  historia: 'History & culture',
+  ciencia: 'Science & health',
+  psicologia: 'Psychology & wellbeing',
+  espiritualidad: 'Spirituality & philosophy',
+  cultura: 'Culture, fiction & literature',
+};
+
+const SECTIONS_EN = {
+  mine: { kicker: 'My podcasts', title: 'What I publish.', intro: 'Two productions of my own. One daily, one weekly. If you want to know my judgment, start here.' },
+  negocios: { kicker: 'Business, AI & tech', title: 'What I listen to think about business and AI.', intro: 'My list changes. This is the current one. Each adds something different: operating tactics, frameworks to decide, market reads, or solid interviews.' },
+  fuera: { kicker: 'Outside of work', title: "What I listen to when I'm not thinking about AI.", intro: 'History, philosophy, health, fiction, spirituality, news. The things that sustain the rest. Here I don\'t look for productivity. I look for perspective.' },
+};
+
+function tagIcon(_: PodcastTag) {
+  return `<svg class="cr-pcat__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/></svg>`;
+}
+
+function groupByTag(entries: typeof PODCAST_ENTRIES, sec: PodcastSection) {
+  const tags = Object.entries(PODCAST_TAGS).filter(([, v]) => v.section === sec) as [PodcastTag, typeof PODCAST_TAGS[PodcastTag]][];
+  return tags
+    .map(([tag, info]) => ({ tag, info, items: entries.filter((e) => e.tag === tag) }))
+    .filter((g) => g.items.length > 0);
+}
+
+const negociosGroups = groupByTag(negociosEntries, 'negocios');
+const fueraGroups = groupByTag(fueraEntries, 'fuera');
+
+const chips: { slug: string; label: string }[] = [
+  { slug: 'todos', label: 'All' },
+  ...Object.entries(PODCAST_TAGS).map(([slug]) => ({ slug, label: TAG_EN[slug as PodcastTag] })),
+];
+
+function platformLinks(p: typeof PODCAST_ENTRIES[number]) {
+  const items: { label: string; href: string }[] = [];
+  if (p.spotify) items.push({ label: 'Spotify', href: p.spotify });
+  if (p.youtube) items.push({ label: 'YouTube', href: p.youtube });
+  if (p.apple) items.push({ label: 'Apple', href: p.apple });
+  if (p.amazon) items.push({ label: 'Amazon', href: p.amazon });
+  if (p.web) items.push({ label: 'Web', href: p.web });
+  return items;
+}
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/en/podcasts" extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Podcasts</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">What I publish, and</span> what I listen to.</h1>
+        <p class="cr-lead cr-pagehead__lead">A personal curation, not a passive list. {PODCAST_ENTRIES.length} podcasts in total. Mine first. Below, everything grouped by category so you can jump to the topic you want. <span class="cr-intag">Most podcasts are in Spanish.</span></p>
+      </div>
+    </section>
+
+    <div class="cr-pchips-wrap">
+      <div class="cr-container">
+        <nav class="cr-pchips" aria-label="Filter by category">
+          {chips.map((c, i) => (
+            <button class={`cr-pchip ${i === 0 ? 'is-on' : ''}`} data-filter={c.slug} type="button">{c.label}</button>
+          ))}
+        </nav>
+      </div>
+    </div>
+
+    <section id="mis-podcasts" class="cr-blogix">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{SECTIONS_EN.mine.kicker}</p>
+        <h2 class="cr-display-2" style="margin:8px 0 8px"><span class="cr-d-thin">What I</span> publish.</h2>
+        <p class="cr-lead" style="max-width:60ch;margin-bottom:32px">{SECTIONS_EN.mine.intro}</p>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          {mineEntries.map((p, i) => {
+            const cover = i === 0 ? '/ds-assets/pertinente-cover.jpg' : '/ds-assets/memc-banner.png';
+            const isPert = i === 0;
+            const ctaHref = isPert ? '/en/pertinente' : '/en/metase';
+            const ctaLabel = isPert ? 'Listen to Pertinente' : 'Watch the conversations';
+            const platforms = platformLinks(p).map((pl) => pl.label).join(' · ');
+            return (
+              <a class="cr-mediacard" href={ctaHref}>
+                <div class="cr-mediacard__art" style={`background-image:url('${cover}')`}></div>
+                <div class="cr-mediacard__body">
+                  <div class="cr-mediacard__meta">{p.frequency ?? ''} · <span class="cr-intag">in Spanish</span></div>
+                  <h3 class="cr-mediacard__title">{p.name}</h3>
+                  <p class="cr-mediacard__desc">{p.description}</p>
+                  <p class="cr-mediacard__foot">Listen on {platforms}</p>
+                  <span class={`cr-btn ${isPert ? 'cr-btn--accent' : 'cr-btn--ghost'} cr-mediacard__cta`}>{ctaLabel}</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="cr-blogix" style="padding-top:0">
+      <div class="cr-container">
+        <div class="cr-pgroup cr-pgroup--first" data-section="negocios">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>{SECTIONS_EN.negocios.kicker} · {negociosEntries.length} podcasts</p>
+          <h2 class="cr-pgroup__h"><span class="cr-d-thin">What I listen to think</span> about business and AI.</h2>
+          <p class="cr-pgroup__sub">{SECTIONS_EN.negocios.intro}</p>
+        </div>
+
+        {negociosGroups.map((g) => (
+          <div id={g.info.slug} class="cr-pcat" style={`--cat:${TAG_COLORS[g.tag]}`} data-tag={g.tag}>
+            <div class="cr-pcat__head">
+              <Fragment set:html={tagIcon(g.tag)} />
+              <h3 class="cr-pcat__title">{TAG_EN[g.tag]}</h3>
+              <span class="cr-pcat__count">{g.items.length}</span>
+            </div>
+            <div class="cr-pcat__grid">
+              {g.items.map((p) => (
+                <div class="cr-pcast">
+                  <h4 class="cr-pcast__name">{p.name}</h4>
+                  {p.frequency && <p class="cr-pcast__cadence">{p.frequency}</p>}
+                  <p class="cr-pcast__desc">{p.description}</p>
+                  <div class="cr-pcast__links">
+                    {platformLinks(p).map((pl) => (
+                      <a href={pl.href} target="_blank" rel="noopener">{pl.label}</a>
+                    ))}
+                    {platformLinks(p).length === 0 && <span class="cr-pcast__plat">No public link</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="cr-blogix" style="padding-top:0">
+      <div class="cr-container">
+        <div class="cr-pgroup" data-section="fuera">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>{SECTIONS_EN.fuera.kicker} · {fueraEntries.length} podcasts</p>
+          <h2 class="cr-pgroup__h"><span class="cr-d-thin">What I listen to when</span> I'm not thinking about AI.</h2>
+          <p class="cr-pgroup__sub">{SECTIONS_EN.fuera.intro}</p>
+        </div>
+
+        {fueraGroups.map((g) => (
+          <div id={g.info.slug} class="cr-pcat" style={`--cat:${TAG_COLORS[g.tag]}`} data-tag={g.tag}>
+            <div class="cr-pcat__head">
+              <Fragment set:html={tagIcon(g.tag)} />
+              <h3 class="cr-pcat__title">{TAG_EN[g.tag]}</h3>
+              <span class="cr-pcat__count">{g.items.length}</span>
+            </div>
+            <div class="cr-pcat__grid">
+              {g.items.map((p) => (
+                <div class="cr-pcast">
+                  <h4 class="cr-pcast__name">{p.name}</h4>
+                  {p.frequency && <p class="cr-pcast__cadence">{p.frequency}</p>}
+                  <p class="cr-pcast__desc">{p.description}</p>
+                  <div class="cr-pcast__links">
+                    {platformLinks(p).map((pl) => (
+                      <a href={pl.href} target="_blank" rel="noopener">{pl.label}</a>
+                    ))}
+                    {platformLinks(p).length === 0 && <span class="cr-pcast__plat">No public link</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('.cr-pchip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var f = chip.getAttribute('data-filter');
+        document.querySelectorAll('.cr-pchip').forEach(function (c) { c.classList.remove('is-on'); });
+        chip.classList.add('is-on');
+        var cats = document.querySelectorAll('.cr-pcat');
+        var groups = document.querySelectorAll('.cr-pgroup');
+        if (f === 'todos') {
+          cats.forEach(function (el) { el.style.display = ''; });
+          groups.forEach(function (el) { el.style.display = ''; });
+        } else {
+          cats.forEach(function (el) {
+            el.style.display = el.getAttribute('data-tag') === f ? '' : 'none';
+          });
+          groups.forEach(function (el) {
+            var anyVisible = Array.from(cats).some(function (c) {
+              return c.style.display !== 'none' && c.closest('section').contains(el);
+            });
+            el.style.display = anyVisible ? '' : 'none';
+          });
+        }
+      });
+    });
+  </script>
+</Base>

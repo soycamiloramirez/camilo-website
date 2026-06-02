@@ -4,7 +4,7 @@ const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang];
 const home = lang === 'es' ? '/' : '/en';
 const blogHref = lang === 'es' ? '/blog' : '/en/blog';
-const podcastsHref = '/podcasts';
+const podcastsHref = lang === 'es' ? '/podcasts' : '/en/podcasts';
 const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
 const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
 const contactoHref = `${home}#contacto`;

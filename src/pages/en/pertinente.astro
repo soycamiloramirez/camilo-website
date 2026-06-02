@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE, PODCASTS } from '../../content/copy';
+import { loadPodcast } from '../../lib/podcasts';
+
+const lang = 'en' as const;
+const feed = await loadPodcast({
+  id: 'pertinente',
+  title: 'Pertinente',
+  appleId: PODCASTS.pertinente.appleId,
+  limit: 12,
+});
+
+const pageTitle = 'Pertinente · Daily AI, business and LATAM podcast · Camilo Ramírez';
+const pageDescription = 'Daily analysis, ~10 minutes, on one key topic in AI, business or geopolitics across LATAM. Published in Spanish. By Camilo Ramírez, for leaders who need to understand where money and innovation are heading, without hype.';
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'PodcastSeries',
+    name: 'Pertinente',
+    url: `${SITE.url}/en/pertinente`,
+    description: pageDescription,
+    inLanguage: 'es',
+    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    sameAs: PODCASTS.pertinente.platforms.map((p) => p.href),
+  },
+];
+
+const platforms = PODCASTS.pertinente.platforms;
+
+function dateShort(iso: string) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/en/pertinente" extraJsonLd={extraJsonLd}>
+  <Header lang={lang} />
+
+  <main>
+    <section class="cr-pagehead cr-pagehead--dark">
+      <div class="cr-container">
+        <div class="cr-podhead">
+          <div class="cr-podhead__art" style={`background-image:url('${feed.artworkUrl ?? '/ds-assets/pertinente-cover.jpg'}')`}></div>
+          <div>
+            <p class="cr-podhead__meta">Daily podcast · 6 to 13 min · <span class="cr-intag" style="color:#C75CA6">in Spanish</span></p>
+            <h1 class="cr-podhead__title">Pertinente</h1>
+            <p class="cr-podhead__desc">Daily analysis, ~10 minutes, on one key topic in AI, business or geopolitics across LATAM. For leaders who need to understand where money and innovation are heading, without hype.</p>
+            <div class="cr-podhead__platforms">
+              {platforms.map((p) => (
+                <a class="cr-platform" href={p.href} target="_blank" rel="noopener">{p.name}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cr-episodes">
+      <div class="cr-container">
+        <h2 class="cr-display-2 cr-episodes__title"><span class="cr-d-thin">Recent</span> episodes</h2>
+
+        {feed.episodes.length === 0 ? (
+          <p class="cr-lead">Episodes live on the platforms above. Open them directly if the page isn't showing them today.</p>
+        ) : (
+          feed.episodes.map((ep, i) => (
+            <a class="cr-ep" href={ep.link || platforms[0].href} target="_blank" rel="noopener">
+              <span class="cr-ep__num">{String(feed.episodes.length - i).padStart(2, '0')}</span>
+              <div>
+                <h3 class="cr-ep__title">{ep.title}</h3>
+                <p class="cr-ep__desc">{ep.description}</p>
+                <p class="cr-ep__desc" style="font-size:13px;opacity:.7;margin-top:4px">{dateShort(ep.published)}</p>
+              </div>
+              {ep.durationLabel && <span class="cr-ep__dur">{ep.durationLabel}</span>}
+              <span class="cr-ep__play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            </a>
+          ))
+        )}
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>
