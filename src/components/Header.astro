@@ -8,7 +8,36 @@ const podcastsHref = lang === 'es' ? '/podcasts' : '/en/podcasts';
 const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
 const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
 const contactoHref = `${home}#contacto`;
-const otherHref = lang === 'es' ? '/en' : '/';
+
+/**
+ * Lang switcher mantiene al usuario en la misma página, no lo manda al home.
+ * Mapea path actual a su contraparte en el otro idioma. Si no existe paridad
+ * (ej: /blog/SLUG no tiene EN), cae al fallback (/en/blog o /blog).
+ */
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const PEERED = ['/historia', '/podcasts', '/speaking', '/pertinente', '/metase', '/blog'];
+
+let otherHref: string;
+if (lang === 'es') {
+  if (currentPath === '/') {
+    otherHref = '/en';
+  } else if (PEERED.includes(currentPath)) {
+    otherHref = `/en${currentPath}`;
+  } else if (currentPath.startsWith('/blog/')) {
+    // Posts y categorías no tienen peer EN, mandar al listado /en/blog
+    otherHref = '/en/blog';
+  } else {
+    otherHref = '/en';
+  }
+} else {
+  if (currentPath === '/en') {
+    otherHref = '/';
+  } else if (currentPath.startsWith('/en/')) {
+    otherHref = currentPath.replace(/^\/en/, '') || '/';
+  } else {
+    otherHref = '/';
+  }
+}
 ---
 <header class="cr-header">
   <div class="cr-header__inner">
@@ -36,3 +65,9 @@ const otherHref = lang === 'es' ? '/en' : '/';
     </div>
   </div>
 </header>
+
+<style>
+  /* Alinear baseline del switch ES/EN con los navlinks
+     (estos tienen padding-bottom:4px + border-bottom:2px que los nudge abajo) */
+  .cr-header__lang { padding-bottom: 6px; }
+</style>
