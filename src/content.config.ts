@@ -14,6 +14,8 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    /** SEO `<title>` opcional. Si está, gana sobre `title` (que se renderiza en el body). Útil para titulares editoriales largos que necesitan versión SERP corta (≤60 chars). */
+    seo_title: z.string().optional(),
     description: z.string(),
     date: z.coerce.date(),
     categories: z.array(z.enum(['negocios', 'geopolitica', 'latam', 'aprende'])).min(1),

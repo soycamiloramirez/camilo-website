@@ -23,7 +23,7 @@ const extraJsonLd = [
     description: pageDescription,
     url: `${SITE.url}/blog`,
     inLanguage: 'es-CO',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    author: { '@id': `${SITE.url}/#person` },
     blogPost: posts.slice(0, 10).map((p) => ({
       '@type': 'BlogPosting',
       headline: p.data.title,

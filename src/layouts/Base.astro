@@ -67,19 +67,63 @@ const personJsonLd = {
   knowsAbout: [
     'Artificial Intelligence',
     'AI for business',
-    'Business strategy',
-    'Latin America technology',
-    'Digital marketing',
-    'SEO',
-    'Public speaking',
-    'Podcasting',
-    'AI adoption',
     'AI governance',
+    'AI adoption in Latin America',
+    'Generative AI strategy',
+    'Business strategy',
+    'C-level advisory',
+    'Board advisory',
+    'Latin America technology ecosystem',
+    'Digital business',
+    'Public speaking',
+    'Keynote speaking',
+    'Podcasting',
+    'Editorial criticism',
+    'Technology geopolitics',
   ],
   knowsLanguage: ['es', 'en'],
-  worksFor: { '@type': 'Organization', name: 'Navigamo', url: 'https://navigamo.co' },
+  worksFor: {
+    '@type': 'Organization',
+    '@id': 'https://navigamo.co/#org',
+    name: 'Navigamo',
+    url: 'https://navigamo.co',
+    description: 'Compañía de IA que diseña y opera soluciones para empresas en LATAM. Cofundada por Camilo Ramírez en 2024.',
+  },
   memberOf: [
-    { '@type': 'Organization', name: 'The AI Collective', url: 'https://aicollective.com' },
+    {
+      '@type': 'Organization',
+      '@id': 'https://aicollective.com/#org',
+      name: 'The AI Collective',
+      url: 'https://aicollective.com',
+      description: 'La comunidad de IA más grande del planeta: 200.000+ miembros, 180+ capítulos en 40+ países. Camilo Ramírez es Director Regional LATAM desde 2025.',
+    },
+    { '@type': 'Organization', name: 'IAB Colombia (alumni, junta directiva 2014-2022)' },
+  ],
+  hasOccupation: [
+    {
+      '@type': 'Occupation',
+      name: 'Advisor estratégico C-level',
+      occupationLocation: { '@type': 'Country', name: 'Colombia' },
+      skills: 'AI strategy, business decisions, board sessions, adoption planning',
+    },
+    {
+      '@type': 'Occupation',
+      name: 'Keynote speaker',
+      occupationLocation: { '@type': 'Place', name: 'LATAM, North America, Europe' },
+      skills: 'AI for business, governance, C-level fundamentals',
+    },
+    {
+      '@type': 'Occupation',
+      name: 'Podcast host',
+      skills: 'Pertinente (daily), Métase en mi cabeza (weekly TV + podcast)',
+    },
+  ],
+  award: [
+    'Certified Experienced Speaker',
+    'Jury · Effie Awards',
+    'Jury · FIAP',
+    'Jury · PromaxBDA',
+    'Board member · IAB Colombia (2014-2022)',
   ],
   address: { '@type': 'PostalAddress', addressLocality: 'Bogotá', addressRegion: 'Cundinamarca', addressCountry: 'CO' },
   sameAs: [
@@ -112,6 +156,10 @@ const personJsonLd = {
       </>
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Preload critical webfonts: Helvetica Neue Regular (cuerpo), Bold (display) y Fraunces Italic (accent en displays) -->
+    <link rel="preload" href="/fonts/HelveticaNeue.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/HelveticaNeue-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Fraunces-RegularItalic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="alternate" type="application/rss+xml" title="Blog · Camilo Ramírez" href={`${SITE.url}/blog/rss.xml`} />
     <meta property="og:type" content={pageType} />
     <meta property="og:title" content={title} />

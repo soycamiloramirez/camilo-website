@@ -34,27 +34,43 @@ const related = all
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-// Title sin sufijo " · Camilo Ramírez" para mantenerlo bajo 60 chars (Google SERP).
-// La autoría se establece via schema.org Person + author meta.
-const pageTitle = post.data.title;
+// Title SEO: usa `seo_title` del frontmatter si existe (versión corta ≤60 chars),
+// si no usa el `title` editorial. La autoría se establece via schema.org Person + author meta.
+const pageTitle = post.data.seo_title ?? post.data.title;
 const pageDescription = post.data.description;
 
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    '@id': `${url}#article`,
     headline: post.data.title,
     description: post.data.description,
     url,
     inLanguage: 'es-CO',
     datePublished: post.data.date.toISOString(),
     dateModified: post.data.date.toISOString(),
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    publisher: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    /* Author/publisher referencian la entidad Person canónica definida en Base.astro
+       (@id = SITE.url + '#person'). Esto consolida señales de autoría para Google
+       Knowledge Graph y para que LLMs (ChatGPT, Perplexity, Claude) reconozcan
+       una sola entidad "Camilo Ramírez" en todas las citaciones. */
+    author: { '@id': `${SITE.url}/#person` },
+    publisher: { '@id': `${SITE.url}/#person` },
     image: `${SITE.url}/og-image.jpg`,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     articleSection: cats.map((c) => CATEGORIES[c].label),
+    keywords: [...cats.map((c) => CATEGORIES[c].label), 'IA', 'inteligencia artificial', 'Latinoamérica', 'negocios'].join(', '),
     wordCount,
+    /* Citation: el post nace de un episodio de Pertinente. Linkear como fuente
+       primaria refuerza que es contenido editorial derivado, no parafraseo. */
+    isPartOf: { '@type': 'Blog', '@id': `${SITE.url}/blog#blog` },
+    ...(post.data.episode && {
+      citation: {
+        '@type': 'CreativeWork',
+        name: `Pertinente · episodio ${post.data.episode}`,
+        url: `${SITE.url}/pertinente`,
+      },
+    }),
   },
   {
     '@context': 'https://schema.org',

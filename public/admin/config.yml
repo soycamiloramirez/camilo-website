@@ -49,7 +49,14 @@ collections:
         field: draft
         pattern: true
     fields:
-      - { name: title, label: 'Título', widget: string, required: true }
+      - { name: title, label: 'Título', widget: string, required: true, hint: 'El título editorial que sale en el post. Sin límite estricto, pero ojalá ≤80 chars.' }
+      - {
+          name: seo_title,
+          label: 'Título SEO (opcional)',
+          widget: string,
+          required: false,
+          hint: 'Versión corta del título para Google (≤60 chars). Si lo dejas vacío, se usa el Título editorial. Útil cuando el título de arriba pasa de 60 chars y Google lo trunca en SERP.',
+        }
       - {
           name: description,
           label: 'Descripción / Lede',

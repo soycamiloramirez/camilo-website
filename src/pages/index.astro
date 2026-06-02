@@ -16,12 +16,24 @@ function fmtDate(d: Date) {
 }
 
 const extraJsonLd = [
-  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'es-CO' },
   {
-    '@context': 'https://schema.org', '@type': 'PodcastSeries', name: 'Pertinente',
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: 'es-CO',
+    publisher: { '@id': `${SITE.url}/#person` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'PodcastSeries',
+    '@id': 'https://camilo-ramirez.com/pertinente#podcast',
+    name: 'Pertinente',
     description: 'Análisis diario sobre IA, negocios y geopolítica en LATAM.',
-    url: PODCASTS.pertinente.platforms[0].href, inLanguage: 'es',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    url: PODCASTS.pertinente.platforms[0].href,
+    inLanguage: 'es',
+    author: { '@id': `${SITE.url}/#person` },
     sameAs: PODCASTS.pertinente.platforms.map((p) => p.href),
   },
 ];
