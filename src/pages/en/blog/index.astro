@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { SITE } from '../../../content/copy';
+
+const lang = 'en' as const;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const featured = posts[0];
+const rest = posts.slice(1);
+
+const pageTitle = 'Blog · Judgment on AI, business and LATAM | Camilo Ramírez';
+const pageDescription = 'Daily editorial analysis on AI, business, geopolitics and opportunities across Latin America. Each piece is born from an episode of Pertinente. Published in Spanish.';
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Blog · Camilo Ramírez',
+    description: pageDescription,
+    url: `${SITE.url}/en/blog`,
+    inLanguage: 'es',
+    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+  },
+];
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function readingMin(body: string) {
+  return Math.max(1, Math.round(body.split(/\s+/).length / 220));
+}
+
+const CATEGORY_EN: Record<string, string> = {
+  negocios: 'Business & strategy',
+  geopolitica: 'Geopolitics & markets',
+  latam: 'LATAM',
+  aprende: 'Learn',
+};
+
+function catLabel(slug?: string) {
+  return slug ? (CATEGORY_EN[slug] ?? slug) : 'Blog';
+}
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/en/blog" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Blog</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">The same judgment, in editorial</span> <em class="cr-d-em">format.</em></h1>
+        <p class="cr-lead cr-pagehead__lead">Each piece is born from an episode of Pertinente, my daily analysis. The blog is published in Spanish. Categories below help you jump straight to what interests you.</p>
+      </div>
+    </section>
+
+    <section class="cr-blogix">
+      <div class="cr-container">
+        {featured && (
+          <a class="cr-mediacard cr-mediacard--feature" href={`/blog/${featured.slug}`}>
+            <div class="cr-mediacard__art" style="background-image:url('/camilo-hero.jpg')"></div>
+            <div class="cr-mediacard__body">
+              <div class="cr-mediacard__meta">Featured · {catLabel(featured.data.categories?.[0])} <span class="cr-intag">· In Spanish</span></div>
+              <h2 class="cr-mediacard__title">{featured.data.title}</h2>
+              <p class="cr-mediacard__desc">{featured.data.description}</p>
+              <p class="cr-mediacard__foot">{fmtDate(featured.data.date)} · {readingMin(featured.body ?? '')} min read</p>
+              <span class="cr-btn cr-btn--link cr-mediacard__cta">Read the essay →</span>
+            </div>
+          </a>
+        )}
+
+        <div class="cr-ix__list cr-blog__list">
+          {rest.map((post) => (
+            <a class="cr-post" href={`/blog/${post.slug}`}>
+              <span class="cr-post__cat">{catLabel(post.data.categories?.[0])} <span class="cr-intag">· In Spanish</span></span>
+              <h3 class="cr-post__title">{post.data.title}</h3>
+              <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>

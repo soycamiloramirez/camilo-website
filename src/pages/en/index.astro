@@ -1,60 +1,257 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import Ultimo from '../../components/Ultimo.astro';
-import Tesis from '../../components/Tesis.astro';
-import Trabajo from '../../components/Trabajo.astro';
-import Roles from '../../components/Roles.astro';
-import TrayectoriaBrief from '../../components/TrayectoriaBrief.astro';
-import Contacto from '../../components/Contacto.astro';
 import Footer from '../../components/Footer.astro';
-import { SITE, PODCASTS } from '../../content/copy';
+import { COPY, SITE, PODCASTS, AIC_PARTNERS } from '../../content/copy';
 
 const lang = 'en' as const;
+const t = COPY.en;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+}
 
 const extraJsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: `${SITE.url}/en`, inLanguage: 'en' },
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: SITE.name,
-    url: `${SITE.url}/en`,
-    inLanguage: 'en-US',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'PodcastSeries',
-    name: 'Pertinente',
-    description:
-      'Daily podcast, ~10 minutes, on AI, business and geopolitics across LATAM. Camilo Ramírez solo, one key topic analyzed each day, for leaders who need to understand where money and innovation are heading.',
-    url: PODCASTS.pertinente.platforms[0].href,
-    inLanguage: 'es',
+    '@context': 'https://schema.org', '@type': 'PodcastSeries', name: 'Pertinente',
+    description: 'Daily analysis on AI, business and geopolitics across LATAM.',
+    url: PODCASTS.pertinente.platforms[0].href, inLanguage: 'es',
     author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
     sameAs: PODCASTS.pertinente.platforms.map((p) => p.href),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'PodcastSeries',
-    name: 'Métase en mi cabeza',
-    description:
-      'Weekly conversations with leaders building the present and future of Latin America. AI with a human lens. Produced by Navigamo, Got-It TV and AT Medios.',
-    url: PODCASTS.memc.platforms[0].href,
-    inLanguage: 'es',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    sameAs: PODCASTS.memc.platforms.map((p) => p.href),
   },
 ];
 ---
 <Base lang={lang} path="/en" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <Roles lang={lang} />
-    <Ultimo lang={lang} />
-    <Tesis lang={lang} />
-    <Trabajo lang={lang} />
-    <TrayectoriaBrief lang={lang} />
-    <Contacto lang={lang} />
+
+  <main id="top">
+
+    <section class="cr-hero">
+      <div class="cr-container cr-hero__grid">
+        <div class="cr-hero__copy">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>{t.hero.eyebrow}</p>
+          <h1 class="cr-hero__title">
+            <span class="cr-hero__title-thin">Judgment on AI,</span><br>
+            business <span class="cr-hero__amp">and</span> LATAM.<br>
+            <span class="cr-hero__title-thin">Published every day.</span>
+          </h1>
+          <p class="cr-lead cr-hero__lead">{t.hero.lede}</p>
+          <div class="cr-hero__actions">
+            <a class="cr-btn cr-btn--accent" href="/pertinente">{t.hero.ctaPrimary}</a>
+            <a class="cr-btn cr-btn--link" href="/en/speaking">{t.hero.ctaSecondary} →</a>
+          </div>
+          <p class="cr-hero__foot">{t.hero.since} · {SITE.location.en}</p>
+        </div>
+        <div class="cr-hero__media">
+          <div class="cr-hero__photo" role="img" aria-label="Portrait of Camilo Ramírez"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cr-build">
+      <div class="cr-container">
+        <div class="cr-build__row">
+          <div class="cr-build__lead">
+            <p class="cr-eyebrow"><span class="cr-franja"></span>{t.navigamo.kicker}</p>
+            <img class="cr-build__logo" src="/navigamo-logo.svg" alt="Navigamo">
+          </div>
+          <div class="cr-build__body">
+            <h2 class="cr-build__h">{t.navigamo.title}</h2>
+            <p>{t.navigamo.p}</p>
+            <p class="cr-build__intro">{t.navigamo.ctaIntro}</p>
+            <a class="cr-btn cr-btn--link" href={t.navigamo.href}>{t.navigamo.cta} ↗</a>
+          </div>
+        </div>
+
+        <div class="cr-build__row">
+          <div class="cr-build__lead">
+            <p class="cr-eyebrow"><span class="cr-franja"></span>{t.aic.kicker}</p>
+            <img class="cr-build__logo" src="/aicollective-logo.svg" alt="The AI Collective">
+          </div>
+          <div class="cr-build__body">
+            <h2 class="cr-build__h">{t.aic.title}</h2>
+            <p>{t.aic.p}</p>
+            <a class="cr-btn cr-btn--link" href={t.aic.href}>{t.aic.cta} ↗</a>
+          </div>
+        </div>
+
+        <div class="cr-partners">
+          <p class="cr-partners__lbl">{t.aic.partnersLabel}</p>
+          <div class="cr-partners__row">
+            {AIC_PARTNERS.map((p) => (
+              <span class="cr-partner"><img src={`/ds-assets/partners/${p.toLowerCase()}.svg`} alt="">{p}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ultimo" class="cr-ultimo">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.ultimo.kicker}</p>
+        <h2 class="cr-display-2 cr-ultimo__title"><span class="cr-d-thin">Where I exercise</span> judgment, <span class="cr-d-thin">in public.</span></h2>
+        <p class="cr-lead" style="max-width:64ch;margin-bottom:32px">{t.ultimo.lede}</p>
+
+        <div class="cr-ultimo__grid">
+          <a class="cr-showcard" href="/metase" style="--show:#E8531E">
+            <div class="cr-showcard__art" style="background-image:url('/ds-assets/memc-banner.png')"></div>
+            <div class="cr-showcard__body">
+              <div class="cr-showcard__head">
+                <span class="cr-showcard__dot"></span>
+                <h3 class="cr-showcard__name">Métase en mi cabeza</h3>
+              </div>
+              <p class="cr-showcard__meta">Weekly · ~60 min · TV + podcast · <span class="cr-intag">in Spanish</span></p>
+              <p class="cr-showcard__desc">{t.ultimo.memc.oneLine}</p>
+              <span class="cr-showcard__cta">Watch the conversations →</span>
+            </div>
+          </a>
+
+          <a class="cr-showcard" href="/pertinente" style="--show:#C0392B">
+            <div class="cr-showcard__art" style="background-image:url('/ds-assets/pertinente-cover.jpg')"></div>
+            <div class="cr-showcard__body">
+              <div class="cr-showcard__head">
+                <span class="cr-showcard__dot"></span>
+                <h3 class="cr-showcard__name">Pertinente</h3>
+              </div>
+              <p class="cr-showcard__meta">Daily · 6 to 13 min · <span class="cr-intag">in Spanish</span></p>
+              <p class="cr-showcard__desc">{t.ultimo.pertinente.oneLine}</p>
+              <span class="cr-showcard__cta">Listen to Pertinente →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" class="cr-blog">
+      <div class="cr-container">
+        <div class="cr-blog__head">
+          <div>
+            <p class="cr-eyebrow"><span class="cr-franja"></span>From the blog</p>
+            <h2 class="cr-display-2 cr-blog__title"><span class="cr-d-thin">The same judgment, in editorial</span> <em class="cr-d-em">format.</em></h2>
+          </div>
+          <a class="cr-btn cr-btn--link" href="/en/blog">See the full blog →</a>
+        </div>
+
+        <div class="cr-blog__list">
+          {posts.map((post) => (
+            <a class="cr-post" href={`/blog/${post.slug}`}>
+              <span class="cr-post__cat">{post.data.categories?.[0] ?? 'Blog'} <span class="cr-intag">· In Spanish</span></span>
+              <h3 class="cr-post__title">{post.data.title}</h3>
+              <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="tesis" class="cr-tesis">
+      <div class="cr-container">
+        <p class="cr-eyebrow cr-eyebrow--ondark"><span class="cr-franja cr-franja--mag"></span>{t.tesis.kicker}</p>
+        <h2 class="cr-display-2 cr-tesis__title"><span class="cr-d-thin">Three</span> convictions <span class="cr-d-thin">that hold up what I publish.</span></h2>
+
+        <div class="cr-tesis__grid">
+          {t.tesis.items.map((item, i) => (
+            <article class="cr-tesis__item">
+              <div class="cr-tesis__n">{String(i + 1).padStart(2, '0')}</div>
+              <h3 class="cr-tesis__h">{item.h}</h3>
+              <p class="cr-tesis__b">{item.p}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="trabajar" class="cr-work">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.trabajo.kicker}</p>
+        <h2 class="cr-display-2 cr-work__title"><span class="cr-d-thin">When content isn't enough and you need</span> <em class="cr-d-em">the room.</em></h2>
+
+        <div class="cr-work__grid">
+          {t.trabajo.cards.map((c) => (
+            <article class="cr-work__card">
+              <p class="cr-work__ey">{c.tag === 'Advisory' ? 'For organizations' : 'For events'}</p>
+              <h3 class="cr-work__h">{c.tag}</h3>
+              <p class="cr-work__b">{c.p}</p>
+              <div class="cr-work__foot">
+                <span class="cr-work__meta">{c.for}</span>
+                <a class="cr-btn cr-btn--primary cr-work__cta" href={c.tag === 'Speaking' ? '/en/speaking' : '#contacto'}>
+                  {c.tag === 'Advisory' ? "Let's talk about your organization" : 'Invite me to speak'}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p class="cr-work__note">{t.trabajo.filter}</p>
+      </div>
+    </section>
+
+    <section id="historia" class="cr-tray">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.nav.historia}</p>
+        <h2 class="cr-display-2 cr-tray__title"><span class="cr-d-thin">Twenty years learning to read the</span> structure <span class="cr-d-thin">of a problem.</span></h2>
+        <p class="cr-lead" style="max-width:64ch;margin-bottom:40px">From television to AI, the craft changed but the pattern didn't: see a problem, build the system that solves it. Five chapters, one single story.</p>
+
+        <ol class="cr-tray__list">
+          <li class="cr-tray__item"><div class="cr-tray__years">1999 – 2010</div><div class="cr-tray__copy"><h3 class="cr-tray__h">Broadcast Design</h3></div></li>
+          <li class="cr-tray__item"><div class="cr-tray__years">2007 – 2026</div><div class="cr-tray__copy"><h3 class="cr-tray__h">Netbangers</h3></div></li>
+          <li class="cr-tray__item"><div class="cr-tray__years">2018 – 2023</div><div class="cr-tray__copy"><h3 class="cr-tray__h">Custom Built Show</h3></div></li>
+          <li class="cr-tray__item"><div class="cr-tray__years">2024 – present</div><div class="cr-tray__copy"><h3 class="cr-tray__h">Navigamo · The AI Collective</h3></div></li>
+          <li class="cr-tray__item"><div class="cr-tray__years">2025 – present</div><div class="cr-tray__copy"><h3 class="cr-tray__h">Pertinente · Métase en mi cabeza</h3></div></li>
+        </ol>
+        <div style="margin-top:40px"><a class="cr-btn cr-btn--link" href="/en/historia">Read the full story →</a></div>
+      </div>
+    </section>
+
+    <section id="contacto" class="cr-contact">
+      <div class="cr-container cr-contact__inner">
+        <div class="cr-contact__lead">
+          <p class="cr-eyebrow cr-eyebrow--ondark"><span class="cr-franja cr-franja--mag"></span>{t.contacto.kicker}</p>
+          <h2 class="cr-contact__h"><span class="cr-d-thin">If you want to work with me,</span> write <em class="cr-d-em cr-d-em--ondark">directly.</em></h2>
+          <p class="cr-contact__sub">{t.contacto.lede}</p>
+          <a class="cr-contact__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
+
+        <form class="cr-form" id="contactForm">
+          <div class="cr-form__row">
+            <label class="cr-field"><span class="cr-field__label">{t.contacto.form.name}</span><input class="cr-field__input" name="nombre" type="text"></label>
+            <label class="cr-field"><span class="cr-field__label">{t.contacto.form.company}</span><input class="cr-field__input" name="empresa" type="text"></label>
+          </div>
+          <div class="cr-field">
+            <span class="cr-field__label">{t.contacto.form.type}</span>
+            <div class="cr-form__topics" role="radiogroup">
+              {t.contacto.form.types.map((typ, i) => (
+                <button type="button" class={`cr-form__topic ${i === 0 ? 'is-on' : ''}`} data-need={typ.toLowerCase()}>{typ}</button>
+              ))}
+            </div>
+            <input type="hidden" name="necesita" value={t.contacto.form.types[0].toLowerCase()}>
+          </div>
+          <label class="cr-field">
+            <span class="cr-field__label">{t.contacto.form.message}</span>
+            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3"></textarea>
+          </label>
+          <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">{t.contacto.form.send} →</button>
+        </form>
+      </div>
+    </section>
+
   </main>
+
   <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('.cr-form__topic').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.cr-form__topic').forEach(function (b) { b.classList.remove('is-on'); });
+        btn.classList.add('is-on');
+        var hidden = document.querySelector('input[name="necesita"]');
+        if (hidden) hidden.value = btn.getAttribute('data-need');
+      });
+    });
+  </script>
 </Base>
