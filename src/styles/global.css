@@ -2,6 +2,53 @@
 @import "./tokens.css";
 
 /* =================================================================
+   DS overrides: restablecer los defaults que Tailwind preflight rompe.
+   Las clases .cr-* del DS asumen márgenes/line-heights del browser
+   default, no los reset de Tailwind. Esto reestablece lo mínimo
+   para que el spacing del DS funcione como Design lo diseñó.
+   ================================================================= */
+.cr-showcard__name,
+.cr-showcard__meta,
+.cr-showcard__desc,
+.cr-showcard__last,
+.cr-build__h,
+.cr-pod__name,
+.cr-pod__desc,
+.cr-tesis__h,
+.cr-tesis__b,
+.cr-work__h,
+.cr-work__b,
+.cr-tray__h,
+.cr-post__title,
+.cr-post__cat,
+.cr-post__meta,
+.cr-contact__h,
+.cr-contact__sub,
+.cr-eyebrow,
+.cr-lead,
+.cr-hero__title,
+.cr-hero__lead,
+.cr-hero__foot,
+.cr-display-2,
+.cr-display-3,
+.cr-build__intro,
+.cr-partners__lbl,
+.cr-partner,
+.cr-footer__name,
+.cr-footer__tag,
+.cr-footer__lbl,
+.cr-blog__title,
+.cr-ultimo__title,
+.cr-work__title,
+.cr-tesis__title,
+.cr-tray__title,
+.cr-work__note,
+.cr-work__meta,
+.cr-work__ey {
+  margin: 0;
+}
+
+/* =================================================================
    Mapeo Tailwind ↔ tokens.
 
    Cada theme var de Tailwind apunta a un token de `tokens.css`. Eso

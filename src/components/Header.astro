@@ -2,25 +2,85 @@
 import { COPY, type Lang } from '../content/copy';
 const { lang } = Astro.props as { lang: Lang };
 const t = COPY[lang];
-const otherLang: Lang = lang === 'es' ? 'en' : 'es';
-const otherHref = lang === 'es' ? '/en' : '/';
 const home = lang === 'es' ? '/' : '/en';
+const blogHref = lang === 'es' ? '/blog' : '/en/blog';
+const podcastsHref = lang === 'es' ? '/podcasts' : '/en/podcasts';
+const speakingHref = lang === 'es' ? '/speaking' : '/en/speaking';
 const historiaHref = lang === 'es' ? '/historia' : '/en/historia';
+const contactoHref = `${home}#contacto`;
+
+/**
+ * Lang switcher mantiene al usuario en la misma página, no lo manda al home.
+ * Mapea path actual a su contraparte en el otro idioma. Si no existe paridad
+ * (ej: /blog/SLUG no tiene EN), cae al fallback (/en/blog o /blog).
+ */
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+/**
+ * Marca el navlink correspondiente como activo. Match por prefix porque
+ * `/blog/foo` y `/blog/categoria/x` también deben marcar "Blog" como activo.
+ */
+function isActive(href: string): boolean {
+  if (href === currentPath) return true;
+  // Match prefix: /blog matches /blog/foo; /podcasts matches /podcasts#tag
+  // pero no /historia matches / (home).
+  if (href !== '/' && href !== '/en' && currentPath.startsWith(href + '/')) return true;
+  return false;
+}
+const cls = (href: string) => `cr-header__navlink${isActive(href) ? ' is-active' : ''}`;
+const PEERED = ['/historia', '/podcasts', '/speaking', '/pertinente', '/metase', '/blog'];
+
+let otherHref: string;
+if (lang === 'es') {
+  if (currentPath === '/') {
+    otherHref = '/en';
+  } else if (PEERED.includes(currentPath)) {
+    otherHref = `/en${currentPath}`;
+  } else if (currentPath.startsWith('/blog/')) {
+    // Posts y categorías no tienen peer EN, mandar al listado /en/blog
+    otherHref = '/en/blog';
+  } else {
+    otherHref = '/en';
+  }
+} else {
+  if (currentPath === '/en') {
+    otherHref = '/';
+  } else if (currentPath.startsWith('/en/')) {
+    otherHref = currentPath.replace(/^\/en/, '') || '/';
+  } else {
+    otherHref = '/';
+  }
+}
 ---
-<header class="fixed top-0 inset-x-0 z-40 bg-paper/85 backdrop-blur border-b border-rule">
-  <div class="mx-auto max-w-6xl px-6 lg:px-10 h-14 flex items-center justify-between">
-    <a href={home} class="font-display text-body tracking-tight text-ink font-medium" aria-label="Camilo Ramírez">
-      Camilo Ramírez
+<header class="cr-header">
+  <div class="cr-header__inner">
+    <a class="cr-header__brand" href={home}>
+      <span class="cr-mark cr-mark--sm"><img src="/camilo-hero.jpg" alt=""></span>
+      <span class="cr-header__brand-mark">Camilo <span class="cr-header__brand-r">Ramírez</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-7 text-caption text-mute">
-      {lang === 'es' && <a href="/blog" class="hover:text-ink transition-colors">{t.nav.blog}</a>}
-      {lang === 'es' && <a href="/podcasts" class="hover:text-ink transition-colors">{t.nav.podcasts}</a>}
-      <a href={lang === 'es' ? '/speaking' : '/en/speaking'} class="hover:text-ink transition-colors">{t.nav.speaking}</a>
-      <a href={historiaHref} class="hover:text-ink transition-colors">{t.nav.historia}</a>
-      <a href={`${home}#contacto`} class="hover:text-ink transition-colors">{t.nav.contacto}</a>
+    <input type="checkbox" id="cr-nav-toggle" class="cr-burger-cb" aria-hidden="true">
+    <label for="cr-nav-toggle" class="cr-burger" aria-label="Menu"><span></span><span></span><span></span></label>
+    <nav class="cr-header__nav">
+      <a class={cls(blogHref)} href={blogHref} aria-current={isActive(blogHref) ? 'page' : undefined}>{t.nav.blog}</a>
+      <a class={cls(podcastsHref)} href={podcastsHref} aria-current={isActive(podcastsHref) ? 'page' : undefined}>Podcasts</a>
+      <a class={cls(speakingHref)} href={speakingHref} aria-current={isActive(speakingHref) ? 'page' : undefined}>{t.nav.speaking}</a>
+      <a class={cls(historiaHref)} href={historiaHref} aria-current={isActive(historiaHref) ? 'page' : undefined}>{t.nav.historia}</a>
     </nav>
-    <a href={otherHref} class="text-caption text-mute hover:text-ink transition-colors uppercase tracking-wider" aria-label={`Switch to ${otherLang}`}>
-      {otherLang}
-    </a>
+    <div class="cr-header__right">
+      <span class="cr-header__lang">
+        {lang === 'es' ? (
+          <>ES <span class="cr-header__lang-sep">/</span> <a href={otherHref} class="cr-header__lang-off">EN</a></>
+        ) : (
+          <><a href={otherHref} class="cr-header__lang-off">ES</a> <span class="cr-header__lang-sep">/</span> EN</>
+        )}
+      </span>
+      <a class="cr-btn cr-btn--primary cr-header__cta" href={contactoHref}>{t.nav.contacto}</a>
+    </div>
   </div>
 </header>
+
+<style>
+  /* Alinear baseline del switch ES/EN con los navlinks
+     (estos tienen padding-bottom:4px + border-bottom:2px que los nudge abajo) */
+  .cr-header__lang { padding-bottom: 6px; }
+</style>

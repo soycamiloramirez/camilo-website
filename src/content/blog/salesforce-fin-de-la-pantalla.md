@@ -1,12 +1,13 @@
 ---
 title: 'Salesforce pasó 25 años poniéndote frente a una pantalla. Acaba de decir que ya no importa.'
-description: 'Durante un cuarto de siglo, Salesforce construyó un imperio sobre una idea: que las personas se sentaran frente a una pantalla a meter y actualizar datos. Cada empleado, su silla, su licencia, su pago'
+description: 'Salesforce construyó un imperio cobrando por cada empleado frente a una pantalla. Acaba de enterrar esa idea porque sus propios agentes de IA hacen el trabajo solos.'
 date: 2026-05-27
 episode: 16
 categories: [negocios]
+tldr: 'Salesforce construyó un imperio cobrando por cada empleado que se sienta frente a una pantalla. Acaba de enterrar esa idea porque sus propios agentes de IA hacen el trabajo que antes hacían los humanos.'
+pullquote: 'Salesforce se hizo gigante poniendo a un humano frente a un tablero. Ahora le dice a ese mismo humano que su rol ya no es estar ahí mirando.'
+aside: 'El modelo "pago por usuario" se queda sin sentido cuando la IA hace el trabajo. Salesforce probó cobrar por conversación. Generó pánico entre los clientes y lo retiró.'
 ---
-
-# Salesforce pasó 25 años poniéndote frente a una pantalla. Acaba de decir que ya no importa.
 
 Durante un cuarto de siglo, Salesforce construyó un imperio sobre una idea: que las personas se sentaran frente a una pantalla a meter y actualizar datos. Cada empleado, su silla, su licencia, su pago mensual. Esa fue la mina de oro. Por eso es tan revelador que ahora su propio fundador salga a decir que el navegador ya no es lo importante. Cuando una empresa entierra la idea que la hizo rica, vale la pena entender por qué, porque algo grande está cambiando.
 
@@ -22,7 +23,7 @@ En 2024 lanzaron una fuerza de agentes que no solo sugieren, sino que ejecutan: 
 
 Si la IA hace el trabajo que antes hacían las personas metiendo datos, ¿para qué necesito pagar por tantas sillas humanas? El modelo de cobrar por usuario, el que los hizo gigantes, de repente se vuelve irrelevante. Probaron cobrar por conversación, pero eso generó pánico entre los clientes, porque nadie quiere que su factura sea una sorpresa a fin de mes. Y ese es un dolor real que cualquiera que use estas herramientas ya conoce: cuando pagas por consumo, pierdes la certeza de cuánto vas a gastar.
 
-Su respuesta fue radical: una plataforma donde la información sigue siendo de ellos, pero uno puede conectarle el agente que quiera para operar sobre esos datos, sea el de ellos o uno externo. Piénselo como un hipódromo: los caballos son los distintos sistemas de IA, usted corre con el que prefiera, pero la pista —la información— sigue siendo de Salesforce. Le dan superpoderes a los agentes para hacer cambios en las bases de datos más rápido de lo que podría cualquier equipo humano.
+Su respuesta fue radical: una plataforma donde la información sigue siendo de ellos, pero uno puede conectarle el agente que quiera para operar sobre esos datos, sea el de ellos o uno externo. Piénselo como un hipódromo: los caballos son los distintos sistemas de IA, usted corre con el que prefiera, pero la pista, la información, sigue siendo de Salesforce. Le dan superpoderes a los agentes para hacer cambios en las bases de datos más rápido de lo que podría cualquier equipo humano.
 
 ## Lo que de verdad se está decidiendo
 

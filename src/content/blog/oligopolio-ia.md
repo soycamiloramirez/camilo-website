@@ -1,9 +1,12 @@
 ---
 title: 'El 89% del mercado de la IA está en dos manos. Su negocio depende de eso.'
-description: 'Le voy a tirar un número que debería cambiar cómo piensa su estrategia de tecnología. En el mercado global de la inteligencia artificial hay 34 grandes empresas que venden acceso a modelos. Entre toda'
+description: 'Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de IA. La consolidación va rápido y en una sola dirección: más concentración.'
 date: 2026-05-18
 episode: 7
 categories: [geopolitica, negocios]
+tldr: 'Dos empresas (OpenAI y Anthropic) tienen el 89% del mercado mundial de IA. Hace seis meses tenían 84,5%. La consolidación va rapidísimo y en una sola dirección. Cualquier estrategia de IA que asuma "muchas opciones" se está engañando.'
+pullquote: 'Esto no es una decisión de tecnología. Es una decisión de soberanía, y todavía no la estamos tomando con la seriedad que merece.'
+aside: 'Cursor factura 2.700 millones y pierde plata en cada operación. Por dentro depende de los modelos de OpenAI y Anthropic. Cuando ellos suben tarifas, su margen se mueve y se entera por la factura.'
 ---
 
 Le voy a tirar un número que debería cambiar cómo piensa su estrategia de tecnología. En el mercado global de la inteligencia artificial hay 34 grandes empresas que venden acceso a modelos. Entre todas facturan unos 80.000 millones de dólares al año. Y de esa torta, el 89% se lo llevan dos empresas: OpenAI y Anthropic. Las otras treinta y dos se reparten las migajas.

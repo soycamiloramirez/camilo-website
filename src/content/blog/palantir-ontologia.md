@@ -1,9 +1,12 @@
 ---
 title: 'Por qué la IA en su empresa probablemente es solo un chatbot caro'
-description: 'Hay una empresa de tecnología a la que mucha gente le tiene miedo. Nació en 2003 con dinero de la CIA, lleva el nombre de las piedras videntes de El Señor de los Anillos, y su software se diseñó para '
+description: 'Palantir cobra el doble por su IA y los clientes pagan felices. No por el modelo: porque su sistema entiende el negocio, no solo busca palabras.'
 date: 2026-05-26
 episode: 15
 categories: [negocios]
+tldr: 'Palantir cobra el doble por su IA y sus clientes pagan felices. No por el modelo, sino porque ya tenían algo que casi nadie tiene: un sistema que entiende cómo funciona el negocio, no solo busca palabras en datos sueltos.'
+pullquote: 'La diferencia entre un chatbot caro y una ventaja real no está en qué modelo usa. Está en si se tomó el trabajo de que el sistema entienda su negocio.'
+aside: 'Palantir nació en 2003 con dinero de la CIA. Su software original cazaba terroristas integrando datos clasificados. La misma arquitectura hoy gestiona bancos, aerolíneas y farmacéuticas.'
 ---
 
 Hay una empresa de tecnología a la que mucha gente le tiene miedo. Nació en 2003 con dinero de la CIA, lleva el nombre de las piedras videntes de El Señor de los Anillos, y su software se diseñó para integrar datos clasificados y cazar terroristas. Esa empresa, Palantir, acaba de hacer algo que las demás no pueden: cobrar el doble por su inteligencia artificial, y tener a sus clientes felices de pagarlo. Entender por qué es la mejor lección de negocios sobre IA que le puedo dar hoy.

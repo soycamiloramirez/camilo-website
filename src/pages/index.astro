@@ -1,63 +1,309 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Ultimo from '../components/Ultimo.astro';
-import UltimoBlog from '../components/UltimoBlog.astro';
-import Tesis from '../components/Tesis.astro';
-import Trabajo from '../components/Trabajo.astro';
-import Roles from '../components/Roles.astro';
-import TrayectoriaBrief from '../components/TrayectoriaBrief.astro';
-import Contacto from '../components/Contacto.astro';
 import Footer from '../components/Footer.astro';
 import { SITE, PODCASTS } from '../content/copy';
 
 const lang = 'es' as const;
 
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
 const extraJsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'es-CO' },
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: SITE.name,
-    url: SITE.url,
-    inLanguage: 'es-CO',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'PodcastSeries',
-    name: 'Pertinente',
-    description:
-      'Podcast diario, ~10 minutos, sobre IA, negocios y geopolítica en LATAM. Camilo Ramírez en solitario analizando un tema clave cada día, para líderes que necesitan entender hacia dónde va el dinero y la innovación.',
-    url: PODCASTS.pertinente.platforms[0].href,
-    webFeed: `https://itunes.apple.com/lookup?id=${PODCASTS.pertinente.appleId}`,
-    inLanguage: 'es',
+    '@context': 'https://schema.org', '@type': 'PodcastSeries', name: 'Pertinente',
+    description: 'Análisis diario sobre IA, negocios y geopolítica en LATAM.',
+    url: PODCASTS.pertinente.platforms[0].href, inLanguage: 'es',
     author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
     sameAs: PODCASTS.pertinente.platforms.map((p) => p.href),
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'PodcastSeries',
-    name: 'Métase en mi cabeza',
-    description:
-      'Conversaciones semanales con líderes que construyen el presente y el futuro de Latinoamérica. IA con visión humana, no técnica. Producido por Navigamo, Got-It TV y AT Medios.',
-    url: PODCASTS.memc.platforms[0].href,
-    inLanguage: 'es',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    sameAs: PODCASTS.memc.platforms.map((p) => p.href),
   },
 ];
 ---
 <Base lang={lang} path="/" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <Roles lang={lang} />
-    <Ultimo lang={lang} />
-    <UltimoBlog />
-    <Tesis lang={lang} />
-    <Trabajo lang={lang} />
-    <TrayectoriaBrief lang={lang} />
-    <Contacto lang={lang} />
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="cr-hero">
+      <div class="cr-container cr-hero__grid">
+        <div class="cr-hero__copy">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Voz de IA y negocios · Advisor · Speaker</p>
+          <h1 class="cr-hero__title">
+            <span class="cr-hero__title-thin">Criterio sobre IA,</span><br>
+            negocios <span class="cr-hero__amp">y</span> LATAM.<br>
+            <span class="cr-hero__title-thin">Publicado todos los días.</span>
+          </h1>
+          <p class="cr-lead cr-hero__lead">
+            Soy Camilo Ramírez. Llevo más de 20 años en negocios digitales y hoy publico
+            análisis a diario sobre dónde va el dinero y la innovación en la región, sin humo,
+            sin hype, sin lealtades a herramientas. Eso es lo primero. Después, si lo que digo
+            le sirve, hablamos de su junta o de su evento.
+          </p>
+          <div class="cr-hero__actions">
+            <a class="cr-btn cr-btn--accent" href="/pertinente">Escuchar Pertinente</a>
+            <a class="cr-btn cr-btn--link" href="/speaking">Speaking →</a>
+          </div>
+          <p class="cr-hero__foot">En negocios digitales desde 1999. · Bogotá · Operación LATAM</p>
+        </div>
+        <div class="cr-hero__media">
+          <div class="cr-hero__photo" role="img" aria-label="Retrato de Camilo Ramírez"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILDING -->
+    <section class="cr-build">
+      <div class="cr-container">
+        <div class="cr-build__row">
+          <div class="cr-build__lead">
+            <p class="cr-eyebrow"><span class="cr-franja"></span>Construyo IA</p>
+            <img class="cr-build__logo" src="/navigamo-logo.svg" alt="Navigamo">
+          </div>
+          <div class="cr-build__body">
+            <h2 class="cr-build__h">Navigamo · cofundador y Director LATAM.</h2>
+            <p>Navigamo es la compañía que cofundé en 2024. Diseñamos y operamos soluciones con IA que mejoran vidas y generan eficiencias reales para empresas en LATAM. Es donde aterrizo lo que aconsejo: por eso lo que digo en público no es teoría. Lo estoy ejecutando con un equipo y un producto, en clientes de verdad.</p>
+            <p class="cr-build__intro">¿Quiere ver el trabajo? Los casos y el producto viven en Navigamo.</p>
+            <a class="cr-btn cr-btn--link" href="https://navigamo.co">Ver el trabajo en Navigamo ↗</a>
+          </div>
+        </div>
+
+        <div class="cr-build__row">
+          <div class="cr-build__lead">
+            <p class="cr-eyebrow"><span class="cr-franja"></span>Lidero el ecosistema</p>
+            <img class="cr-build__logo" src="/aicollective-logo.svg" alt="The AI Collective">
+          </div>
+          <div class="cr-build__body">
+            <h2 class="cr-build__h">Director Regional LATAM · The AI Collective.</h2>
+            <p>La comunidad de IA más grande del planeta: +200.000 miembros, +180 capítulos en 40+ países. Desde 2025 dirijo la región de LATAM. Mi trabajo: empujar el debate de adopción de IA con propósito humano y reglas propias de la región, no a control remoto desde otro hemisferio.</p>
+            <a class="cr-btn cr-btn--link" href="https://aicollective.com">Conocer The AI Collective ↗</a>
+          </div>
+        </div>
+
+        <div class="cr-partners">
+          <p class="cr-partners__lbl">Partners</p>
+          <div class="cr-partners__row">
+            <span class="cr-partner"><img src="/ds-assets/partners/anthropic.svg" alt="">Anthropic</span>
+            <span class="cr-partner"><img src="/ds-assets/partners/microsoft.svg" alt="">Microsoft</span>
+            <span class="cr-partner"><img src="/ds-assets/partners/nvidia.svg" alt="">Nvidia</span>
+            <span class="cr-partner"><img src="/ds-assets/partners/amazon.svg" alt="">Amazon</span>
+            <span class="cr-partner"><img src="/ds-assets/partners/perplexity.svg" alt="">Perplexity</span>
+            <span class="cr-partner"><img src="/ds-assets/partners/meta.svg" alt="">Meta</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LO ÚLTIMO -->
+    <section id="ultimo" class="cr-ultimo">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Lo último</p>
+        <h2 class="cr-display-2 cr-ultimo__title"><span class="cr-d-thin">Donde ejerzo el</span> criterio, <span class="cr-d-thin">en público.</span></h2>
+        <p class="cr-lead" style="max-width:64ch;margin-bottom:32px">Dos producciones propias, dos pruebas distintas: una voz en solitario que analiza la región todos los días, y una conversación semanal con quienes están construyendo el presente y el futuro de LATAM.</p>
+
+        <div class="cr-ultimo__grid">
+          <a class="cr-showcard" href="/metase" style="--show:#E8531E">
+            <div class="cr-showcard__art" style="background-image:url('/ds-assets/memc-banner.png')"></div>
+            <div class="cr-showcard__body">
+              <div class="cr-showcard__head">
+                <span class="cr-showcard__dot"></span>
+                <h3 class="cr-showcard__name">Métase en mi cabeza</h3>
+              </div>
+              <p class="cr-showcard__meta">Semanal · ~60 min · TV + podcast · identidad propia</p>
+              <p class="cr-showcard__desc">Conversaciones en vivo con líderes top de la región: ex CEO de Google Colombia, ex Ministro TIC, VP de Caracol, fundadores. IA con visión humana, no técnica.</p>
+              <p class="cr-showcard__last">Último episodio · La IA ayuda a crear su propia energía con gas · 19 jun 2025</p>
+              <span class="cr-showcard__cta">Ver las conversaciones →</span>
+            </div>
+          </a>
+
+          <a class="cr-showcard" href="/pertinente" style="--show:#C0392B">
+            <div class="cr-showcard__art" style="background-image:url('/ds-assets/pertinente-cover.jpg')"></div>
+            <div class="cr-showcard__body">
+              <div class="cr-showcard__head">
+                <span class="cr-showcard__dot"></span>
+                <h3 class="cr-showcard__name">Pertinente</h3>
+              </div>
+              <p class="cr-showcard__meta">Diario · 6 a 13 min · mundo rojo propio</p>
+              <p class="cr-showcard__desc">Análisis diario, ~10 minutos, sobre un tema clave de IA, negocios o geopolítica en LATAM. Para líderes que necesitan entender hacia dónde va el dinero y la innovación, sin hype.</p>
+              <p class="cr-showcard__last">Último episodio · La oportunidad que tenemos en Latam usando IA · 29 may 2026</p>
+              <span class="cr-showcard__cta">Escuchar Pertinente →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEL BLOG -->
+    <section id="blog" class="cr-blog">
+      <div class="cr-container">
+        <div class="cr-blog__head">
+          <div>
+            <p class="cr-eyebrow"><span class="cr-franja"></span>Del blog</p>
+            <h2 class="cr-display-2 cr-blog__title"><span class="cr-d-thin">El mismo criterio, en formato</span> <em class="cr-d-em">editorial.</em></h2>
+          </div>
+          <a class="cr-btn cr-btn--link" href="/blog">Ver todo el blog →</a>
+        </div>
+
+        <div class="cr-blog__list">
+          {posts.map((post) => (
+            <a class="cr-post" href={`/blog/${post.id}`}>
+              <span class="cr-post__cat">{post.data.categories?.[0] ?? 'Blog'}</span>
+              <h3 class="cr-post__title">{post.data.title}</h3>
+              <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- TESIS (DARK) -->
+    <section id="tesis" class="cr-tesis">
+      <div class="cr-container">
+        <p class="cr-eyebrow cr-eyebrow--ondark"><span class="cr-franja cr-franja--mag"></span>Tesis</p>
+        <h2 class="cr-display-2 cr-tesis__title"><span class="cr-d-thin">Tres</span> convicciones <span class="cr-d-thin">que sostienen lo que publico.</span></h2>
+
+        <div class="cr-tesis__grid">
+          <article class="cr-tesis__item">
+            <div class="cr-tesis__n">01</div>
+            <h3 class="cr-tesis__h">Construir desde el dolor, no para vender.</h3>
+            <p class="cr-tesis__b">La tecnología debería existir para resolverle algo a alguien. Esto lo vengo diciendo desde una charla en TVN Panamá en 2019, años antes de que la IA generativa fuera moda. No es discurso de coyuntura.</p>
+          </article>
+          <article class="cr-tesis__item">
+            <div class="cr-tesis__n">02</div>
+            <h3 class="cr-tesis__h">LATAM puede ser potencia con reglas propias.</h3>
+            <p class="cr-tesis__b">Nuestra ventaja real no es construir los modelos, esa pelea es de otra liga. Es conocer nuestros problemas en primera persona. El modelo es commodity. El terreno, no.</p>
+          </article>
+          <article class="cr-tesis__item">
+            <div class="cr-tesis__n">03</div>
+            <h3 class="cr-tesis__h">Resolver antes que vender.</h3>
+            <p class="cr-tesis__b">Filtro por valores, no por tamaño de empresa. Si el encargo va contra las personas, no soy el indicado. Y sí, mi experiencia tiene un precio: cobrar lo justo por hacer bien el trabajo es coherencia con lo que predico, no codicia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRABAJAR CONMIGO -->
+    <section id="trabajar" class="cr-work">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Trabajar conmigo</p>
+        <h2 class="cr-display-2 cr-work__title"><span class="cr-d-thin">Cuando el contenido no basta y necesita</span> <em class="cr-d-em">la sala.</em></h2>
+
+        <div class="cr-work__grid">
+          <article class="cr-work__card">
+            <p class="cr-work__ey">Para organizaciones</p>
+            <h3 class="cr-work__h">Advisory</h3>
+            <p class="cr-work__b">Acompañamiento a CEOs y juntas directivas. Sesiones de criterio para decisiones donde el costo de equivocarse es alto. No vengo a operar su empresa: vengo a ordenar lo que ya está sobre la mesa y a separar lo urgente de lo importante. Llego con la disciplina de 20 años construyendo negocios reales, no con un PowerPoint.</p>
+            <div class="cr-work__foot">
+              <span class="cr-work__meta">Juntas y comités de dirección con decisiones difíciles por delante.</span>
+              <a class="cr-btn cr-btn--primary cr-work__cta" href="#contacto">Hablemos de su organización</a>
+            </div>
+          </article>
+
+          <article class="cr-work__card">
+            <p class="cr-work__ey">Para eventos</p>
+            <h3 class="cr-work__h">Speaking</h3>
+            <p class="cr-work__b">Keynotes y charlas para eventos. Hago que lo difícil sea fácil de entender, sin hype, sin abstracciones, sin "el futuro es ahora". Construyo con la sala, no desde el atril. La gente sale habiendo entendido algo concreto que puede usar mañana.</p>
+            <div class="cr-work__foot">
+              <span class="cr-work__meta">Conferencias, eventos corporativos, juntas anuales y festivales de industria.</span>
+              <a class="cr-btn cr-btn--primary cr-work__cta" href="/speaking">Invitarme a hablar</a>
+            </div>
+          </article>
+        </div>
+        <p class="cr-work__note">Trabajo con quienes quieren mejorar y ayudar a las personas, no recortar a costa de ellas. Es la única vara que aplico.</p>
+      </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section id="historia" class="cr-tray">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Historia</p>
+        <h2 class="cr-display-2 cr-tray__title"><span class="cr-d-thin">Veinte años aprendiendo a leer la</span> estructura <span class="cr-d-thin">de un problema.</span></h2>
+        <p class="cr-lead" style="max-width:64ch;margin-bottom:40px">De la televisión a la IA, el oficio cambió, pero el patrón no: ver un problema, construir el sistema que lo resuelve. Cinco capítulos, una sola historia.</p>
+
+        <ol class="cr-tray__list">
+          <li class="cr-tray__item">
+            <div class="cr-tray__years">1999 – 2010</div>
+            <div class="cr-tray__copy"><h3 class="cr-tray__h">Broadcast Design</h3></div>
+          </li>
+          <li class="cr-tray__item">
+            <div class="cr-tray__years">2007 – 2026</div>
+            <div class="cr-tray__copy"><h3 class="cr-tray__h">Netbangers</h3></div>
+          </li>
+          <li class="cr-tray__item">
+            <div class="cr-tray__years">2018 – 2023</div>
+            <div class="cr-tray__copy"><h3 class="cr-tray__h">Custom Built Show</h3></div>
+          </li>
+          <li class="cr-tray__item">
+            <div class="cr-tray__years">2024 – hoy</div>
+            <div class="cr-tray__copy"><h3 class="cr-tray__h">Navigamo · The AI Collective</h3></div>
+          </li>
+          <li class="cr-tray__item">
+            <div class="cr-tray__years">2025 – hoy</div>
+            <div class="cr-tray__copy"><h3 class="cr-tray__h">Pertinente · Métase en mi cabeza</h3></div>
+          </li>
+        </ol>
+        <div style="margin-top:40px"><a class="cr-btn cr-btn--link" href="/historia">Leer la historia completa →</a></div>
+      </div>
+    </section>
+
+    <!-- CONTACTO (DARK) -->
+    <section id="contacto" class="cr-contact">
+      <div class="cr-container cr-contact__inner">
+        <div class="cr-contact__lead">
+          <p class="cr-eyebrow cr-eyebrow--ondark"><span class="cr-franja cr-franja--mag"></span>Contacto</p>
+          <h2 class="cr-contact__h"><span class="cr-d-thin">Si quiere trabajar conmigo,</span> escríbame <em class="cr-d-em cr-d-em--ondark">directo.</em></h2>
+          <p class="cr-contact__sub">Cada solicitud la leo yo. Respondo cuando tengo algo útil que aportar, no siempre inmediato, pero siempre personal.</p>
+          <a class="cr-contact__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
+
+        <form class="cr-form" id="contactForm">
+          <div class="cr-form__row">
+            <label class="cr-field">
+              <span class="cr-field__label">Nombre</span>
+              <input class="cr-field__input" name="nombre" type="text">
+            </label>
+            <label class="cr-field">
+              <span class="cr-field__label">Empresa u organización</span>
+              <input class="cr-field__input" name="empresa" type="text">
+            </label>
+          </div>
+          <div class="cr-field">
+            <span class="cr-field__label">Qué necesita</span>
+            <div class="cr-form__topics" role="radiogroup">
+              <button type="button" class="cr-form__topic is-on" data-need="advisory">Advisory</button>
+              <button type="button" class="cr-form__topic" data-need="speaking">Speaking</button>
+              <button type="button" class="cr-form__topic" data-need="otro">Otro</button>
+            </div>
+            <input type="hidden" name="necesita" value="advisory">
+          </div>
+          <label class="cr-field">
+            <span class="cr-field__label">Cuénteme el contexto</span>
+            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3"></textarea>
+          </label>
+          <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">Enviar →</button>
+        </form>
+      </div>
+    </section>
+
   </main>
+
   <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('.cr-form__topic').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.cr-form__topic').forEach(function (b) { b.classList.remove('is-on'); });
+        btn.classList.add('is-on');
+        var hidden = document.querySelector('input[name="necesita"]');
+        if (hidden) hidden.value = btn.getAttribute('data-need');
+      });
+    });
+  </script>
 </Base>

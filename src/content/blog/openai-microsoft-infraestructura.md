@@ -1,9 +1,12 @@
 ---
 title: 'OpenAI y Microsoft abrieron su matrimonio. Lo que revela debería interesarle.'
-description: 'La relación entre OpenAI y Microsoft es una de las historias de negocios más entretenidas de la última década, y acaba de dar un giro que vale la pena entender, no por el chisme, sino por lo que enseñ'
+description: 'OpenAI bajó su deuda con Microsoft de 135.000 a 38.000 millones y soltó la exclusividad de nube. La pelea de la IA se decide por infraestructura.'
 date: 2026-05-21
 episode: 10
 categories: [geopolitica, negocios]
+tldr: 'OpenAI bajó su deuda a Microsoft de 135.000 a 38.000 millones y soltó la exclusividad de nube. Lo que la jugada revela: la pelea de la IA no se está decidiendo por inteligencia, sino por infraestructura.'
+pullquote: 'Gana quien tiene la billetera más larga para pagar la infraestructura más pesada. El tractor más grande de la vereda.'
+aside: 'Anthropic recibió 25.000 millones de Amazon y 40.000 de Google. OpenAI estaba atada solo a Microsoft. La asimetría obligó a renegociar el matrimonio.'
 ---
 
 La relación entre OpenAI y Microsoft es una de las historias de negocios más entretenidas de la última década, y acaba de dar un giro que vale la pena entender, no por el chisme, sino por lo que enseña sobre dónde está el poder real en la inteligencia artificial. Se lo cuento como lo que es: la historia de un matrimonio perfecto que terminó en un poliamor tecnológico donde todos quedaron contentos y con plata.

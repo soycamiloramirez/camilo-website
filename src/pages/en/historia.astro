@@ -1,42 +1,104 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import Historia from '../../components/Historia.astro';
 import Footer from '../../components/Footer.astro';
-import { COPY, SITE } from '../../content/copy';
+import { COPY, SITE, CLIENT_BRANDS } from '../../content/copy';
 
 const lang = 'en' as const;
-const page = COPY[lang].historia.meta;
-const url = `${SITE.url}/en/historia`;
+const t = COPY.en.historia;
+
+const pageTitle = t.meta.title;
+const pageDescription = t.meta.description;
 
 const extraJsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: page.title,
-    description: page.description,
-    url,
-    inLanguage: 'en-US',
-    author: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    publisher: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-    image: `${SITE.url}/og-image.jpg`,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    datePublished: '2026-05-29',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/en` },
-      { '@type': 'ListItem', position: 2, name: 'Story', item: url },
-    ],
+    '@type': 'AboutPage',
+    name: 'Story · Camilo Ramírez',
+    url: `${SITE.url}/en/historia`,
+    description: pageDescription,
+    inLanguage: 'en',
+    mainEntity: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
   },
 ];
+
+const tickerBrands = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
+
+const logoMap: Record<number, { src: string; cls?: string }> = {
+  0: { src: '/ds-assets/logos/rcn.svg', cls: 'cr-chapter__logo--rcn' },
+  1: { src: '/ds-assets/logos/netbangers-bw.png', cls: 'cr-chapter__logo--nb' },
+  2: { src: '/ds-assets/logos/custombuiltshow.png', cls: 'cr-chapter__logo--cbs' },
+  3: { src: '/navigamo-logo.svg' },
+  4: { src: '/aicollective-logo.svg' },
+  5: { src: '/ds-assets/memc-cover.jpg', cls: 'cr-chapter__logo--cover' },
+};
 ---
-<Base lang={lang} pageTitle={page.title} pageDescription={page.description} pageType="article" path="/en/historia" extraJsonLd={extraJsonLd}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="profile" path="/en/historia" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
+
   <main>
-    <Historia lang={lang} />
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.eyebrow}</p>
+        <h1 class="cr-pagehead__title">{t.title}</h1>
+        <div class="cr-lead cr-pagehead__lead">
+          {t.lede.map((p) => <p style="margin-bottom:16px">{p}</p>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="cr-ticker">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.brands.kicker}</p>
+        <h2 class="cr-ticker__h">{t.brands.title}</h2>
+        <p class="cr-ticker__p">{t.brands.p}</p>
+      </div>
+      <div class="cr-ticker__track">
+        {tickerBrands.map((b) => (
+          <>
+            <span class="cr-ticker__brand">
+              {b.file ? <img src={`/brands/${b.file}`} alt={b.name} loading="lazy" /> : <span class="cr-ticker__wordmark">{b.name}</span>}
+            </span>
+            <span class="cr-ticker__sep"></span>
+          </>
+        ))}
+      </div>
+    </section>
+
+    <style>
+      .cr-ticker { background: #FFFFFF; }
+      .cr-ticker__brand { display: inline-flex; align-items: center; height: 40px; }
+      @media (min-width: 768px) { .cr-ticker__brand { height: 48px; } }
+      .cr-ticker__brand img { display: block; height: 100%; width: auto; max-width: 140px; object-fit: contain; mix-blend-mode: darken; filter: grayscale(100%) contrast(1.1); opacity: 0.9; }
+      @media (min-width: 768px) { .cr-ticker__brand img { max-width: 160px; } }
+      .cr-ticker__wordmark { font-family: var(--font-sans); font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+    </style>
+
+    <section class="cr-histpage">
+      <div class="cr-container">
+        {t.chapters.map((c, i) => (
+          <article class="cr-chapter">
+            <div class="cr-chapter__aside">
+              <div class="cr-chapter__num">{String(i + 1).padStart(2, '0')}</div>
+              <div class="cr-chapter__years">{c.years}</div>
+              <div class="cr-chapter__kicker">{c.tag}</div>
+              <img class={`cr-chapter__logo ${logoMap[i]?.cls ?? ''}`} src={logoMap[i]?.src ?? '/navigamo-logo.svg'} alt={c.h}>
+            </div>
+            <div class="cr-chapter__body">
+              <h2 class="cr-chapter__title">{c.h}</h2>
+              {c.body.map((p) => <p>{p}</p>)}
+            </div>
+          </article>
+        ))}
+
+        <div class="cr-hist-close">
+          <h2 class="cr-build__h">{t.closing.h}</h2>
+          <p>{t.closing.p}</p>
+          <a class="cr-btn cr-btn--accent" href="/en#contacto" style="margin-top:24px">Work with me</a>
+        </div>
+      </div>
+    </section>
   </main>
+
   <Footer lang={lang} />
 </Base>

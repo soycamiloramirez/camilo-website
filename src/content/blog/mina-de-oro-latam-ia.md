@@ -3,9 +3,10 @@ title: 'La mina de oro de Latinoamérica no es inventar la IA. Es el desorden qu
 description: 'Estados Unidos inventa la IA, Europa la regula. Lo que solo nosotros podemos resolver es cómo se aplica esa tecnología a una realidad que en San Francisco no entienden.'
 date: 2026-05-31
 categories: [latam, negocios]
+tldr: 'La pelea de los modelos ya está perdida y nunca fue la nuestra. La que sí podemos ganar es la de aplicar esa tecnología a un terreno desordenado que solo nosotros conocemos de memoria.'
+pullquote: 'El modelo se está volviendo un commodity. Lo difícil, lo costoso, eso ya lo están resolviendo ellos. Lo que nadie resuelve es el terreno.'
+aside: 'Anthropic gasta 1.250 millones de dólares al mes solo en cómputo. Es la cuenta de la luz, no la inversión. Ese es el tamaño de la cancha de los modelos.'
 ---
-
-# La mina de oro de Latinoamérica no es inventar la IA. Es el desorden que tenemos.
 
 Hay una forma fácil y resignada de ver nuestro lugar en todo este boom de la inteligencia artificial, y es la que más escucho. Dice que Estados Unidos inventa la tecnología, que Europa la regula, y que a nosotros nos toca quedarnos quietos, pagando la cuenta que nos quieran cobrar para poder usarla. Espectadores con tarjeta de crédito.
 

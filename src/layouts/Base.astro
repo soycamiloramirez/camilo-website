@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/ds.css';
 import { COPY, SITE, SOCIALS, type Lang } from '../content/copy';
 const {
   lang,
@@ -9,6 +10,7 @@ const {
   path,
   extraJsonLd = [],
   hasAlternate = true,
+  noindex = false,
 } = Astro.props as {
   lang: Lang;
   pageTitle?: string;
@@ -22,6 +24,12 @@ const {
    * non-existent EN URLs in hreflang.
    */
   hasAlternate?: boolean;
+  /**
+   * If true, emit `robots: noindex` so crawlers skip the page.
+   * Used for hidden posts (style guide) that are reachable by URL but
+   * shouldn't appear in search.
+   */
+  noindex?: boolean;
 };
 const t = COPY[lang];
 
@@ -124,7 +132,7 @@ const personJsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE.url}/og-image.jpg`} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <meta name="msvalidate.01" content="90255CD86199BA9792E7A613722D9076" />
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
     {extraJsonLd.map((obj) => (

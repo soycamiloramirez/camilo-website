@@ -1,64 +1,186 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import Speaking from '../components/Speaking.astro';
 import Footer from '../components/Footer.astro';
 import { COPY, SITE } from '../content/copy';
 
 const lang = 'es' as const;
-const t = COPY[lang].speaking;
-const url = `${SITE.url}/speaking`;
+const t = COPY.es.speaking;
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  inLanguage: 'es-CO',
-  mainEntity: t.faq.items.map((qa) => ({
-    '@type': 'Question',
-    name: qa.q,
-    acceptedAnswer: { '@type': 'Answer', text: qa.a },
-  })),
-};
+const pageTitle = t.meta.title;
+const pageDescription = t.meta.description;
 
-const breadcrumbJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
-    { '@type': 'ListItem', position: 2, name: 'Speaking', item: url },
-  ],
-};
-
-// Past speaking events as schema.org Event with Camilo as performer.
-// Used by Google for the "speaker" entity association.
-const events = t.pruebaSocial.items.map((ev, i) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Event',
-  '@id': `${url}#event-${i}`,
-  name: ev.event,
-  description: ev.context,
-  performer: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-  eventStatus: 'https://schema.org/EventScheduled',
-  eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
-}));
-
-const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Speaking & Keynotes',
-  provider: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
-  areaServed: ['Latin America', 'Colombia', 'Worldwide'],
-  availableLanguage: ['Spanish', 'English'],
-  serviceType: 'Keynote speaking on AI, business and LATAM',
-  url,
-};
-
-const extraJsonLd = [serviceJsonLd, faqJsonLd, breadcrumbJsonLd, ...events];
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Keynote speaker · Advisor',
+    provider: { '@type': 'Person', name: 'Camilo Ramírez', url: SITE.url },
+    areaServed: 'LATAM, North America, Europe',
+    description: pageDescription,
+    url: `${SITE.url}/speaking`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: t.faq.items.map((qa) => ({
+      '@type': 'Question',
+      name: qa.q,
+      acceptedAnswer: { '@type': 'Answer', text: qa.a },
+    })),
+  },
+];
 ---
-<Base lang={lang} pageTitle={t.meta.title} pageDescription={t.meta.description} pageType="website" path="/speaking" extraJsonLd={extraJsonLd}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="profile" path="/speaking" extraJsonLd={extraJsonLd}>
   <Header lang={lang} />
+
   <main>
-    <Speaking lang={lang} />
+    <!-- HERO -->
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.eyebrow}</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">Conferencista sobre IA, negocios y la</span> oportunidad de LATAM.</h1>
+        <p class="cr-lead cr-pagehead__lead">{t.lede}</p>
+        <div class="cr-spk-hero__cta"><a class="cr-btn cr-btn--accent" href="#contacto">{t.ctaPrimary} →</a></div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIADOR -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.diferenciador.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">IA + negocios + LATAM,</span> en lenguaje humano.</h2>
+        <p class="cr-spk-band__p">{t.diferenciador.p}</p>
+      </div>
+    </section>
+
+    <!-- TEMAS -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.temas.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Tres temas,</span> profundos pero accesibles.</h2>
+        <div class="cr-spk-topics">
+          {t.temas.items.map((it, i) => (
+            <article class="cr-spk-topic">
+              <div class="cr-spk-topic__n">{String(i + 1).padStart(2, '0')}</div>
+              <h3 class="cr-spk-topic__h">{it.h}</h3>
+              <p class="cr-spk-topic__p">{it.p}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATOS -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.formatos.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Cinco formas de trabajar conmigo</span> en su evento.</h2>
+        <div class="cr-spk-formats">
+          {t.formatos.items.map((f) => (
+            <article class="cr-spk-format">
+              <h3 class="cr-spk-format__h">{f.h}</h3>
+              <p class="cr-spk-format__p">{f.p}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGÍSTICA -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.logistica.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Cómo es trabajar conmigo</span> en lo práctico.</h2>
+        <div class="cr-spk-logi">
+          {t.logistica.items.map((it) => (
+            <div class="cr-spk-logi__row">
+              <div class="cr-spk-logi__k">{it.label}</div>
+              <div class="cr-spk-logi__v">{it.value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PRUEBA SOCIAL -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.pruebaSocial.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Eventos, tarimas,</span> comunidades.</h2>
+        <p class="cr-spk-band__p">{t.pruebaSocial.p}</p>
+        <div class="cr-spk-events">
+          {t.pruebaSocial.items.map((ev) => (
+            <div class="cr-spk-event">
+              <div class="cr-spk-event__yr">{ev.year}</div>
+              <div>
+                <h3 class="cr-spk-event__name">{ev.event}</h3>
+                <p class="cr-spk-event__ctx">{ev.context}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCENCIA -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.docencia.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Enseñar es donde</span> más se aprende.</h2>
+        <div class="cr-spk-two">
+          {t.docencia.items.map((it) => (
+            <article class="cr-spk-format">
+              <h3 class="cr-spk-format__h">{it.h}</h3>
+              <p class="cr-spk-format__p">{it.p}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- EN OTROS PODCASTS -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.podcasts.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Conversaciones donde</span> me han invitado.</h2>
+        <div class="cr-spk-formats">
+          {t.podcasts.items.map((p) => (
+            <article class="cr-spk-format">
+              <h3 class="cr-spk-format__h">{p.name}</h3>
+              <p class="cr-spk-format__p">{p.topic}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="cr-spk-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>{t.faq.kicker}</p>
+        <h2 class="cr-spk-band__h"><span class="cr-d-thin">Sobre contratarme</span> para hablar.</h2>
+        <div class="cr-spk-faq">
+          {t.faq.items.map((qa) => (
+            <div class="cr-spk-faq__item">
+              <h3 class="cr-spk-faq__q">{qa.q}</h3>
+              <p class="cr-spk-faq__a">{qa.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO (DARK) -->
+    <section id="contacto" class="cr-cta-band">
+      <div class="cr-container">
+        <p class="cr-eyebrow cr-eyebrow--ondark" style="justify-content:center"><span class="cr-franja cr-franja--mag"></span>{t.contacto.kicker}</p>
+        <h2 class="cr-cta-band__h"><span class="cr-d-thin">¿Quiere llevarme</span> a su <em class="cr-d-em cr-d-em--ondark">evento?</em></h2>
+        <p style="font-size:var(--body-lg);line-height:1.6;color:var(--ink-on-dark-2);max-width:52ch;margin:0 auto var(--s-6)">{t.contacto.p}</p>
+        <a class="cr-btn cr-btn--accent" href={`mailto:${SITE.email}?subject=${encodeURIComponent('Speaking — solicitud')}`}>{t.contacto.cta} →</a>
+      </div>
+    </section>
   </main>
+
   <Footer lang={lang} />
 </Base>

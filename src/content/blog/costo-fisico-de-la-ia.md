@@ -1,9 +1,12 @@
 ---
 title: 'Cada respuesta de la IA cuesta lo que consume una ciudad. Vale la pena saberlo.'
-description: 'Usamos la inteligencia artificial como si fuera magia. Le pedimos algo, nos responde en segundos, y seguimos con el día. Pero detrás de esa respuesta instantánea hay una realidad física descomunal que'
+description: 'Detrás de cada respuesta de la IA hay reactores, turbinas y comunidades afectadas. La fábrica que entrena a Anthropic consume 300 megavatios.'
 date: 2026-05-23
 episode: 12
 categories: [geopolitica, aprende]
+tldr: 'Detrás de cada respuesta instantánea de la IA hay reactores de energía, turbinas de gas y comunidades afectadas. La fábrica de Musk en Memphis que entrena a Anthropic consume 300 megavatios. Es lo que produce un pequeño reactor nuclear entero.'
+pullquote: 'Cuando uno entiende que detrás de cada respuesta hay reactores, turbinas y comunidades, deja de tratar la IA como magia gratuita.'
+aside: 'Una casa promedio consume 0,0005 megavatios. Un hospital mediano, entre 1 y 5. Colossus, la fábrica de Musk en Memphis, consume 300. Lo equivalente a un reactor nuclear pequeño.'
 ---
 
 Usamos la inteligencia artificial como si fuera magia. Le pedimos algo, nos responde en segundos, y seguimos con el día. Pero detrás de esa respuesta instantánea hay una realidad física descomunal que casi nadie ve, y conviene verla, no para satanizar la tecnología, sino para entender de qué depende de verdad. La historia de una vieja fábrica en Memphis lo explica perfecto.
@@ -20,7 +23,7 @@ Aquí es donde la magia se vuelve física, y los números son los que cuentan la
 
 Como la red eléctrica de Memphis no daba abasto, Musk instaló treinta turbinas de gas en el predio para generar esa energía. Eso le trajo quejas por ruido, por emisiones, por operar sin permisos de calidad del aire. Los vecinos empezaron a sentir el gas. La promesa de prosperidad terminó, otra vez, en un sabor amargo.
 
-¿Y quién usa toda esa potencia? Anthropic firmó para tomar el 100% de la capacidad de Colossus —los 220.000 chips— para entrenar y servir sus modelos. La empresa que se vende como la alternativa responsable y consciente, alimentándose de una infraestructura que ya nació con un conflicto con sus vecinos. Las dos cosas son ciertas al mismo tiempo, y por eso la historia es interesante: no hay villanos limpios ni héroes limpios.
+¿Y quién usa toda esa potencia? Anthropic firmó para tomar el 100% de la capacidad de Colossus, los 220.000 chips, para entrenar y servir sus modelos. La empresa que se vende como la alternativa responsable y consciente, alimentándose de una infraestructura que ya nació con un conflicto con sus vecinos. Las dos cosas son ciertas al mismo tiempo, y por eso la historia es interesante: no hay villanos limpios ni héroes limpios.
 
 ## Lo que quiero que se lleve
 

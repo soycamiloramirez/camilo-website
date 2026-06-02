@@ -1,12 +1,13 @@
 ---
 title: 'Anthropic vale más que OpenAI, y la razón debería preocuparnos en Latinoamérica'
-description: 'Anthropic, los que hacen Claude, acaban de quedar valorados por encima de OpenAI. Lo importante no es el número. Es lo que el cambio revela del juego de fondo.'
+description: 'Anthropic superó la valoración de OpenAI por primera vez. Lo importante no es el número: es lo que revela sobre talento, ingresos y barrera de entrada.'
 date: 2026-05-30
 episode: 19
 categories: [geopolitica, negocios]
+tldr: 'Anthropic ya vale más que OpenAI. El número no es lo importante. Lo es lo que el cambio revela: el talento sigue a las máquinas, los ingresos vienen de empresas, y la barrera de entrada hoy se mide en aceros y red eléctrica.'
+pullquote: 'La barrera para crear estos sistemas ya no es el conocimiento. Es el acero, el silicio y la red eléctrica.'
+aside: 'Andrej Karpathy, cofundador de OpenAI, dejó su propio proyecto para irse a Anthropic a liderar preentrenamiento. El talento ya no persigue la plata. Persigue las máquinas.'
 ---
-
-# Anthropic vale más que OpenAI, y la razón debería preocuparnos en Latinoamérica
 
 Pasó algo que hace un año parecía imposible: Anthropic, los que hacen Claude, acaban de quedar valorados por encima de OpenAI, los de ChatGPT. Un cheque de 30.000 millones de dólares liderado por el fondo Sequoia los dejó por encima de los 900.000 millones de valoración. Para que se haga una idea, en marzo OpenAI había marcado un récord histórico con 852.000 millones, y tres meses después su competidor más cercano ya lo superó.
 
