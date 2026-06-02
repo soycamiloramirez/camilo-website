@@ -1,0 +1,153 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../content/copy';
+
+const lang = 'es' as const;
+
+const pageTitle = 'Gobernanza de IA · Quién controla la tecnología · Camilo Ramírez';
+const pageDescription = 'Síntesis editorial sobre quién audita los modelos de IA, qué oligopolio se está formando, y qué significa para empresas en LATAM construir sobre una tecnología que se decide en otro continente.';
+const url = `${SITE.url}/temas/gobernanza-ia`;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
+  .filter((p) => (p.data.categories as string[]).includes('geopolitica'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: 'Gobernanza de IA: quién controla la tecnología',
+    description: pageDescription,
+    url,
+    inLanguage: 'es-CO',
+    datePublished: '2026-06-01T00:00:00.000Z',
+    dateModified: new Date().toISOString(),
+    author: { '@id': `${SITE.url}/#person` },
+    publisher: { '@id': `${SITE.url}/#person` },
+    image: `${SITE.url}/og-image.jpg`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    articleSection: 'Geopolítica y mercado',
+    keywords: 'gobernanza IA, regulación inteligencia artificial, oligopolio IA, OpenAI, Anthropic, soberanía tecnológica, EU AI Act',
+    about: [
+      { '@type': 'Thing', name: 'Gobernanza de IA' },
+      { '@type': 'Thing', name: 'Regulación tecnológica' },
+      { '@type': 'Thing', name: 'OpenAI' },
+      { '@type': 'Thing', name: 'Anthropic' },
+    ],
+    isPartOf: { '@type': 'Blog', '@id': `${SITE.url}/blog#blog` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
+      { '@type': 'ListItem', position: 3, name: 'Gobernanza de IA', item: url },
+    ],
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path="/temas/gobernanza-ia" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <article class="cr-article">
+      <div class="cr-container">
+        <div class="cr-article__wrap">
+
+          <p class="cr-breadcrumb"><a href="/blog">Blog</a> · Temas · Gobernanza</p>
+          <p class="cr-eyebrow" style="margin-top:24px"><span class="cr-franja"></span>Tema · Gobernanza de IA</p>
+          <h1 class="cr-article__title"><span class="cr-d-thin">Construimos negocios sobre una tecnología que</span> <em class="cr-d-em">nadie está auditando.</em></h1>
+          <p class="cr-article__lede">{pageDescription}</p>
+          <p class="cr-article__meta">Por <strong>Camilo Ramírez</strong> · Síntesis editorial · Actualizada continuamente</p>
+
+          <div class="cr-article__tldr">
+            <p class="cr-article__tldr-lbl">TL;DR</p>
+            <p>Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de IA. Estados Unidos audita por dentro esos modelos antes de que salgan al público, pero ningún país latinoamericano tiene silla en esa mesa. Europa exige reglas estrictas. China bloquea adquisiciones por el origen étnico de los fundadores. Y el día menos pensado, la regulación que afecta su negocio se decide en alguno de esos tres bloques sin que usted entere. Depender de algo que nadie audita no es necesariamente un error. Hacerlo sin saberlo, sí.</p>
+          </div>
+
+          <div class="cr-article__body">
+
+            <p>La discusión sobre gobernanza de IA suele aterrizar en titulares de prensa rápida: "tal país firmó tal acuerdo", "tal empresa prometió tal cosa". Lo importante casi nunca está en el titular. Está en el tablero de fondo: quién audita la tecnología, quién la regula, quién decide cuándo se lanza un modelo y bajo qué reglas. En esta página junto lo que vengo escribiendo sobre el tema, porque entenderlo cambia cómo uno toma decisiones de negocio.</p>
+
+            <h2>El mapa de fondo: tres bloques con tres filosofías distintas</h2>
+
+            <p>El mundo de la gobernanza de IA se está fragmentando en tres jurisdicciones grandes, y cada una opera con una lógica completamente distinta.</p>
+
+            <p><strong>Estados Unidos audita por dentro.</strong> Los cinco laboratorios que definen la frontera de la IA en el mundo ya le dan acceso a sus modelos al gobierno gringo antes de que el público los pueda probar. No es regulación remota: es un auditor metido dentro de cada lanzamiento, pidiendo pruebas de ciberseguridad y de riesgo biológico, capaz de obligar a un laboratorio a cambiar la arquitectura del modelo o demorar el lanzamiento. Es poder real, ejercido en silencio. Y lo más interesante: la regulación pública que iba a complementarlo se cayó horas antes de firmarse cuando tres de los hombres más poderosos de la tecnología llamaron al presidente con un argumento simple: regular frena a Estados Unidos frente a China.</p>
+
+            <p><strong>Europa regula los usos.</strong> El EU AI Act no regula la tecnología, regula los usos según el riesgo. Prohíbe lo inaceptable, exige trazabilidad y supervisión humana en lo delicado (salud, finanzas), y a los modelos grandes les pide algo impensable en Estados Unidos: abrir la caja negra, contar con qué datos los entrenaron y someterse a auditorías de terceros. Quien incumple paga hasta el 7% de sus ingresos globales. Y aplica aunque los servidores estén en otro continente.</p>
+
+            <p><strong>China reclama jurisdicción extraterritorial por origen.</strong> En el caso más reciente, China bloqueó la compra de una startup por parte de Meta basándose en el origen étnico de los fundadores: eran chinos, y eso bastó para reclamar la tecnología, aunque la empresa estuviera en otro país. Es la primera vez que una jurisdicción reclama un negocio hecho completamente afuera. Y abre un precedente sin límites legales claros.</p>
+
+            <p class="cr-article__pull">Lo que se inventa en China, o lo inventan chinos, se queda en China.</p>
+
+            <h2>El oligopolio que casi nadie cuestiona</h2>
+
+            <p>Detrás de toda esta discusión geopolítica hay un dato que cambia todo: dos empresas controlan casi nueve de cada diez dólares que se mueven en IA en el mundo. OpenAI y Anthropic. Hace seis meses tenían el 84% combinado. Hoy tienen el 89%. La consolidación va rapidísimo en una sola dirección.</p>
+
+            <p>Eso significa que casi cualquier startup, agencia o empresa que monte un producto con IA termina, por debajo de la superficie, pagándole a uno de esos dos gigantes. Cursor, la tercera empresa más grande de la categoría, factura 2.700 millones y pierde plata en cada operación porque por dentro depende de los modelos de OpenAI y Anthropic. Cuando ellos suben tarifas, Cursor se entera por la factura. Esa es la trampa estructural.</p>
+
+            <h2>Por qué esto le pega directo a una empresa en LATAM</h2>
+
+            <p>Aquí es donde la discusión deja de ser abstracta. Si su negocio depende de las APIs de uno de esos laboratorios, está operando bajo reglas que se diseñaron para proteger a alguien más. La auditoría que hace el gobierno gringo sobre esos modelos protege la seguridad nacional de Estados Unidos, no la suya. La regulación europea protege los derechos de los ciudadanos europeos, no los nuestros. China protege a China.</p>
+
+            <p>Y mientras tanto, en Colombia, México y Perú los congresos están redactando leyes para exigir que la IA sea "segura y sin sesgos", pero no existe un solo instituto técnico capaz de auditar un modelo de frontera. Es como escribir una ley de seguridad aérea sin tener ingenieros aeronáuticos. La regulación existe en el papel; la capacidad de hacerla cumplir, no.</p>
+
+            <h2>Cuatro principios para operar con criterio en este tablero</h2>
+
+            <p>No le voy a vender un framework. Le dejo cuatro criterios que aplico yo cuando aconsejo a juntas directivas sobre adopción de IA.</p>
+
+            <h3>Primero: mire la jurisdicción del proveedor, no solo el producto</h3>
+
+            <p>Antes de firmar con un proveedor de IA, pregunte dónde está incorporado, dónde están los servidores y bajo qué régimen regulatorio opera. Si es Estados Unidos, sepa que su servicio puede cambiar por decisiones del gobierno gringo. Si es China, sepa que esa tecnología puede dejar de estar disponible para usted en cualquier momento. Si es europeo, sepa que tiene más garantías pero menos features.</p>
+
+            <h3>Segundo: diseñe para el estándar más exigente desde el día uno</h3>
+
+            <p>Si su empresa puede llegar a operar en Europa o vender a empresas que operen allá, vale la pena cumplir el EU AI Act desde la primera línea de código. Lo difícil siempre contiene a lo fácil. Cumplir con Europa hoy y entrar a Estados Unidos mañana es trámite. Al revés es rehacer todo.</p>
+
+            <h3>Tercero: documente la cadena de dependencias</h3>
+
+            <p>Sepa exactamente qué modelos usa, de qué proveedor, en qué versión, en qué API. Si mañana sale una nueva regulación que afecte a uno de ellos, usted necesita saber en minutos qué partes de su operación están expuestas. Si no lo sabe, se entera tarde.</p>
+
+            <h3>Cuarto: no espere que su gobierno lo proteja</h3>
+
+            <p>Ningún país latinoamericano hace parte de la red internacional que audita los modelos de frontera. Kenia, sí. Nosotros, no. Eso significa que las decisiones sobre qué modelos están disponibles para usted las toma un gobierno en cuya mesa no tenemos silla. Operar sabiendo eso es muy distinto a operar ignorándolo.</p>
+
+            <h2>La pregunta que de verdad importa</h2>
+
+            <p>Mientras Estados Unidos y Europa definen el juego, ¿qué vamos a ser nosotros en Latinoamérica? ¿Una región que solo compra la tecnología, la conecta y reza para que esté bien hecha? ¿O una que entiende estas reglas a tiempo y decide, con criterio, sobre qué cimientos construir? Porque construir encima de algo que no controlamos no es malo en sí mismo. Lo peligroso es no haberlo pensado.</p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Ensayos relacionados</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">{posts.length}</span> piezas <span class="cr-d-thin">sobre quién decide el futuro de la IA.</span></h2>
+          <div class="cr-blog__list">
+            {posts.map((post) => (
+              <a class="cr-post" href={`/blog/${post.id}`}>
+                <span class="cr-post__cat">{(post.data.categories as string[])[0]}</span>
+                <h3 class="cr-post__title">{post.data.title}</h3>
+                <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer lang={lang} />
+</Base>

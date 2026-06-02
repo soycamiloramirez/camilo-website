@@ -1,0 +1,166 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../content/copy';
+
+const lang = 'es' as const;
+
+const pageTitle = 'Aprende IA · Diccionario para no técnicos · Camilo Ramírez';
+const pageDescription = 'Los conceptos clave de la inteligencia artificial explicados sin jerga: AGI, singularidad, ventana de contexto, agentes, alucinaciones, tokens. Para tomar decisiones de negocio con criterio, no con miedo.';
+const url = `${SITE.url}/temas/aprende-ia`;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
+  .filter((p) => (p.data.categories as string[]).includes('aprende'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: 'Aprende IA: diccionario para no técnicos',
+    description: pageDescription,
+    url,
+    inLanguage: 'es-CO',
+    datePublished: '2026-06-01T00:00:00.000Z',
+    dateModified: new Date().toISOString(),
+    author: { '@id': `${SITE.url}/#person` },
+    publisher: { '@id': `${SITE.url}/#person` },
+    image: `${SITE.url}/og-image.jpg`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    articleSection: 'Aprende',
+    keywords: 'qué es AGI, singularidad, ventana de contexto, tokens IA, agentes IA, alucinaciones, glosario inteligencia artificial',
+    about: [
+      { '@type': 'Thing', name: 'Inteligencia artificial' },
+      { '@type': 'Thing', name: 'AGI' },
+      { '@type': 'Thing', name: 'Modelos de lenguaje' },
+    ],
+    isPartOf: { '@type': 'Blog', '@id': `${SITE.url}/blog#blog` },
+    teaches: [
+      'Diferencia entre AGI y singularidad',
+      'Qué es una ventana de contexto y por qué importa al bolsillo',
+      'Qué son los tokens y por qué pagar de menos',
+      'Cuánto consume realmente la IA en energía',
+      'Qué cambia con los agentes de IA',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
+      { '@type': 'ListItem', position: 3, name: 'Aprende IA', item: url },
+    ],
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path="/temas/aprende-ia" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <article class="cr-article">
+      <div class="cr-container">
+        <div class="cr-article__wrap">
+
+          <p class="cr-breadcrumb"><a href="/blog">Blog</a> · Temas · Aprende</p>
+          <p class="cr-eyebrow" style="margin-top:24px"><span class="cr-franja"></span>Tema · Aprende IA</p>
+          <h1 class="cr-article__title"><span class="cr-d-thin">La IA explicada</span> <em class="cr-d-em">sin jerga,</em> <span class="cr-d-thin">para tomar decisiones con criterio.</span></h1>
+          <p class="cr-article__lede">{pageDescription}</p>
+          <p class="cr-article__meta">Por <strong>Camilo Ramírez</strong> · Síntesis editorial · Actualizada continuamente</p>
+
+          <div class="cr-article__tldr">
+            <p class="cr-article__tldr-lbl">TL;DR</p>
+            <p>Cinco conceptos cambian cómo uno usa, paga y decide sobre IA: AGI vs singularidad (no son lo mismo), ventana de contexto (por qué su asistente "olvida" cosas y le cobra de más), tokens (la unidad real de su factura), agentes (la diferencia entre un chatbot y algo que ejecuta tareas) y costo físico de la IA (lo que pasa atrás de cada respuesta). Esta página es el diccionario práctico, pensado para decidir sin tener que volverse técnico.</p>
+          </div>
+
+          <div class="cr-article__body">
+
+            <p>La inteligencia artificial se discute con un vocabulario que parece diseñado para excluir a quien no es técnico. AGI, singularidad, tokens, ventana de contexto, alucinaciones, agentes. Suenan a jerga, pero detrás de cada término hay una idea concreta que cambia cómo uno toma decisiones reales: cuánto paga, qué herramienta elige, qué espera y qué no de la máquina.</p>
+
+            <p>Esta página es el diccionario que les paso a juntas directivas y a directores que necesitan tomar decisiones sobre IA sin volverse técnicos. Cada concepto está conectado con el ensayo de Pertinente donde lo trato con más profundidad.</p>
+
+            <h2>AGI no es lo mismo que singularidad</h2>
+
+            <p>Es el malentendido más común. La gente usa los dos términos como sinónimos, y no lo son. Confundirlos hace que uno tome malas decisiones, porque mezcla lo que ya está pasando con lo que tal vez pase en una década.</p>
+
+            <p>La <strong>AGI (Inteligencia Artificial General)</strong> es una tecnología. Específicamente, un sistema capaz de igualar o superar las capacidades mentales de un humano promedio en una gama amplia de tareas. No en una sola, como las IA de hoy. En muchas. Una máquina que aprende, razona, se adapta a situaciones nuevas y opera por su cuenta. Es un concepto técnico, no metafísico. Se nombró por primera vez a finales de los noventa.</p>
+
+            <p>La <strong>singularidad</strong> es otra cosa. No es un software ni un modelo nuevo. Es un momento histórico hipotético en el que el avance tecnológico se vuelve tan rápido y profundo que los humanos perdemos la capacidad de predecirlo y controlarlo. Se llama así por la física: igual que en el centro de un agujero negro las leyes de la gravedad dejan de funcionar, en la singularidad las reglas de la economía y la sociedad colapsan frente a una inteligencia muy superior a lo que podemos imaginar. El concepto es de 1965.</p>
+
+            <p class="cr-article__pull">La AGI es el detonante. La singularidad es la explosión.</p>
+
+            <p>Cómo se conectan las dos: si uno de los laboratorios logra construir una AGI, habrá creado una máquina que programa e investiga mejor que sus propios ingenieros. Esa máquina puede crear una versión mejor de sí misma, y esa una mejor todavía, y así. Ese bucle que se acelera solo es lo que nos lanzaría a la singularidad. Pero hoy, en su empresa, no está lidiando con eso. Está implementando herramientas pre-AGI para automatizar tareas mentales.</p>
+
+            <h2>La ventana de contexto: por qué la IA "olvida" cosas y le cuesta plata</h2>
+
+            <p>A todos nos ha pasado. Uno lleva un rato trabajando con ChatGPT o Claude, le explica el contexto con paciencia, y de repente la herramienta responde como si acabara de llegar a la conversación. La sensación es que la máquina se volvió bruta. No es eso.</p>
+
+            <p>Todo lo que usted le escribe a una IA, más todo lo que ella le responde, se va guardando en algo que se llama la <strong>ventana de contexto</strong>. Piénsela como una sala de juntas con un número fijo de sillas. Cada persona en esa sala trae información. Cuando usted sigue invitando gente, llega un momento en que se acaban las sillas. Y para que entren los nuevos, alguien tiene que salir. Si la información que necesita ya se cayó de la sala, la IA inventa cualquier disparate con tono de seguridad. Eso son las famosas alucinaciones.</p>
+
+            <p>¿Por qué importa al bolsillo? Porque casi todas las herramientas cobran por <strong>tokens</strong>, la unidad mínima con la que la IA opera. Un token equivale aproximadamente a 4 caracteres o 3/4 de una palabra. Cada token que entra a la conversación es plata saliendo de su billetera. Llenar la ventana de basura no solo empeora las respuestas: le sale caro.</p>
+
+            <h2>Agentes vs chatbots: la diferencia que importa</h2>
+
+            <p>Cuando una empresa le ofrece "un agente de IA", probablemente le está ofreciendo un chatbot caro. La diferencia real es esta:</p>
+
+            <p>Un <strong>chatbot</strong> conversa. Responde preguntas, redacta, resume. El humano sigue siendo quien actúa: copia, pega, ejecuta. Si usted le pide algo a un chatbot, le devuelve una sugerencia.</p>
+
+            <p>Un <strong>agente</strong> ejecuta. Tiene acceso a herramientas (bases de datos, APIs, sistemas internos) y puede tomar acciones por su cuenta: actualizar un registro, enviar un email, generar una orden de compra. Si usted le pide algo a un agente, lo hace.</p>
+
+            <p>La consecuencia de negocio es enorme. Mientras Salesforce construyó un imperio en 25 años poniendo a un humano frente a una pantalla a meter datos, ahora ese mismo Salesforce está pivotando a una plataforma donde los agentes pican toda esa piedra automáticamente. Su rol como humano deja de ser introducir datos. Pasa a ser supervisar.</p>
+
+            <h2>El costo físico que la magia esconde</h2>
+
+            <p>Usamos la IA como si fuera magia. Le pedimos algo, nos responde en segundos, seguimos con el día. Pero detrás de cada respuesta instantánea hay una realidad física descomunal que conviene tener presente.</p>
+
+            <p>Anthropic, para entrenar y operar Claude, alquila una fábrica de cómputo en Memphis que necesita 300 megavatios de potencia para funcionar. Una casa promedio usa 0,0005 megavatios. Un hospital mediano, entre uno y cinco. Esa "humilde fábrica" consume lo de un reactor nuclear pequeño. Y como la red eléctrica local no daba abasto, instalaron treinta turbinas de gas en el predio. Los vecinos empezaron a sentir el gas, hubo quejas por ruido, por emisiones, por permisos.</p>
+
+            <p>Cuando uno entiende que detrás de cada respuesta hay reactores, turbinas y comunidades afectadas, deja de tratar la IA como magia gratuita y empieza a tratarla como lo que es: una herramienta poderosa con un costo concreto detrás. Esa consciencia, lejos de frenar el uso, lo hace más sensato.</p>
+
+            <h2>Por qué este vocabulario importa para una junta directiva</h2>
+
+            <p>No tiene que volverse técnico. Pero sí necesita entender de qué le están hablando cuando un proveedor le vende "el modelo más avanzado" o cuando un consultor le habla de "implementar agentes". Lo que un CEO o miembro de junta debería saber de IA, hoy, cabe en una hora:</p>
+
+            <ul>
+              <li>Qué es un modelo de lenguaje (un sistema entrenado para predecir la siguiente palabra)</li>
+              <li>Qué es un agente (un modelo + acceso a herramientas)</li>
+              <li>Qué es la ventana de contexto y por qué su factura depende de eso</li>
+              <li>Qué es una alucinación y cuándo es probable que pase</li>
+              <li>Dónde está el dinero (no en el chatbot, en el agente sobre datos internos ordenados)</li>
+              <li>Cómo evaluar una propuesta de IA sin ser técnico (qué problema resuelve, qué datos necesita, qué se mide)</li>
+            </ul>
+
+            <p>Eso es suficiente para tomar buenas decisiones. Lo demás puede pedirlo a su equipo técnico.</p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Ensayos relacionados</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">{posts.length}</span> piezas <span class="cr-d-thin">de profundización en estos conceptos.</span></h2>
+          <div class="cr-blog__list">
+            {posts.map((post) => (
+              <a class="cr-post" href={`/blog/${post.id}`}>
+                <span class="cr-post__cat">{(post.data.categories as string[])[0]}</span>
+                <h3 class="cr-post__title">{post.data.title}</h3>
+                <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer lang={lang} />
+</Base>

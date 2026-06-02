@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../content/copy';
+
+const lang = 'es' as const;
+
+const pageTitle = 'Temas · Síntesis editoriales · Camilo Ramírez';
+const pageDescription = 'Tres síntesis editoriales que reúnen toda la obra publicada sobre IA en Latinoamérica, gobernanza de IA y conceptos para no técnicos. Pensadas como puntos de partida para entender el tema completo.';
+const url = `${SITE.url}/temas`;
+
+const pillars = [
+  {
+    slug: 'ia-latam',
+    eyebrow: 'LATAM',
+    title: 'IA en Latinoamérica',
+    blurb: 'La pelea de los modelos ya no es nuestra. La que sí podemos ganar es la de aplicar esa tecnología a un terreno desordenado que solo nosotros conocemos.',
+  },
+  {
+    slug: 'gobernanza-ia',
+    eyebrow: 'Geopolítica',
+    title: 'Gobernanza de IA',
+    blurb: 'Quién audita los modelos, qué oligopolio se formó, y qué significa para empresas en LATAM construir sobre una tecnología que se decide en otro continente.',
+  },
+  {
+    slug: 'aprende-ia',
+    eyebrow: 'Diccionario',
+    title: 'Aprende IA sin jerga',
+    blurb: 'AGI, singularidad, ventana de contexto, agentes, alucinaciones, tokens. Los conceptos clave explicados para tomar decisiones de negocio con criterio.',
+  },
+];
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${url}#page`,
+    name: 'Temas · Camilo Ramírez',
+    url,
+    description: pageDescription,
+    inLanguage: 'es-CO',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: pillars.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE.url}/temas/${p.slug}`,
+        name: p.title,
+      })),
+    },
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/temas" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Temas</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">Tres síntesis editoriales,</span> tres puntos de partida.</h1>
+        <p class="cr-lead cr-pagehead__lead">Cada una junta lo que vengo publicando en Pertinente sobre un tema grande. Si llegó por una búsqueda concreta, estas son las puertas. Cada síntesis enlaza a los ensayos diarios donde profundizo cada idea.</p>
+      </div>
+    </section>
+
+    <section class="cr-blogix">
+      <div class="cr-container">
+        <div class="cr-blog__list">
+          {pillars.map((p) => (
+            <a class="cr-post" href={`/temas/${p.slug}`}>
+              <span class="cr-post__cat">{p.eyebrow}</span>
+              <h2 class="cr-post__title">{p.title}</h2>
+              <span class="cr-post__meta" style="display:block;margin-top:8px;max-width:60ch">{p.blurb}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>

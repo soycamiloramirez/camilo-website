@@ -1,0 +1,153 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../content/copy';
+
+const lang = 'es' as const;
+
+const pageTitle = 'IA en Latinoamérica · La tesis completa · Camilo Ramírez';
+const pageDescription = 'La síntesis editorial sobre por qué Latinoamérica no debe competir construyendo modelos de IA, sino aplicando los que existen a problemas que solo nosotros conocemos. La oportunidad real de la región.';
+const url = `${SITE.url}/temas/ia-latam`;
+
+// Posts relacionados: categorías latam + negocios + geopolitica
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.hidden))
+  .filter((p) => {
+    const cats = p.data.categories as string[];
+    return cats.includes('latam') || cats.includes('negocios') || cats.includes('geopolitica');
+  })
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: 'IA en Latinoamérica: la tesis completa',
+    description: pageDescription,
+    url,
+    inLanguage: 'es-CO',
+    datePublished: '2026-06-01T00:00:00.000Z',
+    dateModified: new Date().toISOString(),
+    author: { '@id': `${SITE.url}/#person` },
+    publisher: { '@id': `${SITE.url}/#person` },
+    image: `${SITE.url}/og-image.jpg`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    articleSection: 'LATAM',
+    keywords: 'IA Latinoamérica, inteligencia artificial LATAM, soberanía digital, oportunidad regional, Navigamo, mercado IA',
+    about: [
+      { '@type': 'Thing', name: 'Inteligencia artificial' },
+      { '@type': 'Thing', name: 'Latinoamérica' },
+      { '@type': 'Thing', name: 'Negocios digitales' },
+      { '@type': 'Thing', name: 'Soberanía tecnológica' },
+    ],
+    isPartOf: { '@type': 'Blog', '@id': `${SITE.url}/blog#blog` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Temas', item: `${SITE.url}/temas` },
+      { '@type': 'ListItem', position: 3, name: 'IA en Latinoamérica', item: url },
+    ],
+  },
+];
+---
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path="/temas/ia-latam" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <article class="cr-article">
+      <div class="cr-container">
+        <div class="cr-article__wrap">
+
+          <p class="cr-breadcrumb"><a href="/blog">Blog</a> · Temas · LATAM</p>
+          <p class="cr-eyebrow" style="margin-top:24px"><span class="cr-franja"></span>Tema · IA en Latinoamérica</p>
+          <h1 class="cr-article__title"><span class="cr-d-thin">La oportunidad real de LATAM</span> no es construir la IA. <em class="cr-d-em">Es el terreno.</em></h1>
+          <p class="cr-article__lede">{pageDescription}</p>
+          <p class="cr-article__meta">Por <strong>Camilo Ramírez</strong> · Síntesis editorial · Actualizada continuamente</p>
+
+          <div class="cr-article__tldr">
+            <p class="cr-article__tldr-lbl">TL;DR</p>
+            <p>Latinoamérica no le va a ganar la carrera de los modelos a Estados Unidos. Anthropic gasta 1.250 millones de dólares al mes solo en cómputo. Esa pelea es de otra liga, y nunca fue nuestra. La pelea que sí podemos ganar es la de aplicar esa tecnología a un terreno desordenado que solo nosotros conocemos de memoria. Lo difícil ya lo están resolviendo ellos. Lo que todavía nadie resuelve, y que solo nosotros podemos resolver, es cómo se aplica todo esto a una realidad que en San Francisco no entienden.</p>
+          </div>
+
+          <div class="cr-article__body">
+
+            <p>Hay una forma fácil y resignada de ver el lugar de Latinoamérica en todo este boom de la inteligencia artificial. Dice que Estados Unidos inventa la tecnología, que Europa la regula, y que a nosotros nos toca quedarnos quietos, pagando la cuenta que nos quieran cobrar para poder usarla. Espectadores con tarjeta de crédito. Esa es la lectura más común. Y es la que yo no comparto, después de leer y masticar mucha información estos últimos años.</p>
+
+            <p>Lo que voy a hacer en esta página es juntar en un solo lugar el argumento completo. Por qué la pelea de los modelos ya está decidida y no tiene sentido entrar. Por qué nuestra ventaja real es otra y se mide en algo que ellos no tienen. Y qué significa todo esto, en concreto, para alguien que está montando un negocio en la región, sea startup, agencia o empresa grande. Cada una de las secciones está enlazada con los ensayos diarios donde he tratado el punto con más detalle.</p>
+
+            <h2>El tamaño real de la cancha en la que NO debemos jugar</h2>
+
+            <p>Empezamos por lo concreto, porque las ideas sueltas no le sirven a nadie. Para tener un modelo de IA de frontera hoy se necesitan decenas de miles de tarjetas gráficas trabajando en paralelo durante meses, con sistemas de enfriamiento descomunales y un consumo eléctrico equivalente al de una ciudad pequeña. La barrera para crear estos sistemas ya no es el conocimiento. Es el acero, el silicio y la red eléctrica.</p>
+
+            <p>Anthropic, la empresa detrás de Claude, está pagando alrededor de 1.250 millones de dólares al mes solo en cómputo, conexión y red. Esa es la cuenta de la luz, no la inversión. Hasta 2029 tiene comprometidos 45.000 millones de dólares al año. Para que se haga una idea: todo el capital de riesgo levantado en Latinoamérica en su mejor año fue menos de 16.000 millones. OpenAI mueve más que eso en una sola adquisición de chips, simplemente para que operar ChatGPT le salga más barato.</p>
+
+            <p>Querer competir ahí es como montar una aerolínea para pelearle el mercado a Boeing. Es plata que no tenemos, en una cancha donde ya nos llevan años de ventaja. Y eso se confirma con un detalle que parece chisme de industria pero no lo es: el talento de primer nivel está migrando hacia donde están las máquinas más grandes, no hacia donde está la mejor idea. Cuando uno de los cofundadores de OpenAI deja su propio proyecto para irse a la competencia, no se va por la plata. Se va por el acceso al hardware.</p>
+
+            <h2>La pelea que sí podemos ganar (y por qué)</h2>
+
+            <p>Aquí está el giro, y es donde la mayoría de discusiones sobre IA en LATAM se equivocan. El día que uno acepta que no va a ganar la pelea de los modelos, deja de gastar energía donde no la tiene y la pone donde sí. Porque hay una diferencia enorme entre construir la inteligencia artificial y usarla con criterio. Lo primero requiere el PIB de un país pequeño. Lo segundo requiere entender un problema mejor que nadie.</p>
+
+            <p>Y eso último sí lo tenemos. Conocemos nuestra región, nuestros mercados, nuestros líos, de una forma que nadie en San Francisco va a entender por más millones que tenga. El modelo se está volviendo un commodity. Lo difícil, lo costoso, eso ya lo están resolviendo ellos. Lo que todavía nadie resuelve, y que solo nosotros podemos resolver, es cómo se aplica esa tecnología a una realidad que en San Francisco no tienen ni idea de cómo funciona.</p>
+
+            <p class="cr-article__pull">El modelo es commodity. El terreno, no.</p>
+
+            <p>Le pongo el ejemplo más concreto que conozco. Hay una startup en México que se llama Palenca. No está inventando el chatbot más creativo del mundo ni metiéndole 45.000 millones de dólares a un sistema nuevo. Está resolviendo algo mucho más aburrido y mucho más valioso: cómo darle crédito a la economía informal. Piénselo un segundo. En Estados Unidos prestarle plata a alguien es relativamente fácil porque hay burós de crédito, hay información ordenada, uno se conecta a un API y ya. Acá no. El desorden es una vaina fenomenal. Y ese desorden es justamente lo que Palenca convirtió en negocio.</p>
+
+            <p>Un repartidor, un conductor que no tiene nómina, llega a un banco a pedir el crédito de una moto y se lo niegan sin pensarlo. No tiene cómo demostrar que es buena paga. Lo que hizo Palenca fue usar machine learning sobre sus ingresos diarios, sus horarios, la constancia con la que trabaja en las plataformas, y con esa información que parecía basura construyó un perfil de riesgo que el banco sí entiende. Eso no es inventar la IA. Es agarrar tecnología de punta y apuntarla a un problema que es nuestro.</p>
+
+            <h2>Tres preguntas que debería hacerse hoy</h2>
+
+            <p>Si está leyendo esto y dirige una empresa en la región, hay tres preguntas que importan más que cualquier framework de adopción que le venda una consultora.</p>
+
+            <h3>1. ¿Está usando IA para parecer moderno o para impactar el negocio?</h3>
+
+            <p>En muchas empresas de la región la "adopción de IA" se reduce a que los empleados resuman correos y hagan presentaciones más bonitas. Mientras tanto, los datos operativos siguen encerrados cada uno en su sistema, sin conectarse, sin convertirse en decisiones. Esa no es transformación: es un chatbot caro. La diferencia entre un chatbot caro y una ventaja real no está en qué modelo usa. Está en si se tomó el trabajo de que el sistema entienda su negocio.</p>
+
+            <h3>2. ¿Sobre quién está construyendo, y cuánto control tiene?</h3>
+
+            <p>Dos empresas (OpenAI y Anthropic) controlan el 89% del mercado mundial de modelos de IA. Hace seis meses tenían el 84%. La consolidación va rapidísimo en una sola dirección. Si usted monta un negocio sobre la API de uno de esos dos, su costo y su margen quedan amarrados a decisiones que toma un comité en California. Eso no es necesariamente un error, pero hacerlo sin saberlo sí lo es. Conviene mirar esa cadena de dependencias antes de seguir construyendo encima.</p>
+
+            <h3>3. ¿Está esperando que llegue un manual del norte, o está leyendo el terreno?</h3>
+
+            <p>El estándar regulatorio europeo es exigente. El estándar gringo es prácticamente inexistente. La tentación en LATAM es copiar uno de los dos. Y creo que es un error. Si usted diseña para el estándar europeo desde el primer día, entrar a Estados Unidos después es trámite. Lo difícil siempre contiene a lo fácil. Pero la verdadera oportunidad no es copiar a ninguno: es leer la región como solo nosotros podemos y construir para ese terreno específico.</p>
+
+            <h2>El argumento, en una frase</h2>
+
+            <p>Si tuviera que reducir todo lo que vengo escribiendo sobre IA y LATAM a una sola idea, sería esta: el talento latinoamericano no se desperdicia tratando de construir el próximo modelo gigante. Se aprovecha tomando esos modelos, que otros pagan a 1.250 millones al mes, y aplicándolos a problemas que solo nosotros sabemos resolver. Esa es la mina de oro. No el algoritmo. El terreno, que es el que conocemos de memoria.</p>
+
+            <p>Y, como siempre, una pregunta para cerrar: ¿usted ya está usando la IA para resolver un problema real de los nuestros, o sigue esperando a que alguien de afuera le diga que llegó el momento?</p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-9)">
+        <div class="cr-article__wrap">
+          <p class="cr-eyebrow"><span class="cr-franja"></span>Ensayos relacionados</p>
+          <h2 class="cr-display-2" style="margin: var(--s-3) 0 var(--s-7)"><span class="cr-d-thin">{posts.length}</span> piezas <span class="cr-d-thin">que profundizan en este tema.</span></h2>
+          <div class="cr-blog__list">
+            {posts.map((post) => (
+              <a class="cr-post" href={`/blog/${post.id}`}>
+                <span class="cr-post__cat">{(post.data.categories as string[])[0]}</span>
+                <h3 class="cr-post__title">{post.data.title}</h3>
+                <span class="cr-post__meta">{fmtDate(post.data.date)}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer lang={lang} />
+</Base>
