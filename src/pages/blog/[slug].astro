@@ -30,7 +30,7 @@ const readingMin = Math.max(1, Math.round(wordCount / 220));
 const cats = post.data.categories as CategorySlug[];
 const primary = cats[0];
 const related = all
-  .filter((p) => p.id !== post.id && (p.data.categories as CategorySlug[]).includes(primary))
+  .filter((p) => p.id !== post.id && !p.data.hidden && (p.data.categories as CategorySlug[]).includes(primary))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
