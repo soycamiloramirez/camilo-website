@@ -1,6 +1,6 @@
 ---
-title: 'Microsoft dejó de ser el casero de OpenAI. Ahora es su competencia, y trajo un arma que los demás no tienen.'
-seo_title: 'Microsoft ya no es el casero de OpenAI. Es competencia.'
+title: 'Microsoft era la casa de OpenAI. Ahora es su competencia, y trajo un arma que los demás no tienen.'
+seo_title: 'Microsoft era la casa de OpenAI. Ahora es competencia.'
 description: 'Microsoft lanzó MAI Superintelligence con chips propios y datos licenciados. Dejó de ser el distribuidor de OpenAI y se volvió fabricante.'
 date: 2026-06-04
 episode: 21
@@ -12,7 +12,7 @@ aside: 'Microsoft contrató en 2024 a Mustafa Suleiman, cofundador de DeepMind y
 
 En casi toda relación larga llega el momento en que uno de los dos decide que ya no quiere depender del otro. Eso es, más o menos, lo que acaba de pasar entre Microsoft y OpenAI. Y entender esa jugada importa, porque no solo los afecta a ellos dos: nos toca a todos, incluida Latinoamérica.
 
-Hagamos memoria. Microsoft fue el primero que creyó en OpenAI, el que les puso 4.000 millones de dólares en la cuenta para que el negocio arrancara. Durante años la relación funcionó con un reparto claro de roles: Microsoft ponía la carretera (Azure, los servidores, todo el procesamiento pesado) y OpenAI ponía el motor (los modelos). Microsoft era la casa donde vivía OpenAI. De ahí salió Copilot, integrado en todo el paquete de Office, con muchas promesas, algunas cumplidas y otras no.
+Hagamos memoria. Microsoft fue el primero que creyó en OpenAI, el que les puso 4.000 millones de dólares en la cuenta para que el negocio arrancara. Durante años la relación funcionó con un reparto claro de roles: Microsoft ponía la carretera (Azure, los servidores, todo el procesamiento pesado) y OpenAI ponía el motor (los modelos). Microsoft era el lugar donde vivía OpenAI. De ahí salió Copilot, integrado en todo el paquete de Office, con muchas promesas, algunas cumplidas y otras no.
 
 Pero ese noviazgo se fue desgastando. El año pasado renegociaron y rompieron la cláusula de exclusividad. Entre otras cosas, se eliminó la parte que le prohibía a Microsoft desarrollar sus propios modelos. Y ahí cambió todo.
 
