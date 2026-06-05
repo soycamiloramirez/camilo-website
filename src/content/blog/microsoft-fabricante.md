@@ -7,7 +7,7 @@ episode: 21
 categories: [negocios, geopolitica]
 tldr: 'Microsoft dejó de ser el distribuidor de OpenAI y se volvió fabricante. Lanzó MAI Superintelligence: nueve modelos nuevos más uno de razonamiento, corriendo en sus propios chips Maia 200 y entrenados con datos licenciados. Eso le da dos armas que OpenAI y Anthropic no tienen: precio bajo (hardware propio sin peaje) y trazabilidad legal (clean data lineage). El candado real no está en el modelo, está en Azure.'
 pullquote: 'El candado no lo están poniendo en el modelo. Lo están poniendo en la infraestructura.'
-aside: 'Microsoft contrató en 2024 a Mustafa Suleiman, cofundador de DeepMind y fundador de Inflection AI. Hoy es CEO de Microsoft AI y lidera MAI Superintelligence con equipo traído de Google DeepMind y de Inflection.'
+aside: 'Microsoft contrató en 2024 a Mustafa Suleyman, cofundador de DeepMind y fundador de Inflection AI. Hoy es CEO de Microsoft AI y lidera MAI Superintelligence con equipo traído de Google DeepMind y de Inflection.'
 ---
 
 En casi toda relación larga llega el momento en que uno de los dos decide que ya no quiere depender del otro. Eso es, más o menos, lo que acaba de pasar entre Microsoft y OpenAI. Y entender esa jugada importa, porque no solo los afecta a ellos dos: nos toca a todos, incluida Latinoamérica.
@@ -18,15 +18,15 @@ Pero ese noviazgo se fue desgastando. El año pasado renegociaron y rompieron la
 
 ## Quién está detrás de la jugada
 
-Esto no lo dirige alguien que apareció de la nada. Lo lidera Mustafa Suleiman, que no es un improvisado: fue cofundador de DeepMind y luego fundó Inflection AI. En 2024 Microsoft lo contrató, y hoy es el CEO de Microsoft AI. Se trajo gente de Google DeepMind y de Inflection, los metió en Microsoft, y le puso a su equipo un nombre nada modesto: MAI Superintelligence.
+Esto no lo dirige alguien que apareció de la nada. Lo lidera Mustafa Suleyman, que no es un improvisado: fue cofundador de DeepMind y luego fundó Inflection AI. En 2024 Microsoft lo contrató, y hoy es el CEO de Microsoft AI. Se trajo gente de Google DeepMind y de Inflection, los metió en Microsoft, y le puso a su equipo un nombre nada modesto: MAI Superintelligence.
 
-Lo que Suleiman está buscando es claro: que Microsoft deje de ser solo el distribuidor y se vuelva fabricante. Y trae un discurso que rompe con lo que veníamos oyendo. No habla de alcanzar la AGI, esa inteligencia general que todos prometen. Habla de algo que llama ACI, inteligencia artificial capaz, que encaja perfecto con el ADN de Microsoft: no se trata de modelos que escriban canciones bonitas, sino de que la IA haga que los negocios funcionen mejor y le devuelva la inversión a quien está pagando por ella.
+Lo que Suleyman está buscando es claro: que Microsoft deje de ser solo el distribuidor y se vuelva fabricante. Y trae un discurso que rompe con lo que veníamos oyendo. No habla de alcanzar la AGI, esa inteligencia general que todos prometen. Habla de algo que llama ACI, inteligencia artificial capaz, que encaja perfecto con el ADN de Microsoft: no se trata de modelos que escriban canciones bonitas, sino de que la IA haga que los negocios funcionen mejor y le devuelva la inversión a quien está pagando por ella.
 
 ## La movida, en dos golpes
 
-El lanzamiento ocurrió en dos tiempos. En abril de 2026 salieron tres modelos discretos (MAI Transcribe, MAI Voice, MAI Image 2), con un precio por debajo de Google, integrados de una en Bing, PowerPoint, Copilot y Foundry. Los usuarios casi no lo sintieron, pero esos modelos se fueron metiendo en la infraestructura. Eran la preparación. El segundo golpe es el que acaba de caer: nueve modelos MAI más uno de razonamiento. No voy a entrar en el detalle hipertécnico, porque para eso hay mil canales en YouTube y a usted probablemente no le interesa. Lo que importa es qué hay detrás de la movida.
+El lanzamiento ocurrió en dos tiempos. En abril de 2026 salieron tres modelos discretos (MAI-Transcribe-1, MAI-Voice-1, MAI-Image-2), con un precio por debajo de Google, integrados de una en Bing, PowerPoint, Copilot y Foundry. Los usuarios casi no lo sintieron, pero esos modelos se fueron metiendo en la infraestructura. Eran la preparación. El segundo golpe es el que acaba de caer: nueve modelos MAI más uno de razonamiento, el MAI-Thinking-1. No voy a entrar en el detalle hipertécnico, porque para eso hay mil canales en YouTube y a usted probablemente no le interesa. Lo que importa es qué hay detrás de la movida.
 
-Y lo primero que hay que decir es que esto no es humo. Microsoft ya habla de números concretos: modelos más eficientes, que consumen mucho menos, más baratos, enfocados en tareas específicas. Para que se haga una idea, ya se están comparando con Claude Opus y logrando resultados parecidos.
+Y lo primero que hay que decir es que esto no es humo. Microsoft ya habla de números concretos: modelos más eficientes, que consumen mucho menos, más baratos, enfocados en tareas específicas. Para que se haga una idea, su modelo de razonamiento ya se está comparando con Claude Sonnet y logrando resultados parecidos.
 
 ## El arma que los demás no tienen
 
