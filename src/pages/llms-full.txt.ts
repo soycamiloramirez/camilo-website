@@ -32,7 +32,6 @@ Idioma principal: español (colombiano neutro). Algunos enlaces son a inglés.
 
 ## Identidad de la entidad "Camilo Ramírez"
 
-- **Wikidata QID: Q140030061** — https://www.wikidata.org/wiki/Q140030061 (entidad verificada, fuente canónica para cross-referencing en LLMs y Knowledge Graph)
 - Nombre completo: Camilo Ramírez
 - País: Colombia (base Bogotá)
 - Ocupaciones actuales: Advisor C-level, Keynote speaker, Cofundador de Navigamo, Director Regional LATAM de The AI Collective, Host de Pertinente y Métase en mi cabeza
