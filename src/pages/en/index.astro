@@ -217,11 +217,19 @@ const extraJsonLd = [
           <a class="cr-contact__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
 
-        <form class="cr-form" id="contactForm">
+        <form class="cr-form" id="contactForm" action="/api/contact" method="POST" novalidate>
+          <input type="hidden" name="lang" value="en">
+          <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+            <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
           <div class="cr-form__row">
-            <label class="cr-field"><span class="cr-field__label">{t.contacto.form.name}</span><input class="cr-field__input" name="nombre" type="text"></label>
+            <label class="cr-field"><span class="cr-field__label">{t.contacto.form.name}</span><input class="cr-field__input" name="nombre" type="text" required minlength="2"></label>
             <label class="cr-field"><span class="cr-field__label">{t.contacto.form.company}</span><input class="cr-field__input" name="empresa" type="text"></label>
           </div>
+          <label class="cr-field">
+            <span class="cr-field__label">{t.contacto.form.email}</span>
+            <input class="cr-field__input" name="email" type="email" required autocomplete="email">
+          </label>
           <div class="cr-field">
             <span class="cr-field__label">{t.contacto.form.type}</span>
             <div class="cr-form__topics" role="radiogroup">
@@ -233,9 +241,10 @@ const extraJsonLd = [
           </div>
           <label class="cr-field">
             <span class="cr-field__label">{t.contacto.form.message}</span>
-            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3"></textarea>
+            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3" required minlength="10"></textarea>
           </label>
           <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">{t.contacto.form.send} →</button>
+          <div class="cr-form__status" id="contactStatus" aria-live="polite" hidden></div>
         </form>
       </div>
     </section>
@@ -253,5 +262,58 @@ const extraJsonLd = [
         if (hidden) hidden.value = btn.getAttribute('data-need');
       });
     });
+
+    (function () {
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      var submitBtn = form.querySelector('.cr-form__submit');
+      var statusEl = document.getElementById('contactStatus');
+      var firstTopic = document.querySelector('.cr-form__topic');
+      var defaultNeed = firstTopic ? firstTopic.getAttribute('data-need') : 'advisory';
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!submitBtn || !statusEl) return;
+
+        submitBtn.disabled = true;
+        var originalLabel = submitBtn.textContent;
+        submitBtn.textContent = 'Sending…';
+        statusEl.hidden = true;
+        statusEl.className = 'cr-form__status';
+
+        try {
+          var fd = new FormData(form);
+          var res = await fetch('/api/contact', {
+            method: 'POST',
+            body: fd,
+            headers: { 'Accept': 'application/json' },
+          });
+          var json = await res.json().catch(function () { return {}; });
+
+          if (res.ok && json.ok) {
+            form.reset();
+            document.querySelectorAll('.cr-form__topic').forEach(function (b, i) {
+              b.classList.toggle('is-on', i === 0);
+            });
+            var h = document.querySelector('input[name="necesita"]');
+            if (h) h.value = defaultNeed;
+            statusEl.className = 'cr-form__status cr-form__status--ok';
+            statusEl.innerHTML = '<strong>Message sent.</strong> I read every request myself. I will reply personally in the coming days.';
+            statusEl.hidden = false;
+          } else {
+            statusEl.className = 'cr-form__status cr-form__status--err';
+            statusEl.innerHTML = "<strong>Couldn't send your message.</strong> " + (json.error || 'Try again') + ' or email me directly at <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
+            statusEl.hidden = false;
+          }
+        } catch (err) {
+          statusEl.className = 'cr-form__status cr-form__status--err';
+          statusEl.innerHTML = '<strong>Network error.</strong> Email me directly at <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
+          statusEl.hidden = false;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel || 'Send →';
+        }
+      });
+    })();
   </script>
 </Base>

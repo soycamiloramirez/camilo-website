@@ -275,17 +275,26 @@ const extraJsonLd = [
           <a class="cr-contact__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
 
-        <form class="cr-form" id="contactForm">
+        <form class="cr-form" id="contactForm" action="/api/contact" method="POST" novalidate>
+          <input type="hidden" name="lang" value="es">
+          {/* Honeypot anti-spam: oculto visualmente y para lectores de pantalla. Bots lo llenan, humanos no. */}
+          <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+            <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
           <div class="cr-form__row">
             <label class="cr-field">
               <span class="cr-field__label">Nombre</span>
-              <input class="cr-field__input" name="nombre" type="text">
+              <input class="cr-field__input" name="nombre" type="text" required minlength="2">
             </label>
             <label class="cr-field">
               <span class="cr-field__label">Empresa u organización</span>
               <input class="cr-field__input" name="empresa" type="text">
             </label>
           </div>
+          <label class="cr-field">
+            <span class="cr-field__label">Email</span>
+            <input class="cr-field__input" name="email" type="email" required autocomplete="email">
+          </label>
           <div class="cr-field">
             <span class="cr-field__label">Qué necesita</span>
             <div class="cr-form__topics" role="radiogroup">
@@ -297,9 +306,10 @@ const extraJsonLd = [
           </div>
           <label class="cr-field">
             <span class="cr-field__label">Cuénteme el contexto</span>
-            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3"></textarea>
+            <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3" required minlength="10"></textarea>
           </label>
           <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">Enviar →</button>
+          <div class="cr-form__status" id="contactStatus" aria-live="polite" hidden></div>
         </form>
       </div>
     </section>
@@ -309,6 +319,7 @@ const extraJsonLd = [
   <Footer lang={lang} />
 
   <script is:inline>
+    // Topic chips
     document.querySelectorAll('.cr-form__topic').forEach(function (btn) {
       btn.addEventListener('click', function () {
         document.querySelectorAll('.cr-form__topic').forEach(function (b) { b.classList.remove('is-on'); });
@@ -317,5 +328,58 @@ const extraJsonLd = [
         if (hidden) hidden.value = btn.getAttribute('data-need');
       });
     });
+
+    // Real form submission (no mailto). Posts to /api/contact and shows inline status.
+    (function () {
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      var submitBtn = form.querySelector('.cr-form__submit');
+      var statusEl = document.getElementById('contactStatus');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!submitBtn || !statusEl) return;
+
+        submitBtn.disabled = true;
+        var originalLabel = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando…';
+        statusEl.hidden = true;
+        statusEl.className = 'cr-form__status';
+
+        try {
+          var fd = new FormData(form);
+          var res = await fetch('/api/contact', {
+            method: 'POST',
+            body: fd,
+            headers: { 'Accept': 'application/json' },
+          });
+          var json = await res.json().catch(function () { return {}; });
+
+          if (res.ok && json.ok) {
+            form.reset();
+            // restablecer chip default
+            document.querySelectorAll('.cr-form__topic').forEach(function (b, i) {
+              b.classList.toggle('is-on', i === 0);
+            });
+            var h = document.querySelector('input[name="necesita"]');
+            if (h) h.value = 'advisory';
+            statusEl.className = 'cr-form__status cr-form__status--ok';
+            statusEl.innerHTML = '<strong>Mensaje enviado.</strong> Lo leo yo. Le respondo personalmente en los próximos días.';
+            statusEl.hidden = false;
+          } else {
+            statusEl.className = 'cr-form__status cr-form__status--err';
+            statusEl.innerHTML = '<strong>No pude enviar el mensaje.</strong> ' + (json.error || 'Intente de nuevo') + ' o escríbame directo a <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
+            statusEl.hidden = false;
+          }
+        } catch (err) {
+          statusEl.className = 'cr-form__status cr-form__status--err';
+          statusEl.innerHTML = '<strong>Error de red.</strong> Escríbame directo a <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
+          statusEl.hidden = false;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel || 'Enviar →';
+        }
+      });
+    })();
   </script>
 </Base>
