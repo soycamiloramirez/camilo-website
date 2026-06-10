@@ -45,7 +45,7 @@ function escapeHtml(s: string) {
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
   const toEmail = import.meta.env.CONTACT_TO_EMAIL || 'yo@camilo-ramirez.com';
-  const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@camilo-ramirez.com';
+  const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@send.camilo-ramirez.com';
 
   if (!apiKey) {
     return new Response(JSON.stringify({ ok: false, error: 'Server not configured.' }), {
