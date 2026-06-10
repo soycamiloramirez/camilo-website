@@ -263,6 +263,18 @@ const extraJsonLd = [
       });
     });
 
+    // Pre-select chip from ?need=... (e.g. /en/speaking → /en?need=speaking#contacto)
+    (function () {
+      try {
+        var need = new URLSearchParams(window.location.search).get('need');
+        if (!need) return;
+        var target = document.querySelector('.cr-form__topic[data-need="' + need.toLowerCase() + '"]');
+        if (target) target.click();
+        var nameInput = document.querySelector('#contactForm input[name="nombre"]');
+        if (nameInput) setTimeout(function () { nameInput.focus({ preventScroll: true }); }, 400);
+      } catch (e) { /* noop */ }
+    })();
+
     (function () {
       var form = document.getElementById('contactForm');
       if (!form) return;

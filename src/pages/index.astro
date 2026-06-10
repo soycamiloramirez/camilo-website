@@ -329,6 +329,19 @@ const extraJsonLd = [
       });
     });
 
+    // Pre-seleccionar chip desde ?need=... (ej. desde /speaking → /?need=speaking#contacto)
+    (function () {
+      try {
+        var need = new URLSearchParams(window.location.search).get('need');
+        if (!need) return;
+        var target = document.querySelector('.cr-form__topic[data-need="' + need.toLowerCase() + '"]');
+        if (target) target.click();
+        // Focus suave en el primer input del form
+        var nameInput = document.querySelector('#contactForm input[name="nombre"]');
+        if (nameInput) setTimeout(function () { nameInput.focus({ preventScroll: true }); }, 400);
+      } catch (e) { /* noop */ }
+    })();
+
     // Real form submission (no mailto). Posts to /api/contact and shows inline status.
     (function () {
       var form = document.getElementById('contactForm');
