@@ -1,7 +1,9 @@
 ---
-import { SOCIALS, type Lang } from '../content/copy';
+import { COPY, SOCIALS, type Lang } from '../content/copy';
 import PlatformIcon from './PlatformIcon.astro';
 const { lang } = Astro.props as { lang: Lang };
+const preferredText = COPY[lang].footer.preferredSource;
+const preferredLinkLabel = lang === 'es' ? 'en Google →' : 'on Google →';
 const home = lang === 'es' ? '/' : '/en';
 const pertinenteHref = lang === 'es' ? '/pertinente' : '/en/pertinente';
 const metaseHref = lang === 'es' ? '/metase' : '/en/metase';
@@ -47,6 +49,9 @@ const tagline = lang === 'es'
           ))}
         </div>
       </div>
+    </div>
+    <div class="cr-footer__preferred">
+      <span>{preferredText} <a href="https://www.google.com/preferences/source?q=camilo-ramirez.com" target="_blank" rel="noopener">{preferredLinkLabel}</a></span>
     </div>
     <div class="cr-footer__bottom">
       <span>© 2026 Camilo Ramírez.</span>

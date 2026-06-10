@@ -456,6 +456,9 @@ img { max-width: 100%; }
 .cr-footer__col a .lucide { width: 15px; height: 15px; }
 .cr-footer__col a .cr-social-ic { width: 15px; height: 15px; flex: none; }
 .cr-footer__col a:hover { color: #C75CA6; }
+.cr-footer__preferred { padding-top: var(--s-4); font-size: var(--caption); color: var(--ink-3); }
+.cr-footer__preferred a { color: #fff; text-decoration: underline; text-decoration-color: rgba(244,244,243,.3); text-underline-offset: 4px; transition: text-decoration-color .2s; }
+.cr-footer__preferred a:hover { text-decoration-color: #fff; }
 .cr-footer__bottom { border-top: 1px solid rgba(244,244,243,.12); padding-top: var(--s-4); display: flex; justify-content: space-between; font-size: var(--caption); color: var(--ink-3); }
 
 /* ---------- Mobile menu (checkbox hack, no JS) ---------- */

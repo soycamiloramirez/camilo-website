@@ -243,6 +243,7 @@ export const COPY = {
       tagline: '© ' + new Date().getFullYear() + ' Camilo Ramírez. Hecho con criterio en Bogotá.',
       legal:
         'Para que un CEO, un curador de eventos o alguien que llega por el podcast entienda en segundos quién soy y por qué tiene sentido escucharme.',
+      preferredSource: '¿Quiere leerme más seguido en Google? Márqueme como fuente preferida',
     },
     meta: {
       title: 'Camilo Ramírez · IA, negocios y LATAM',
@@ -637,6 +638,7 @@ export const COPY = {
       tagline: '© ' + new Date().getFullYear() + ' Camilo Ramírez. Built with judgment in Bogotá.',
       legal:
         'So a CEO, an event curator or someone who arrives through the podcast can understand in seconds who I am and why it makes sense to listen.',
+      preferredSource: 'Want to read me more often on Google? Mark me as a preferred source',
     },
     meta: {
       title: 'Camilo Ramírez · AI, business and LATAM',
