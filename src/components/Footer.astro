@@ -50,9 +50,17 @@ const tagline = lang === 'es'
         </div>
       </div>
     </div>
-    <div class="cr-footer__preferred">
-      <span>{preferredText} <a href="https://www.google.com/preferences/source?q=camilo-ramirez.com" target="_blank" rel="noopener">{preferredLinkLabel}</a></span>
-    </div>
+    {/*
+      Google Preferred Sources CTA — desactivado por ahora.
+      El sitio aun no esta clasificado por Google como "source" en su base de datos
+      (requiere meses de indexado regular). Hoy el link lleva a "No results", lo que
+      es peor UX que no tenerlo. Reactivar cuando google.com/preferences/source?q=camilo-ramirez.com
+      ya devuelva un resultado para el dominio.
+
+      <div class="cr-footer__preferred">
+        <span>{preferredText} <a href="https://www.google.com/preferences/source?q=camilo-ramirez.com" target="_blank" rel="noopener">{preferredLinkLabel}</a></span>
+      </div>
+    */}
     <div class="cr-footer__bottom">
       <span>© 2026 Camilo Ramírez.</span>
       <span>{labels.tag}</span>
