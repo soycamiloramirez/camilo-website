@@ -66,12 +66,13 @@ const extraJsonLd = [
 
     <section class="cr-blogix">
       <div class="cr-container">
-        <div class="cr-blog__list">
+        <div class="cr-pillars">
           {pillars.map((p) => (
-            <a class="cr-post" href={`/temas/${p.slug}`}>
-              <span class="cr-post__cat">{p.eyebrow}</span>
-              <h2 class="cr-post__title">{p.title}</h2>
-              <span class="cr-post__meta" style="display:block;margin-top:8px;max-width:60ch">{p.blurb}</span>
+            <a class="cr-pillar" href={`/temas/${p.slug}`}>
+              <span class="cr-pillar__eyebrow">{p.eyebrow}</span>
+              <h2 class="cr-pillar__title">{p.title}</h2>
+              <p class="cr-pillar__blurb">{p.blurb}</p>
+              <span class="cr-pillar__arrow" aria-hidden>→</span>
             </a>
           ))}
         </div>
