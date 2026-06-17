@@ -87,20 +87,28 @@ function shell(inner: string): string {
 /* ------------------------------------------------------------------ */
 
 export function confirmEmailHtml(confirmUrl: string): { subject: string; html: string; text: string } {
-  const subject = 'Confirme su suscripción al boletín';
+  const subject = 'Gracias por suscribirse · Camilo Ramírez';
 
   const inner = `
     <tr>
       <td style="padding:56px 40px 12px">
         ${eyebrow('Boletín · Camilo Ramírez')}
 
-        <h1 style="font-family:${SANS};font-size:40px;line-height:1.05;letter-spacing:-.035em;color:${INK};margin:0 0 28px;font-weight:700">
-          <span style="font-weight:300;color:${MUTE}">Un click más</span><br>
-          y queda dentro.
+        <h1 style="font-family:${SANS};font-size:44px;line-height:1.0;letter-spacing:-.04em;color:${INK};margin:0 0 32px;font-weight:700">
+          <span style="font-weight:300;color:${MUTE}">Gracias por</span><br>
+          suscribirse.
         </h1>
 
-        <p style="font-family:${SANS};font-size:16px;line-height:1.6;color:${INK_2};margin:0 0 36px;max-width:46ch">
-          Confirme que este correo es suyo. Después le mando una pieza con criterio cada viernes. IA, negocios y LATAM destilados. Cero ruido.
+        <p style="font-family:${SANS};font-size:17px;line-height:1.6;color:${INK_2};margin:0 0 20px;max-width:46ch">
+          Cada viernes le voy a mandar una pieza editorial. Una sola, destilada de la semana en IA, negocios y LATAM.
+        </p>
+
+        <p style="font-family:${SANS};font-size:16px;line-height:1.6;color:${INK_2};margin:0 0 40px;max-width:46ch">
+          La idea es que llegue cuando tenga tiempo de leerla, no en medio del ruido del día.
+        </p>
+
+        <p style="font-family:${SANS};font-size:14px;line-height:1.55;color:${MUTE};margin:0 0 16px">
+          Para activar la suscripción, confirme que este correo es suyo:
         </p>
 
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 36px">
@@ -108,14 +116,14 @@ export function confirmEmailHtml(confirmUrl: string): { subject: string; html: s
             <td style="background:${INK}">
               <a href="${confirmUrl}"
                  style="display:inline-block;padding:16px 30px;font-family:${SANS};font-size:14px;font-weight:600;letter-spacing:.02em;color:#fff;text-decoration:none">
-                Confirmar suscripción →
+                Confirmar y entrar →
               </a>
             </td>
           </tr>
         </table>
 
         <p style="font-family:${SANS};font-size:13px;line-height:1.6;color:${MUTE};margin:0 0 8px">
-          Si no se suscribió, ignore este correo. El link expira en 24 horas.
+          Si no fue usted quien se suscribió, ignore este correo. El link vale por 24 horas.
         </p>
         <p style="font-family:${SANS};font-size:12px;line-height:1.55;color:${MUTE};margin:0;word-break:break-all">
           ¿No funciona el botón? Copie y pegue:<br>
@@ -128,13 +136,16 @@ export function confirmEmailHtml(confirmUrl: string): { subject: string; html: s
 
   const text = `Boletín · Camilo Ramírez
 
-Un click más y queda dentro.
+Gracias por suscribirse.
 
-Confirme que este correo es suyo. Después le mando una pieza con criterio cada viernes. IA, negocios y LATAM destilados. Cero ruido.
+Cada viernes le voy a mandar una pieza editorial. Una sola, destilada de la semana en IA, negocios y LATAM.
 
-Confirmar suscripción: ${confirmUrl}
+La idea es que llegue cuando tenga tiempo de leerla, no en medio del ruido del día.
 
-Si no se suscribió, ignore este correo. El link expira en 24 horas.
+Para activar la suscripción, confirme que este correo es suyo:
+${confirmUrl}
+
+Si no fue usted quien se suscribió, ignore este correo. El link vale por 24 horas.
 
 — Camilo`;
 
