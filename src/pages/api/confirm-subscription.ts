@@ -8,18 +8,19 @@ export const prerender = false;
 /**
  * GET /api/confirm-subscription?token=...
  *
- * Verifica el token DOI, añade el email al audience de Resend (unsubscribed=false),
- * envía welcome email, y redirige a /gracias-newsletter.
+ * Verifica el token DOI, crea el contacto en Resend asignado al segment del
+ * newsletter (unsubscribed=false), envía welcome email, y redirige a
+ * /gracias-newsletter.
+ *
+ * Usa la API nueva de Contacts (sin audience_id, que está deprecated).
  */
-
-const SITE_URL = 'https://camilo-ramirez.com';
 
 export const GET: APIRoute = async ({ url, redirect }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
-  const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+  const segmentId = import.meta.env.RESEND_SEGMENT_ID;
   const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@send.camilo-ramirez.com';
 
-  if (!apiKey || !audienceId) {
+  if (!apiKey || !segmentId) {
     return new Response('Server not configured.', { status: 500 });
   }
 
@@ -30,25 +31,33 @@ export const GET: APIRoute = async ({ url, redirect }) => {
   }
 
   const email = result.email;
-  const resend = new Resend(apiKey);
 
+  // Crear contacto via REST directo (API nueva, sin audience_id).
   try {
-    // Add to audience (idempotente — si ya existe, Resend devuelve 409 o lo upsertea según versión).
-    await resend.contacts.create({
-      audienceId,
-      email,
-      unsubscribed: false,
+    const res = await fetch('https://api.resend.com/contacts', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        unsubscribed: false,
+        segments: [{ id: segmentId }],
+      }),
     });
-  } catch (err: unknown) {
-    // Si ya existe, no es error fatal — seguimos al welcome.
-    const status = (err as { statusCode?: number })?.statusCode;
-    if (status && status !== 409) {
-      console.error('[confirm] contact.create error', err);
+    if (!res.ok && res.status !== 409) {
+      // 409 = ya existe, no es error. Otros sí loguear pero no bloquear.
+      const body = await res.text();
+      console.error('[confirm] contact.create non-ok', res.status, body);
     }
+  } catch (err) {
+    console.error('[confirm] contact.create exception', err);
   }
 
-  // Welcome email — no bloqueante: si falla, igual confirmamos al usuario.
+  // Welcome email — no bloqueante.
   try {
+    const resend = new Resend(apiKey);
     const { subject, html, text } = welcomeEmailHtml();
     await resend.emails.send({
       from: `Camilo Ramirez <${fromEmail}>`,

@@ -23,12 +23,12 @@ const MUTE = '#666666';
 
 export const GET: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
-  const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+  const segmentId = import.meta.env.RESEND_SEGMENT_ID;
   const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@send.camilo-ramirez.com';
   const cronSecret = import.meta.env.CRON_SECRET;
   const adminEmail = import.meta.env.CONTACT_TO_EMAIL || 'yo@camilo-ramirez.com';
 
-  if (!apiKey || !audienceId) {
+  if (!apiKey || !segmentId) {
     return new Response('Server not configured.', { status: 500 });
   }
 
@@ -110,7 +110,7 @@ export const GET: APIRoute = async ({ request }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        audience_id: audienceId,
+        segment_id: segmentId,
         from: `Camilo Ramirez <${fromEmail}>`,
         subject,
         html,
