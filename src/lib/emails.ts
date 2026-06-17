@@ -180,7 +180,7 @@ export function welcomeEmailHtml(): { subject: string; html: string; text: strin
         </h1>
 
         <p style="font-family:${SANS};font-size:17px;line-height:1.6;color:${INK_2};margin:0 0 16px;max-width:46ch">
-          Cada viernes le llega una pieza. Una sola. Con la digestión de la semana en IA, negocios y LATAM.
+          Cada viernes le llega una pieza. Una sola. Destilada de la semana en IA, negocios y LATAM.
         </p>
 
         <p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${MUTE};margin:0 0 44px;max-width:46ch">
@@ -223,7 +223,7 @@ export function welcomeEmailHtml(): { subject: string; html: string; text: strin
 
 Está dentro.
 
-Cada viernes le llega una pieza. Una sola. Con la digestión de la semana en IA, negocios y LATAM.
+Cada viernes le llega una pieza. Una sola. Destilada de la semana en IA, negocios y LATAM.
 
 Si lo que escribo no le sirve, abajo de cada correo está el link para salirse. Sin resentimientos.
 
