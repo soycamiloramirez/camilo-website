@@ -2,7 +2,7 @@
  * Plantillas HTML para emails del newsletter.
  *
  * Voz: usted formal, anti-hype, sin emoji, sin em-dashes en prosa, sin exclamaciones.
- * Diseño: traslada el DS del sitio al email — franja magenta, jerarquía tipográfica
+ * Diseño: traslada el DS del sitio al email. Franja magenta, jerarquía tipográfica
  * con contraste fino/bold, signature serif, respiración generosa.
  *
  * Email-safe HTML:
@@ -147,7 +147,7 @@ ${confirmUrl}
 
 Si no fue usted quien se suscribió, ignore este correo. El link vale por 24 horas.
 
-— Camilo`;
+Camilo`;
 
   return { subject, html: shell(inner), text };
 }
@@ -230,15 +230,15 @@ Si lo que escribo no le sirve, abajo de cada correo está el link para salirse. 
 Mientras tanto, tres puntos de partida:
 
 LATAM
-IA en Latinoamérica — ${SITE_URL}/temas/ia-latam
+IA en Latinoamérica: ${SITE_URL}/temas/ia-latam
 
 Geopolítica
-Gobernanza de IA — ${SITE_URL}/temas/gobernanza-ia
+Gobernanza de IA: ${SITE_URL}/temas/gobernanza-ia
 
 Diccionario
-Aprende IA sin jerga — ${SITE_URL}/temas/aprende-ia
+Aprende IA sin jerga: ${SITE_URL}/temas/aprende-ia
 
-— Camilo`;
+Camilo`;
 
   return { subject, html: shell(inner), text };
 }
@@ -261,7 +261,7 @@ export function draftReadyEmailHtml(broadcastUrl: string, postCount: number): { 
         </h1>
 
         <p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${INK_2};margin:0 0 32px;max-width:46ch">
-          Revisa, ajusta lo que quieras y dispara desde Resend. Si no quieres enviar esta semana, ignora — el draft queda guardado.
+          Revisa, ajusta lo que quieras y dispara desde Resend. Si no quieres enviar esta semana, ignora. El draft queda guardado.
         </p>
 
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px">
