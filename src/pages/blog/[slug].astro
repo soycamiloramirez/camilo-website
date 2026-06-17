@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
 import { CATEGORIES, type CategorySlug } from '../../content.config';
 import { SITE, PODCASTS } from '../../content/copy';
 
@@ -147,6 +148,17 @@ const primaryLabel = CATEGORIES[primary].label;
 
           <div class="cr-artfoot__more">
             <a class="cr-btn cr-btn--link" href="/blog">Más en el blog →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cr-container" style="margin-top: var(--s-8)">
+        <div class="cr-article__wrap">
+          <div class="cr-nl-post">
+            <p class="cr-nl-post__lbl">Boletín semanal</p>
+            <h3 class="cr-nl-post__h">¿Quiere una pieza así cada viernes?</h3>
+            <p class="cr-nl-post__p">Curaduría editorial destilada de la semana. IA, negocios y LATAM. Una sola pieza, cero ruido.</p>
+            <NewsletterForm variant="inline" theme="light" id={`nl-post-${post.id}`} />
           </div>
         </div>
       </div>

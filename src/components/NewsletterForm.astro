@@ -1,0 +1,72 @@
+---
+/**
+ * NewsletterForm — captura de email para el boletín semanal.
+ *
+ * Props:
+ *   - variant: 'inline' (default, fila horizontal) | 'block' (centrado, larger)
+ *   - theme: 'light' (default) | 'dark'
+ *   - id: prefijo único para los IDs del form (si hay más de uno en la página)
+ */
+interface Props {
+  variant?: 'inline' | 'block';
+  theme?: 'light' | 'dark';
+  id?: string;
+}
+const { variant = 'inline', theme = 'light', id = 'nl' } = Astro.props as Props;
+const formId = `${id}-form`;
+const statusId = `${id}-status`;
+---
+
+<form class={`cr-nl cr-nl--${variant} cr-nl--${theme}`} id={formId} action="/api/subscribe" method="POST" novalidate>
+  <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+    <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+  </div>
+  <label class="cr-nl__field">
+    <span class="cr-nl__label">Su correo electrónico</span>
+    <input class="cr-nl__input" name="email" type="email" required autocomplete="email" placeholder="usted@empresa.com">
+  </label>
+  <button class="cr-nl__submit" type="submit">Suscribirme →</button>
+  <div class="cr-nl__status" id={statusId} aria-live="polite" hidden></div>
+</form>
+
+<script is:inline define:vars={{ formId, statusId }}>
+  (function () {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const submit = form.querySelector('.cr-nl__submit');
+    const status = document.getElementById(statusId);
+    if (!submit || !status) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      submit.disabled = true;
+      const originalLabel = submit.textContent;
+      submit.textContent = 'Enviando…';
+      status.hidden = true;
+      status.className = 'cr-nl__status';
+
+      try {
+        const fd = new FormData(form);
+        const res = await fetch('/api/subscribe', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
+          form.reset();
+          status.className = 'cr-nl__status cr-nl__status--ok';
+          status.innerHTML = '<strong>Revise su correo.</strong> Le mandé un link para confirmar la suscripción. Si no lo ve en 2 minutos, revise la carpeta de spam.';
+          status.hidden = false;
+        } else {
+          status.className = 'cr-nl__status cr-nl__status--err';
+          status.textContent = json.error || 'No pude registrar la suscripción. Intente de nuevo.';
+          status.hidden = false;
+        }
+      } catch (err) {
+        status.className = 'cr-nl__status cr-nl__status--err';
+        status.textContent = 'Error de red. Intente de nuevo.';
+        status.hidden = false;
+      } finally {
+        submit.disabled = false;
+        submit.textContent = originalLabel || 'Suscribirme →';
+      }
+    });
+  })();
+</script>

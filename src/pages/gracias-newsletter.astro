@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const lang = 'es' as const;
+const status = Astro.url.searchParams.get('status') || 'ok';
+const reason = Astro.url.searchParams.get('reason') || '';
+
+const isOk = status === 'ok';
+const pageTitle = isOk
+  ? 'Suscripción confirmada · Camilo Ramírez'
+  : 'No pudimos confirmar la suscripción · Camilo Ramírez';
+const pageDescription = isOk
+  ? 'Listo. Cada viernes le llega una pieza con criterio.'
+  : 'El link de confirmación no funcionó. Puede intentar de nuevo.';
+---
+
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/gracias-newsletter" hasAlternate={false} noindex={true}>
+  <Header lang={lang} />
+  <main class="pt-32 pb-32 md:pt-40 md:pb-40">
+    <div class="mx-auto max-w-3xl px-6 lg:px-10">
+      {isOk ? (
+        <>
+          <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">Suscripción confirmada</p>
+          <h1 class="font-display text-display-1 leading-display tracking-display text-ink">
+            Está dentro.
+          </h1>
+          <p class="mt-7 text-body-lg leading-relaxed text-ink/80 max-w-2xl">
+            Cada viernes le llega una pieza. Le mandé un correo de bienvenida con tres puntos de partida mientras tanto.
+          </p>
+          <div class="mt-9 flex flex-wrap items-center gap-3">
+            <a href="/blog" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-button font-medium hover:opacity-80 transition-opacity">
+              Ver el blog <span aria-hidden>→</span>
+            </a>
+            <a href="/" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-button font-medium hover:border-ink transition-colors">
+              Volver al inicio
+            </a>
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="text-eyebrow uppercase tracking-eyebrow text-mute mb-6">No pudimos confirmar</p>
+          <h1 class="font-display text-display-1 leading-display tracking-display text-ink">
+            El link no funcionó.
+          </h1>
+          <p class="mt-7 text-body-lg leading-relaxed text-ink/80 max-w-2xl">
+            {reason === 'expired'
+              ? 'El link expiró (vale por 24 horas). Suscríbase de nuevo y le mando un link nuevo.'
+              : 'Puede ser que el link esté incompleto o que hayamos cambiado algo. Suscríbase de nuevo desde la página del boletín.'}
+          </p>
+          <div class="mt-9 flex flex-wrap items-center gap-3">
+            <a href="/newsletter" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-button font-medium hover:opacity-80 transition-opacity">
+              Suscribirse de nuevo <span aria-hidden>→</span>
+            </a>
+            <a href="/" class="inline-flex items-center gap-2 border border-ink/25 text-ink px-5 py-3 text-button font-medium hover:border-ink transition-colors">
+              Volver al inicio
+            </a>
+          </div>
+        </>
+      )}
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>

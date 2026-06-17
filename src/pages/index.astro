@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import { SITE, PODCASTS } from '../content/copy';
 
 const lang = 'es' as const;
@@ -262,6 +263,23 @@ const extraJsonLd = [
           </li>
         </ol>
         <div style="margin-top:40px"><a class="cr-btn cr-btn--link" href="/historia">Leer la historia completa →</a></div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER BAND -->
+    <section id="boletin" class="cr-nl-band">
+      <div class="cr-container">
+        <div class="cr-nl-band__inner">
+          <div class="cr-nl-band__lead">
+            <p class="cr-eyebrow"><span class="cr-franja"></span>Boletín</p>
+            <h2>Una pieza con criterio, cada viernes.</h2>
+            <p>IA, negocios y LATAM destilados en una sola pieza semanal. Para una bandeja de C-level, no para llenar de ruido.</p>
+          </div>
+          <div>
+            <NewsletterForm variant="inline" theme="light" id="nl-home" />
+            <p style="font-size:var(--caption);color:var(--ink-3);margin:12px 0 0;line-height:1.5">Le mando un link para confirmar. Sin spam, sin reventas. Puede salirse cuando quiera.</p>
+          </div>
+        </div>
       </div>
     </section>
 

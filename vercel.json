@@ -16,5 +16,11 @@
       "destination": "/podcasts",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/newsletter-draft",
+      "schedule": "30 13 * * 5"
+    }
   ]
 }

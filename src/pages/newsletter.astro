@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { SITE } from '../content/copy';
+
+const lang = 'es' as const;
+const pageTitle = 'Boletín · Camilo Ramírez';
+const pageDescription = 'Una pieza con criterio cada viernes. IA, negocios y LATAM. Sin diariazo, sin newsletter de 10 tips. Curaduría destilada de la semana.';
+const url = `${SITE.url}/newsletter`;
+
+const extraJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#page`,
+    name: 'Boletín · Camilo Ramírez',
+    url,
+    description: pageDescription,
+    inLanguage: 'es-CO',
+  },
+];
+---
+
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="website" path="/newsletter" extraJsonLd={extraJsonLd} hasAlternate={false}>
+  <Header lang={lang} />
+
+  <main>
+    <section class="cr-pagehead">
+      <div class="cr-container">
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Boletín</p>
+        <h1 class="cr-pagehead__title"><span class="cr-d-thin">Una pieza con criterio,</span> cada viernes.</h1>
+        <p class="cr-lead cr-pagehead__lead">IA, negocios y LATAM destilados en una sola pieza semanal. Pensada para una bandeja de C-level, no para llenar de ruido.</p>
+      </div>
+    </section>
+
+    <section class="cr-nl-section">
+      <div class="cr-container cr-container--narrow">
+        <NewsletterForm variant="block" theme="light" id="nl-page" />
+        <p class="cr-nl-section__legal">Al suscribirse acepta recibir correos editoriales. Puede salirse en cualquier momento desde el link en cada correo.</p>
+      </div>
+    </section>
+
+    <section class="cr-nl-section cr-nl-section--alt">
+      <div class="cr-container cr-container--narrow">
+        <h2 class="cr-display-2" style="margin:0 0 32px"><span class="cr-d-thin">Qué espere</span> y qué no.</h2>
+
+        <div class="cr-nl-faq">
+          <div class="cr-nl-faq__item">
+            <h3 class="cr-nl-faq__q">¿Con qué frecuencia llega?</h3>
+            <p class="cr-nl-faq__a">Una vez por semana, los viernes en la mañana, hora Bogotá.</p>
+          </div>
+          <div class="cr-nl-faq__item">
+            <h3 class="cr-nl-faq__q">¿Qué viene adentro?</h3>
+            <p class="cr-nl-faq__a">Las piezas editoriales que publiqué esa semana en el blog, derivadas de Pertinente. Una sola pieza por correo. Cero ruido, cero promociones.</p>
+          </div>
+          <div class="cr-nl-faq__item">
+            <h3 class="cr-nl-faq__q">¿Qué pasa con mi correo?</h3>
+            <p class="cr-nl-faq__a">Lo guardo solo para enviar este boletín. No lo comparto con nadie. No lo uso para vender nada.</p>
+          </div>
+          <div class="cr-nl-faq__item">
+            <h3 class="cr-nl-faq__q">¿Cómo me salgo?</h3>
+            <p class="cr-nl-faq__a">Cada correo trae un link para darse de baja. Un click, sin preguntas, sin formularios de "por qué se va".</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>
