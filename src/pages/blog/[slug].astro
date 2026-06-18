@@ -94,7 +94,7 @@ const extraJsonLd = [
 
 const primaryLabel = CATEGORIES[primary].label;
 ---
-<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path={`/blog/${post.id}`} extraJsonLd={extraJsonLd} hasAlternate={false} noindex={post.data.hidden}>
+<Base lang={lang} pageTitle={pageTitle} pageDescription={pageDescription} pageType="article" path={`/blog/${post.id}`} extraJsonLd={extraJsonLd} hasAlternate={false} noindex={post.data.hidden} ogImage={post.data.hero_image}>
   <Header lang={lang} />
 
   <main>

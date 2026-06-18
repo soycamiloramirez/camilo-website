@@ -11,6 +11,7 @@ const {
   extraJsonLd = [],
   hasAlternate = true,
   noindex = false,
+  ogImage,
 } = Astro.props as {
   lang: Lang;
   pageTitle?: string;
@@ -30,6 +31,13 @@ const {
    * shouldn't appear in search.
    */
   noindex?: boolean;
+  /**
+   * Override del OG image por página. Si no se pasa, usa el default `og-image.jpg`.
+   * Útil para blog posts que tienen `hero_image` en frontmatter para mejorar CTR
+   * en LinkedIn/Twitter (cada post con su propia visual). Path puede ser absoluto
+   * (https://...) o relativo (/path/img.jpg) — se resuelve contra SITE.url.
+   */
+  ogImage?: string;
 };
 const t = COPY[lang];
 
@@ -177,7 +185,7 @@ const personJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${SITE.url}/og-image.jpg`} />
+    <meta property="og:image" content={ogImage ? (ogImage.startsWith('http') ? ogImage : `${SITE.url}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`) : `${SITE.url}/og-image.jpg`} />
     <meta property="og:image:alt" content={t.meta.ogAlt} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -191,7 +199,7 @@ const personJsonLd = {
     <meta name="twitter:creator" content="@soy_camilo_r" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITE.url}/og-image.jpg`} />
+    <meta name="twitter:image" content={ogImage ? (ogImage.startsWith('http') ? ogImage : `${SITE.url}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`) : `${SITE.url}/og-image.jpg`} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <meta name="msvalidate.01" content="90255CD86199BA9792E7A613722D9076" />
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
@@ -215,17 +223,18 @@ const personJsonLd = {
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "wzczzppi54");
         </script>
-        {/* Web Vitals → GA4: CLS, LCP, INP, FCP, TTFB correlacionables con audiencia/source.
-            Dynamic import del CDN (sin npm install). Cubre lo mismo que Vercel Speed Insights
-            sin riesgo de cobros: GA4 es ilimitado en plan estándar. */}
+        {/* Web Vitals → GA4. Buffer si gtag aún no está listo: dataLayer.push siempre
+            funciona (es array vanilla) y GA4 procesa cuando se inicializa. Esto evita
+            race condition donde web-vitals dispara antes de gtag config. */}
         <script type="module" is:inline>
           import('https://unpkg.com/web-vitals@4?module').then(function (mod) {
             function send(name, metric) {
-              if (typeof window.gtag !== 'function') return;
-              window.gtag('event', name, {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: name,
                 event_category: 'Web Vitals',
                 event_label: metric.id,
-                value: Math.round(name === 'CLS' ? metric.value * 1000 : metric.value),
+                value: name === 'CLS' ? Math.round(metric.value * 1000) / 1000 : Math.round(metric.value),
                 non_interaction: true,
                 metric_rating: metric.rating,
               });
@@ -245,29 +254,39 @@ const personJsonLd = {
     {import.meta.env.PROD && (
       <script is:inline>
         {/* Outbound click tracking → GA4 event 'click_outbound'.
-            Listener delegado en body para que capture clicks de cualquier <a>
-            que apunte a un dominio distinto al actual. Cubre Spotify, Apple
-            Podcasts, LinkedIn, YouTube, Navigamo, AI Collective, etc. */}
-        document.addEventListener('click', function (e) {
-          var a = e.target.closest && e.target.closest('a[href]');
-          if (!a) return;
-          var href = a.getAttribute('href') || '';
-          if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
-          var isExternal = false;
-          try {
-            var url = new URL(href, window.location.origin);
-            isExternal = url.host && url.host !== window.location.host;
-          } catch (err) { return; }
-          if (!isExternal) return;
-          if (typeof window.gtag === 'function') {
-            window.gtag('event', 'click_outbound', {
+            Captura click (left), auxclick (middle = scroll wheel, abre nueva pestaña),
+            y contextmenu (right click usually = "open in new tab"). Sin esto se
+            perdía 20-40% del tráfico LinkedIn/Twitter cuyos usuarios abren con middle. */}
+        (function () {
+          function handle(e) {
+            var a = e.target.closest && e.target.closest('a[href]');
+            if (!a) return;
+            // Ignorar botones que no son left (0), middle (1) — solo nos importan esos para outbound.
+            // right (2) lo dejamos pasar para contextmenu open-in-new-tab.
+            if (e.type === 'click' && e.button !== 0 && e.button !== undefined) return;
+            if (e.type === 'auxclick' && e.button !== 1) return;
+            var href = a.getAttribute('href') || '';
+            if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
+            var isExternal = false;
+            try {
+              var url = new URL(href, window.location.origin);
+              isExternal = url.host && url.host !== window.location.host;
+            } catch (err) { return; }
+            if (!isExternal) return;
+            // Usar dataLayer.push para evitar race condition con gtag config.
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: 'click_outbound',
               event_category: 'outbound',
               event_label: a.href,
               link_domain: (new URL(a.href)).host,
               link_text: (a.textContent || '').trim().slice(0, 80),
+              click_type: e.type === 'auxclick' ? 'middle' : (e.button === 2 ? 'right' : 'left'),
             });
           }
-        }, true);
+          document.addEventListener('click', handle, true);
+          document.addEventListener('auxclick', handle, true);
+        })();
       </script>
     )}
   </body>
