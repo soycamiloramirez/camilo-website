@@ -215,14 +215,9 @@ const personJsonLd = {
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "wzczzppi54");
         </script>
-        {/* Vercel Analytics — pageviews + audiencia (dashboard nativo de Vercel) */}
-        <script defer src="/_vercel/insights/script.js"></script>
-        {/* Vercel Speed Insights — Core Web Vitals reales por página */}
-        <script defer src="/_vercel/speed-insights/script.js"></script>
         {/* Web Vitals → GA4: CLS, LCP, INP, FCP, TTFB correlacionables con audiencia/source.
-            Dynamic import del CDN (sin npm install). Vercel Speed Insights y esto cubren
-            dimensiones distintas: Vercel = dashboard perf técnico, GA4 = CWV cruzados con
-            device/country/source. */}
+            Dynamic import del CDN (sin npm install). Cubre lo mismo que Vercel Speed Insights
+            sin riesgo de cobros: GA4 es ilimitado en plan estándar. */}
         <script type="module" is:inline>
           import('https://unpkg.com/web-vitals@4?module').then(function (mod) {
             function send(name, metric) {
