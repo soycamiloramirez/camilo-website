@@ -267,6 +267,11 @@
 
 /* ---------- Body baseline ---------- */
 html, body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); }
+/* Safety net mobile: previene scroll lateral / elastic bounce horizontal en iOS Safari
+   incluso si algún elemento se desborda. `clip` es preferible a `hidden` porque
+   no crea contexto de scroll. Vertical scroll sigue funcionando normal. */
+html { overflow-x: clip; }
+body { overflow-x: clip; max-width: 100vw; }
 * { box-sizing: border-box; }
 
 /* ---------- styles.css ---------- */
@@ -432,12 +437,12 @@ img { max-width: 100%; }
 .cr-field__textarea { resize: vertical; }
 .cr-field__hint { font-size: 12px; line-height: 1.5; color: var(--ink-3); margin-top: 4px; }
 .cr-form__topics { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-2); }
-.cr-form__topic { padding: 10px 18px; border-radius: var(--radius-pill); border: 1px solid rgba(244,244,243,.25); background: transparent; cursor: pointer; font-family: inherit; font-size: var(--body); color: var(--ink-on-dark-2); transition: all var(--dur-fast) var(--ease); display: inline-flex; align-items: center; }
+.cr-form__topic { padding: 10px 18px; border-radius: var(--radius-pill); border: 1px solid rgba(244,244,243,.25); background: transparent; cursor: pointer; font-family: inherit; font-size: var(--body); color: var(--ink-on-dark-2); transition: all var(--dur-fast) var(--ease); display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 1.2; }
 .cr-form__topic:hover { border-color: #fff; color: #fff; }
 .cr-form__topic.is-on { background: #C75CA6; border-color: #C75CA6; color: #fff; font-weight: 600; }
 
 /* Topic como checkbox (multi-select) — visual igual al pill .is-on cuando :checked */
-.cr-form__topic--chk { user-select: none; }
+.cr-form__topic--chk { user-select: none; justify-content: center; text-align: center; }
 .cr-form__topic--chk input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; }
 .cr-form__topic--chk:has(input:checked) { background: #C75CA6; border-color: #C75CA6; color: #fff; font-weight: 600; }
 .cr-form__topic--chk input:focus-visible + span { outline: 2px solid #C75CA6; outline-offset: 4px; border-radius: 2px; }
@@ -798,7 +803,7 @@ img { max-width: 100%; }
 /* ---------- Podcasts sticky filter chips ---------- */
 .cr-pchips-wrap { position: sticky; top: 71px; z-index: 30; background: rgba(244,244,243,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--hairline); }
 .cr-pchips { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 0; }
-.cr-pchip { padding: 8px 14px; border-radius: var(--radius-pill); border: 1px solid var(--hairline-strong); background: transparent; cursor: pointer; font-family: inherit; font-size: var(--caption); font-weight: 600; color: var(--ink-2); transition: all var(--dur-fast) var(--ease); }
+.cr-pchip { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; border-radius: var(--radius-pill); border: 1px solid var(--hairline-strong); background: transparent; cursor: pointer; font-family: inherit; font-size: var(--caption); font-weight: 600; color: var(--ink-2); transition: all var(--dur-fast) var(--ease); text-align: center; line-height: 1.2; }
 .cr-pchip:hover { border-color: var(--ink); color: var(--ink); }
 .cr-pchip.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
 .cr-pcat.is-hidden, .cr-pgroup.is-hidden { display: none; }
