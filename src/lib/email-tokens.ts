@@ -28,13 +28,21 @@ function unb64url(s: string): Buffer {
   return Buffer.from(s.replace(/-/g, '+').replace(/_/g, '/') + pad, 'base64');
 }
 
-export function signSubscribeToken(email: string): string {
-  const payload = JSON.stringify({
-    e: email.toLowerCase().trim(),
+export interface SubscribePayload {
+  email: string;
+  name?: string;
+  topics?: string[]; // category slugs: 'latam' | 'geopolitica' | 'negocios' | 'aprende'
+}
+
+export function signSubscribeToken(payload: SubscribePayload): string {
+  const data = JSON.stringify({
+    e: payload.email.toLowerCase().trim(),
+    fn: (payload.name ?? '').trim().slice(0, 64),
+    tp: Array.isArray(payload.topics) ? payload.topics.slice(0, 8) : [],
     t: Date.now(),
     n: crypto.randomBytes(8).toString('hex'),
   });
-  const payloadB64 = b64url(Buffer.from(payload, 'utf8'));
+  const payloadB64 = b64url(Buffer.from(data, 'utf8'));
   const sig = crypto
     .createHmac('sha256', getSecret())
     .update(payloadB64)
@@ -42,7 +50,9 @@ export function signSubscribeToken(email: string): string {
   return `${payloadB64}.${b64url(sig)}`;
 }
 
-export function verifySubscribeToken(token: string): { ok: true; email: string } | { ok: false; reason: string } {
+export function verifySubscribeToken(token: string):
+  | { ok: true; email: string; name: string; topics: string[] }
+  | { ok: false; reason: string } {
   if (!token || typeof token !== 'string') return { ok: false, reason: 'missing' };
   const parts = token.split('.');
   if (parts.length !== 2) return { ok: false, reason: 'malformed' };
@@ -62,7 +72,12 @@ export function verifySubscribeToken(token: string): { ok: true; email: string }
     if (Date.now() - payload.t > MAX_AGE_MS) {
       return { ok: false, reason: 'expired' };
     }
-    return { ok: true, email: payload.e };
+    return {
+      ok: true,
+      email: payload.e,
+      name: typeof payload.fn === 'string' ? payload.fn : '',
+      topics: Array.isArray(payload.tp) ? payload.tp.filter((t: unknown) => typeof t === 'string') : [],
+    };
   } catch {
     return { ok: false, reason: 'parse-error' };
   }

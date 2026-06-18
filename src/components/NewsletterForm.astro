@@ -3,28 +3,59 @@
  * NewsletterForm — captura de email para el boletín semanal.
  *
  * Props:
- *   - variant: 'inline' (default, fila horizontal) | 'block' (centrado, larger)
+ *   - variant: 'inline' (fila horizontal compacta, sin topics) | 'block' (vertical, con topics opcionales)
  *   - theme: 'light' (default) | 'dark'
  *   - id: prefijo único para los IDs del form (si hay más de uno en la página)
+ *   - showTopics: muestra checkboxes de topics (default true en block, false en inline)
  */
 interface Props {
   variant?: 'inline' | 'block';
   theme?: 'light' | 'dark';
   id?: string;
+  showTopics?: boolean;
 }
-const { variant = 'inline', theme = 'light', id = 'nl' } = Astro.props as Props;
+const { variant = 'inline', theme = 'light', id = 'nl', showTopics } = Astro.props as Props;
+const renderTopics = showTopics ?? variant === 'block';
 const formId = `${id}-form`;
 const statusId = `${id}-status`;
+
+const TOPICS = [
+  { slug: 'latam', label: 'IA en LATAM' },
+  { slug: 'geopolitica', label: 'Geopolítica de IA' },
+  { slug: 'negocios', label: 'Negocios y estrategia' },
+  { slug: 'aprende', label: 'Aprender IA sin jerga' },
+];
 ---
 
 <form class={`cr-nl cr-nl--${variant} cr-nl--${theme}`} id={formId} action="/api/subscribe" method="POST" novalidate>
   <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
     <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
   </div>
+
+  <label class="cr-nl__field">
+    <span class="cr-nl__label">Su nombre</span>
+    <input class="cr-nl__input" name="name" type="text" required minlength="2" autocomplete="given-name" placeholder="Camilo">
+  </label>
+
   <label class="cr-nl__field">
     <span class="cr-nl__label">Su correo electrónico</span>
     <input class="cr-nl__input" name="email" type="email" required autocomplete="email" placeholder="usted@empresa.com">
   </label>
+
+  {renderTopics && (
+    <div class="cr-nl__topics">
+      <p class="cr-nl__topics-lbl">¿Qué le interesa más? <span class="cr-nl__topics-opt">(opcional)</span></p>
+      <div class="cr-nl__topics-grid">
+        {TOPICS.map((t) => (
+          <label class="cr-nl__chk">
+            <input type="checkbox" name="topics" value={t.slug}>
+            <span>{t.label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  )}
+
   <button class="cr-nl__submit" type="submit">Suscribirme →</button>
   <div class="cr-nl__status" id={statusId} aria-live="polite" hidden></div>
 </form>

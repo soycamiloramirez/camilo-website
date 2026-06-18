@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { Resend } from 'resend';
+import Anthropic from '@anthropic-ai/sdk';
 import { draftReadyEmailHtml } from '../../../lib/emails';
 
 export const prerender = false;
@@ -67,35 +68,85 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
-  // Estructura editorial curada (no roundup):
-  //   - Una pieza protagonista (la más reciente): categoría + título + 1 frase + leer
-  //   - Si hay más, lista plana de títulos al final (sin descripciones)
-  //   - Si solo hay 1 pieza esa semana, no aparece la sección "También"
+  // AI-stylist: Claude redacta un párrafo editorial usando solo las palabras de Camilo
+  // (pullquotes + tldrs + títulos) como materia prima. Reglas estrictas de voz.
+  const anthropicKey = import.meta.env.ANTHROPIC_API_KEY;
+  if (!anthropicKey) {
+    return new Response('Server not configured (ANTHROPIC_API_KEY missing).', { status: 500 });
+  }
+
   const lead = recent[0];
-  const rest = recent.slice(1);
   const leadCatLabel = CATEGORY_LABELS[lead.data.categories[0]] || lead.data.categories[0];
-  // Para la pieza protagonista, preferir pullquote (1 frase fuerte) > tldr > description.
-  const leadAccent = (lead.data.pullquote || lead.data.tldr || lead.data.description || '').trim();
 
   // Fecha del envío (viernes en español)
   const dateFmt = new Intl.DateTimeFormat('es-CO', {
     weekday: 'long', day: 'numeric', month: 'long',
   }).format(new Date());
 
-  const restHtml = rest.length === 0 ? '' : `
-    <tr>
-      <td style="padding:40px 40px 8px">
-        <p style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${MUTE};margin:0 0 16px">
-          También esta semana
-        </p>
-        ${rest.map((p) => `
-          <p style="font-family:${SANS};font-size:16px;line-height:1.5;margin:0 0 10px">
-            <a href="${SITE_URL}/blog/${p.id}" style="color:${INK};text-decoration:none;border-bottom:1px solid ${RULE};padding-bottom:1px">${esc(p.data.title)}</a>
-          </p>
-        `).join('')}
-      </td>
-    </tr>
-  `;
+  // Material para Claude: estructurado, sin ambigüedad
+  const material = recent.map((p, i) => ({
+    index: i + 1,
+    title: p.data.title,
+    url: `${SITE_URL}/blog/${p.id}`,
+    category: CATEGORY_LABELS[p.data.categories[0]] || p.data.categories[0],
+    pullquote: p.data.pullquote || null,
+    tldr: p.data.tldr || null,
+    description: p.data.description,
+  }));
+
+  const systemPrompt = `Eres editor del boletín semanal de Camilo Ramírez. Tu único trabajo: tomar las piezas que publicó esta semana y armar UN párrafo editorial que las hile, USANDO SOLO sus propias palabras (pullquotes, tldrs, títulos, descripciones).
+
+Reglas absolutas. Si rompes alguna, descalificas:
+1. Usar SOLO ideas presentes en el material dado. Cero ideas nuevas, cero adjetivos propios, cero conclusiones agregadas.
+2. Usted formal de Colombia. NUNCA tú. NUNCA vosotros. NUNCA voseo argentino.
+3. CERO em-dashes (—). Usar punto, coma o dos puntos.
+4. CERO emoji. CERO signos de admiración. CERO mayúsculas dramáticas.
+5. 120 a 180 palabras. Ni más ni menos.
+6. UN solo párrafo. No usar listas, viñetas, headers.
+7. Linkear CADA pieza inline una sola vez. El anchor text debe ser una frase natural de la prosa que apunte al concepto, NO el título completo.
+8. Tono: editorial, sereno, anti-hype. Como alguien procesando en voz alta lo que pasó esa semana.
+9. Empezar con una observación que conecte las piezas, NO con "Esta semana publiqué".
+10. NO incluir saludo de apertura ("Hola") ni cierre ("Hasta el viernes"). El scaffolding del email los aporta.
+11. HTML simple: usa solo <a href="..."> para links y <em> si necesitas énfasis sutil. Nada más.
+
+Devuelve SOLO el HTML del párrafo, sin marcadores de código, sin explicaciones.`;
+
+  const userPrompt = `Material de la semana (${recent.length} pieza${recent.length === 1 ? '' : 's'}):
+
+${JSON.stringify(material, null, 2)}
+
+Escriba el párrafo editorial.`;
+
+  let editorialHtml: string;
+  try {
+    const anthropic = new Anthropic({ apiKey: anthropicKey });
+    const response = await anthropic.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 800,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+    const textBlock = response.content.find((b) => b.type === 'text');
+    editorialHtml = textBlock && 'text' in textBlock ? textBlock.text.trim() : '';
+    if (!editorialHtml) throw new Error('empty response');
+    // Guardrail final: remover em-dashes que pudieran haber escapado
+    editorialHtml = editorialHtml.replace(/—/g, ',').replace(/–/g, ',');
+  } catch (err) {
+    console.error('[cron] Claude generation failed', err);
+    // Fallback: párrafo armado mecánicamente con pullquotes
+    const fragments = recent.map((p) => {
+      const accent = p.data.pullquote || p.data.tldr || p.data.description;
+      return `Sobre <a href="${SITE_URL}/blog/${p.id}" style="color:${INK};font-weight:600">${esc(p.data.title)}</a>: <em>"${esc(accent)}"</em>`;
+    });
+    editorialHtml = `<p>Esta semana, ${recent.length === 1 ? 'una pieza' : `${recent.length} piezas`}. ${fragments.join('. ')}.</p>`;
+  }
+
+  // Share mailto: pre-fill subject + body que invita al colega a suscribirse
+  const shareSubject = encodeURIComponent('Le comparto este boletín que vale la pena');
+  const shareBody = encodeURIComponent(
+    `Le mando este boletín semanal de Camilo Ramírez sobre IA, negocios y LATAM. Una sola pieza, los viernes. Sin ruido.\n\nSi le interesa, puede suscribirse acá: ${SITE_URL}/newsletter\n\nLa pieza de esta semana: ${SITE_URL}/blog/${lead.id}`
+  );
+  const shareUrl = `mailto:?subject=${shareSubject}&body=${shareBody}`;
 
   const html = `<!doctype html>
 <html lang="es">
@@ -124,47 +175,42 @@ export const GET: APIRoute = async ({ request }) => {
                   </td>
                 </tr>
               </table>
-              <p style="font-family:${SANS};font-size:13px;color:${MUTE};margin:0 0 32px;letter-spacing:.01em">${esc(dateFmt)}</p>
+              <p style="font-family:${SANS};font-size:13px;color:${MUTE};margin:0 0 36px;letter-spacing:.01em">${esc(dateFmt)}</p>
             </td>
           </tr>
 
-          <!-- Cornerstone piece -->
+          <!-- Editorial paragraph -->
           <tr>
             <td style="padding:0 40px">
-              <p style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${ACCENT};margin:0 0 12px">
-                ${esc(leadCatLabel)} · Tema del viernes
-              </p>
-              <a href="${SITE_URL}/blog/${lead.id}" style="color:${INK};text-decoration:none">
-                <h1 style="font-family:${SANS};font-size:32px;line-height:1.1;letter-spacing:-.03em;font-weight:700;margin:0 0 24px;color:${INK}">
-                  ${esc(lead.data.title)}
-                </h1>
-              </a>
-              ${leadAccent ? `
-                <p style="font-family:${SERIF};font-style:italic;font-size:19px;line-height:1.5;color:${INK_2};margin:0 0 28px;max-width:46ch">
-                  ${esc(leadAccent)}
-                </p>
-              ` : ''}
-              <p style="margin:0 0 8px">
-                <a href="${SITE_URL}/blog/${lead.id}" style="font-family:${SANS};font-size:14px;font-weight:600;color:${INK};text-decoration:none;border-bottom:2px solid ${ACCENT};padding-bottom:2px">
-                  Leer la pieza →
-                </a>
-              </p>
+              <div style="font-family:${SANS};font-size:17px;line-height:1.65;color:${INK};max-width:50ch">
+                ${editorialHtml}
+              </div>
             </td>
           </tr>
-
-          ${restHtml}
 
           <!-- Signoff -->
           <tr>
-            <td style="padding:48px 40px 8px;border-top:1px solid ${RULE}">
+            <td style="padding:32px 40px 8px">
               <p style="font-family:${SANS};font-size:15px;line-height:1.5;color:${INK_2};margin:0 0 4px">Hasta el próximo viernes,</p>
               <p style="font-family:${SERIF};font-style:italic;font-size:20px;line-height:1.3;color:${INK};margin:0">Camilo</p>
             </td>
           </tr>
 
+          <!-- Share CTA -->
+          <tr>
+            <td style="padding:32px 40px 0">
+              <div style="padding:20px;background:${PAPER};border-left:3px solid ${ACCENT}">
+                <p style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${MUTE};margin:0 0 8px">Si le sirvió</p>
+                <p style="font-family:${SANS};font-size:15px;line-height:1.55;color:${INK_2};margin:0">
+                  <a href="${shareUrl}" style="color:${INK};font-weight:600;text-decoration:none;border-bottom:2px solid ${ACCENT};padding-bottom:1px">Compártalo con un colega →</a>
+                </p>
+              </div>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
-            <td style="padding:32px 40px 48px">
+            <td style="padding:36px 40px 48px">
               <p style="font-family:${SANS};font-size:12px;line-height:1.6;color:${MUTE};margin:0">
                 <strong style="color:${INK_2};font-weight:600">Camilo Ramírez</strong> · Bogotá, Colombia<br>
                 <a href="${SITE_URL}" style="color:${MUTE};text-decoration:underline">camilo-ramirez.com</a> · {{{RESEND_UNSUBSCRIBE_URL}}}
@@ -180,7 +226,7 @@ export const GET: APIRoute = async ({ request }) => {
 </html>`;
 
   const subject = lead.data.seo_title || lead.data.title;
-  const previewText = leadAccent || lead.data.description;
+  const previewText = lead.data.pullquote || lead.data.tldr || lead.data.description;
 
   // Crear el broadcast en draft via fetch a la API de Resend
   // (resend SDK aún no expone broadcasts en todas las versiones, usamos REST directo).

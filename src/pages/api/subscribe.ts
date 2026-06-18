@@ -26,14 +26,25 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'Server not configured.' }, 500);
   }
 
-  let body: { email?: string; website?: string } = {};
+  let body: { email?: string; name?: string; topics?: string | string[]; website?: string } = {};
   try {
     const ct = request.headers.get('content-type') || '';
     if (ct.includes('application/json')) {
       body = await request.json();
     } else {
       const form = await request.formData();
-      body = Object.fromEntries(form.entries()) as typeof body;
+      // FormData puede tener múltiples 'topics' (checkboxes) — capturar como array.
+      const entries: Record<string, string | string[]> = {};
+      for (const [key, value] of form.entries()) {
+        const v = typeof value === 'string' ? value : '';
+        if (key in entries) {
+          const existing = entries[key];
+          entries[key] = Array.isArray(existing) ? [...existing, v] : [existing as string, v];
+        } else {
+          entries[key] = v;
+        }
+      }
+      body = entries as typeof body;
     }
   } catch {
     return json({ ok: false, error: 'Invalid payload.' }, 400);
@@ -49,9 +60,18 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'Email inválido.' }, 400);
   }
 
+  const name = (body.name ?? '').toString().trim().slice(0, 64);
+  const topicsRaw = body.topics;
+  const VALID_TOPICS = new Set(['latam', 'geopolitica', 'negocios', 'aprende']);
+  const topics = (
+    Array.isArray(topicsRaw) ? topicsRaw : topicsRaw ? [topicsRaw] : []
+  )
+    .map((t) => String(t).trim().toLowerCase())
+    .filter((t) => VALID_TOPICS.has(t));
+
   let token: string;
   try {
-    token = signSubscribeToken(email);
+    token = signSubscribeToken({ email, name, topics });
   } catch (err) {
     console.error('[subscribe] token signing failed', err);
     return json({ ok: false, error: 'Server not configured.' }, 500);

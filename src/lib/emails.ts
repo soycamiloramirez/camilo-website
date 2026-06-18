@@ -156,8 +156,13 @@ Camilo`;
 /*  Email 2: welcome (después de confirmar)                            */
 /* ------------------------------------------------------------------ */
 
-export function welcomeEmailHtml(): { subject: string; html: string; text: string } {
-  const subject = 'Está dentro';
+export function welcomeEmailHtml(opts: { name?: string } = {}): { subject: string; html: string; text: string } {
+  const firstName = (opts.name || '').trim();
+  const greeting = firstName ? `${firstName}, está dentro.` : 'Está dentro.';
+  const subject = firstName ? `${firstName}, está dentro` : 'Está dentro';
+  const headlineHtml = firstName
+    ? `<span style="font-weight:300;color:${MUTE}">${escapeHtml(firstName)},</span><br>está dentro.`
+    : `<span style="font-weight:300;color:${MUTE}">Está</span> dentro.`;
 
   const pillarRow = (href: string, kicker: string, title: string, desc: string) => `
     <tr>
@@ -176,7 +181,7 @@ export function welcomeEmailHtml(): { subject: string; html: string; text: strin
         ${eyebrow('Bienvenido · Boletín')}
 
         <h1 style="font-family:${SANS};font-size:48px;line-height:1.0;letter-spacing:-.04em;color:${INK};margin:0 0 28px;font-weight:700">
-          <span style="font-weight:300;color:${MUTE}">Está</span> dentro.
+          ${headlineHtml}
         </h1>
 
         <p style="font-family:${SANS};font-size:17px;line-height:1.6;color:${INK_2};margin:0 0 16px;max-width:46ch">
@@ -214,14 +219,21 @@ export function welcomeEmailHtml(): { subject: string; html: string; text: strin
             'AGI, ventana de contexto, agentes, alucinaciones, tokens. Los conceptos clave para decidir con criterio y no por hype.'
           )}
         </table>
+
+        <div style="margin:36px 0 0;padding:24px;background:${PAPER};border-left:3px solid ${ACCENT}">
+          <p style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${MUTE};margin:0 0 10px">Una cosa más</p>
+          <p style="font-family:${SANS};font-size:15px;line-height:1.6;color:${INK_2};margin:0">
+            ¿Sobre qué temas le gustaría leer más en próximas piezas? Respóndame este correo con una línea. Los leo todos.
+          </p>
+        </div>
       </td>
     </tr>
-    <tr><td style="padding:8px 40px 48px">${signature()}</td></tr>
+    <tr><td style="padding:24px 40px 48px">${signature()}</td></tr>
   `;
 
   const text = `Bienvenido · Boletín
 
-Está dentro.
+${greeting}
 
 Cada viernes le llega una pieza. Una sola. Destilada de la semana en IA, negocios y LATAM.
 
@@ -238,9 +250,16 @@ Gobernanza de IA: ${SITE_URL}/temas/gobernanza-ia
 Diccionario
 Aprende IA sin jerga: ${SITE_URL}/temas/aprende-ia
 
+Una cosa más:
+¿Sobre qué temas le gustaría leer más en próximas piezas? Respóndame este correo con una línea. Los leo todos.
+
 Camilo`;
 
   return { subject, html: shell(inner), text };
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
 /* ------------------------------------------------------------------ */
