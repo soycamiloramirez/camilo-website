@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
 import { SITE, PODCASTS } from '../content/copy';
 
 const lang = 'es' as const;
@@ -266,23 +265,6 @@ const extraJsonLd = [
       </div>
     </section>
 
-    <!-- NEWSLETTER BAND -->
-    <section id="boletin" class="cr-nl-band">
-      <div class="cr-container">
-        <div class="cr-nl-band__inner">
-          <div class="cr-nl-band__lead">
-            <p class="cr-eyebrow"><span class="cr-franja"></span>Carta del viernes</p>
-            <h2>Una pieza con criterio, cada viernes.</h2>
-            <p>IA, negocios y LATAM destilados en una sola pieza semanal. Para una bandeja de C-level, no para llenar de ruido.</p>
-          </div>
-          <div>
-            <NewsletterForm variant="inline" theme="light" id="nl-home" />
-            <p style="font-size:var(--caption);color:var(--ink-3);margin:12px 0 0;line-height:1.5">Le mando un link para confirmar. Sin spam, sin reventas. Puede salirse cuando quiera.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- CONTACTO (DARK) -->
     <section id="contacto" class="cr-contact">
       <div class="cr-container cr-contact__inner">
@@ -291,6 +273,7 @@ const extraJsonLd = [
           <h2 class="cr-contact__h"><span class="cr-d-thin">Si quiere trabajar conmigo,</span> escríbame <em class="cr-d-em cr-d-em--ondark">directo.</em></h2>
           <p class="cr-contact__sub">Cada solicitud la leo yo. Respondo cuando tengo algo útil que aportar, no siempre inmediato, pero siempre personal.</p>
           <a class="cr-contact__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <p class="cr-contact__alt"><span>O si prefiere leerme antes:</span> <a href="/newsletter">reciba la carta del viernes →</a></p>
         </div>
 
         <form class="cr-form" id="contactForm" action="/api/contact" method="POST" novalidate>

@@ -1,20 +1,22 @@
 ---
 /**
- * NewsletterForm — captura de email para el boletín semanal.
+ * NewsletterForm — captura de email para la carta del viernes.
+ *
+ * Usa el DS de forms (cr-field, cr-form__topic, cr-btn) con modificador
+ * --light para fondos claros (el DS por defecto está pensado dark).
  *
  * Props:
- *   - variant: 'inline' (fila horizontal compacta, sin topics) | 'block' (vertical, con topics opcionales)
- *   - theme: 'light' (default) | 'dark'
- *   - id: prefijo único para los IDs del form (si hay más de uno en la página)
+ *   - variant: 'inline' (fila horizontal compacta, sin topics)
+ *              | 'block'  (vertical, con topics opcionales)
+ *   - id: prefijo único para los IDs (si hay más de uno en la página)
  *   - showTopics: muestra checkboxes de topics (default true en block, false en inline)
  */
 interface Props {
   variant?: 'inline' | 'block';
-  theme?: 'light' | 'dark';
   id?: string;
   showTopics?: boolean;
 }
-const { variant = 'inline', theme = 'light', id = 'nl', showTopics } = Astro.props as Props;
+const { variant = 'inline', id = 'nl', showTopics } = Astro.props as Props;
 const renderTopics = showTopics ?? variant === 'block';
 const formId = `${id}-form`;
 const statusId = `${id}-status`;
@@ -27,29 +29,37 @@ const TOPICS = [
 ];
 ---
 
-<form class={`cr-nl cr-nl--${variant} cr-nl--${theme}`} id={formId} action="/api/subscribe" method="POST" novalidate>
+<form
+  class={`cr-form cr-form--light cr-form--nl cr-form--nl-${variant}`}
+  id={formId}
+  action="/api/subscribe"
+  method="POST"
+  novalidate
+>
+  {/* Honeypot anti-spam */}
   <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
     <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
   </div>
 
-  <label class="cr-nl__field">
-    <span class="cr-nl__label">Su nombre</span>
-    <input class="cr-nl__input" name="name" type="text" required minlength="2" autocomplete="given-name" placeholder="Camilo">
-    <span class="cr-nl__hint">Lo uso para escribirle a usted, no para una lista anónima. No lo comparto con nadie.</span>
-  </label>
-
-  <label class="cr-nl__field">
-    <span class="cr-nl__label">Su correo electrónico</span>
-    <input class="cr-nl__input" name="email" type="email" required autocomplete="email" placeholder="usted@empresa.com">
-  </label>
+  <div class="cr-form__row">
+    <label class="cr-field">
+      <span class="cr-field__label">Nombre</span>
+      <input class="cr-field__input" name="name" type="text" required minlength="2" autocomplete="given-name" placeholder="Camilo">
+      <span class="cr-field__hint">Lo uso para escribirle a usted, no para una lista anónima. No lo comparto con nadie.</span>
+    </label>
+    <label class="cr-field">
+      <span class="cr-field__label">Email</span>
+      <input class="cr-field__input" name="email" type="email" required autocomplete="email" placeholder="usted@empresa.com">
+    </label>
+  </div>
 
   {renderTopics && (
-    <div class="cr-nl__topics">
-      <p class="cr-nl__topics-lbl">¿Qué le interesa más? <span class="cr-nl__topics-opt">(opcional)</span></p>
-      <p class="cr-nl__topics-hint">Hoy todos reciben la misma carta. Esto me ayuda a entender qué le pesa más y eventualmente personalizar lo que recibe.</p>
-      <div class="cr-nl__topics-grid">
+    <div class="cr-field">
+      <span class="cr-field__label">¿Qué le interesa más? <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-3)">(opcional)</span></span>
+      <span class="cr-field__hint">Hoy todos reciben la misma carta. Esto me ayuda a entender qué le pesa más y eventualmente personalizar lo que recibe.</span>
+      <div class="cr-form__topics cr-form__topics--multi" role="group" style="margin-top:var(--s-3);flex-wrap:wrap">
         {TOPICS.map((t) => (
-          <label class="cr-nl__chk">
+          <label class="cr-form__topic cr-form__topic--chk">
             <input type="checkbox" name="topics" value={t.slug}>
             <span>{t.label}</span>
           </label>
@@ -58,15 +68,15 @@ const TOPICS = [
     </div>
   )}
 
-  <button class="cr-nl__submit" type="submit">Suscribirme →</button>
-  <div class="cr-nl__status" id={statusId} aria-live="polite" hidden></div>
+  <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">Suscribirme →</button>
+  <div class="cr-form__status" id={statusId} aria-live="polite" hidden></div>
 </form>
 
 <script is:inline define:vars={{ formId, statusId }}>
   (function () {
     const form = document.getElementById(formId);
     if (!form) return;
-    const submit = form.querySelector('.cr-nl__submit');
+    const submit = form.querySelector('.cr-form__submit');
     const status = document.getElementById(statusId);
     if (!submit || !status) return;
 
@@ -76,7 +86,7 @@ const TOPICS = [
       const originalLabel = submit.textContent;
       submit.textContent = 'Enviando…';
       status.hidden = true;
-      status.className = 'cr-nl__status';
+      status.className = 'cr-form__status';
 
       try {
         const fd = new FormData(form);
@@ -84,16 +94,16 @@ const TOPICS = [
         const json = await res.json().catch(() => ({}));
         if (res.ok && json.ok) {
           form.reset();
-          status.className = 'cr-nl__status cr-nl__status--ok';
+          status.className = 'cr-form__status cr-form__status--ok';
           status.innerHTML = '<strong>Revise su correo.</strong> Le mandé un link para confirmar la suscripción. Si no lo ve en 2 minutos, revise la carpeta de spam.';
           status.hidden = false;
         } else {
-          status.className = 'cr-nl__status cr-nl__status--err';
+          status.className = 'cr-form__status cr-form__status--err';
           status.textContent = json.error || 'No pude registrar la suscripción. Intente de nuevo.';
           status.hidden = false;
         }
       } catch (err) {
-        status.className = 'cr-nl__status cr-nl__status--err';
+        status.className = 'cr-form__status cr-form__status--err';
         status.textContent = 'Error de red. Intente de nuevo.';
         status.hidden = false;
       } finally {
