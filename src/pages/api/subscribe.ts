@@ -62,7 +62,10 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'Email inválido.' }, 400);
   }
 
-  const name = (body.name ?? '').toString().trim().slice(0, 64);
+  // Si el usuario escribe "Camilo Ramirez", guardamos solo "Camilo" como first_name.
+  // El saludo del newsletter usa first_name; mantenemos limpia la salutación.
+  const nameRaw = (body.name ?? '').toString().trim().slice(0, 64);
+  const name = nameRaw.split(/\s+/)[0] || '';
   const topicsRaw = body.topics;
   const VALID_TOPICS = new Set(['latam', 'geopolitica', 'negocios', 'aprende']);
   const topics = (

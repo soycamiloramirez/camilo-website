@@ -35,6 +35,7 @@ const TOPICS = [
   <label class="cr-nl__field">
     <span class="cr-nl__label">Su nombre</span>
     <input class="cr-nl__input" name="name" type="text" required minlength="2" autocomplete="given-name" placeholder="Camilo">
+    <span class="cr-nl__hint">Lo uso para escribirle a usted, no para una lista anónima. No lo comparto con nadie.</span>
   </label>
 
   <label class="cr-nl__field">
@@ -45,6 +46,7 @@ const TOPICS = [
   {renderTopics && (
     <div class="cr-nl__topics">
       <p class="cr-nl__topics-lbl">¿Qué le interesa más? <span class="cr-nl__topics-opt">(opcional)</span></p>
+      <p class="cr-nl__topics-hint">Hoy todos reciben la misma carta. Esto me ayuda a entender qué le pesa más y eventualmente personalizar lo que recibe.</p>
       <div class="cr-nl__topics-grid">
         {TOPICS.map((t) => (
           <label class="cr-nl__chk">

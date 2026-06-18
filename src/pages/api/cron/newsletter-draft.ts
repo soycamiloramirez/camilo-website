@@ -126,12 +126,13 @@ export const GET: APIRoute = async ({ request }) => {
 
   // Claude: SOLO genera la lente (1-2 frases) y el subject. Cero generación de
   // cuerpo por pieza (eso viene 100% del frontmatter del autor).
+  // La lente se prependeará con '[Nombre], ' o '[Fallback], ' por código.
   const systemPrompt = `Eres editor de la carta semanal de Camilo Ramírez (IA, negocios, LATAM para C-level).
 
 Tu único trabajo: dadas las piezas que publicó esta semana, devolver un JSON con dos campos:
 
-- "lente": 1 a 2 frases (40 a 80 palabras) que conecten las piezas con un hilo común. Es el intro editorial. Empieza directo, sin saludo, sin "Esta semana publiqué".
-- "subject": subject del email (40 a 55 caracteres). Debe sentirse a carta editorial curada, no a titular de artículo.
+- "lente": 1 a 2 frases (40 a 80 palabras) que conecten las piezas con un hilo común. Es el intro editorial. IMPORTANTE: este texto se prependeará con un vocativo + coma (ejemplo: "Camilo, [tu texto]"). Por eso debes escribir como CONTINUACIÓN NATURAL después de una coma. NUNCA empieces con "Hola", "Esta semana publiqué", ni con saludo. Empieza con: pronombre (le, lo), verbo conjugado (vimos, pasó, ocurrió), artículo (la, el) o nombre propio (Estados Unidos, China). Si empiezas con nombre propio, capitalizado; si empiezas con verbo/pronombre/artículo, minúscula.
+- "subject": subject del email (40 a 55 caracteres). Debe sentirse a carta editorial curada, no a titular de artículo. Puede ser una frase, una pregunta, o un fragmento.
 
 REGLAS ABSOLUTAS (si rompes alguna, descalificas):
 1. Usar SOLO ideas presentes en el material (títulos, pullquotes, tldrs). NUNCA inventar contexto, NUNCA agregar tesis, NUNCA conclusiones tuyas.
@@ -261,10 +262,10 @@ Devuelve el JSON con "lente" y "subject".`;
   );
   const shareUrl = `mailto:?subject=${shareSubject}&body=${shareBody}`;
 
-  // Merge tag de Resend para personalizar el saludo.
-  // Sintaxis correcta: TRES braces para output sin escape, formato handlebars.
-  // Si no hay first_name, fallback a empty string (queda "Hola ,").
-  const greetingHtml = `Hola {{{contact.first_name|}}},`;
+  // Vocativo con merge tag de Resend. Fallback a "Buenos días" si no hay nombre
+  // (siempre queda gramatical: "Camilo, [lente]" o "Buenos días, [lente]").
+  // Sintaxis: tres braces para output sin escape, pipe con fallback word.
+  const vocativeOpener = `{{{contact.first_name|Buenos días}}}, `;
 
   const html = `<!doctype html>
 <html lang="es">
@@ -297,11 +298,10 @@ Devuelve el JSON con "lente" y "subject".`;
             </td>
           </tr>
 
-          <!-- Greeting + Lente -->
+          <!-- Lente con vocativo integrado (no separamos saludo + parrafo) -->
           <tr>
             <td style="padding:0 40px 8px">
-              <p style="font-family:${SANS};font-size:17px;line-height:1.55;color:${INK};margin:0 0 24px">${greetingHtml}</p>
-              <p style="font-family:${SANS};font-size:17px;line-height:1.65;color:${INK};margin:0 0 12px;max-width:50ch">${esc(lente)}</p>
+              <p style="font-family:${SANS};font-size:17px;line-height:1.65;color:${INK};margin:0 0 12px;max-width:50ch">${vocativeOpener}${esc(lente)}</p>
             </td>
           </tr>
 
@@ -349,9 +349,7 @@ Devuelve el JSON con "lente" y "subject".`;
   const text = `${EYEBROW_LABEL.toUpperCase()}
 ${dateFmt}
 
-Hola {{{contact.first_name|}}},
-
-${lente}
+${vocativeOpener}${lente}
 
 ---
 
