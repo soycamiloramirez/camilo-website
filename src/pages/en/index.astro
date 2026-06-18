@@ -322,25 +322,25 @@ const extraJsonLd = [
             statusEl.className = 'cr-form__status cr-form__status--err';
             statusEl.innerHTML = "<strong>Couldn't send your message.</strong> " + (json.error || 'Try again') + ' or email me directly at <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
             statusEl.hidden = false;
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              event: 'contact_submission_failed',
-              event_category: 'contact',
-              event_label: fd.get('necesita') || 'unknown',
-              failure_reason: json.error || ('http_' + res.status),
-            });
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'contact_submission_failed', {
+                event_category: 'contact',
+                event_label: fd.get('necesita') || 'unknown',
+                failure_reason: json.error || ('http_' + res.status),
+              });
+            }
           }
         } catch (err) {
           statusEl.className = 'cr-form__status cr-form__status--err';
           statusEl.innerHTML = '<strong>Network error.</strong> Email me directly at <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';
           statusEl.hidden = false;
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({
-            event: 'contact_submission_failed',
-            event_category: 'contact',
-            event_label: fd.get('necesita') || 'unknown',
-            failure_reason: 'network_error',
-          });
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'contact_submission_failed', {
+              event_category: 'contact',
+              event_label: fd.get('necesita') || 'unknown',
+              failure_reason: 'network_error',
+            });
+          }
         } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel || 'Send →';

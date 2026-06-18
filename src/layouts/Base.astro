@@ -223,15 +223,15 @@ const personJsonLd = {
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "wzczzppi54");
         </script>
-        {/* Web Vitals → GA4. Buffer si gtag aún no está listo: dataLayer.push siempre
-            funciona (es array vanilla) y GA4 procesa cuando se inicializa. Esto evita
-            race condition donde web-vitals dispara antes de gtag config. */}
+        {/* Web Vitals → GA4 via gtag(). El gtag está definido inline arriba en este
+            mismo head antes de que web-vitals (async dynamic import) pueda disparar,
+            asi que la 'race condition' es teorica: cuando web-vitals llama gtag,
+            gtag ya existe como funcion (queue en dataLayer si gtag.js aun no carga). */}
         <script type="module" is:inline>
           import('https://unpkg.com/web-vitals@4?module').then(function (mod) {
             function send(name, metric) {
-              window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({
-                event: name,
+              if (typeof window.gtag !== 'function') return;
+              window.gtag('event', name, {
                 event_category: 'Web Vitals',
                 event_label: metric.id,
                 value: name === 'CLS' ? Math.round(metric.value * 1000) / 1000 : Math.round(metric.value),
@@ -273,16 +273,15 @@ const personJsonLd = {
               isExternal = url.host && url.host !== window.location.host;
             } catch (err) { return; }
             if (!isExternal) return;
-            // Usar dataLayer.push para evitar race condition con gtag config.
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              event: 'click_outbound',
-              event_category: 'outbound',
-              event_label: a.href,
-              link_domain: (new URL(a.href)).host,
-              link_text: (a.textContent || '').trim().slice(0, 80),
-              click_type: e.type === 'auxclick' ? 'middle' : (e.button === 2 ? 'right' : 'left'),
-            });
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'click_outbound', {
+                event_category: 'outbound',
+                event_label: a.href,
+                link_domain: (new URL(a.href)).host,
+                link_text: (a.textContent || '').trim().slice(0, 80),
+                click_type: e.type === 'auxclick' ? 'middle' : (e.button === 2 ? 'right' : 'left'),
+              });
+            }
           }
           document.addEventListener('click', handle, true);
           document.addEventListener('auxclick', handle, true);
