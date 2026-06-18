@@ -23,8 +23,10 @@ const tagline = lang === 'es'
   <div class="cr-container cr-footer__inner">
     <div class="cr-footer__top">
       <div class="cr-footer__brand">
-        <span class="cr-mark cr-mark--md cr-mark--ondark"><img src="/camilo-hero.jpg" alt="Retrato de Camilo Ramírez" width="52" height="52"></span>
-        <span class="cr-footer__name">Camilo <span class="cr-footer__name-ac">Ramírez</span></span>
+        <a href={home} class="cr-footer__brand-link" aria-label="Ir al inicio">
+          <span class="cr-mark cr-mark--md cr-mark--ondark"><img src="/camilo-hero.jpg" alt="Retrato de Camilo Ramírez" width="52" height="52"></span>
+          <span class="cr-footer__name">Camilo <span class="cr-footer__name-ac">Ramírez</span></span>
+        </a>
         <p class="cr-footer__tag">{tagline}</p>
       </div>
       <div class="cr-footer__cols">
