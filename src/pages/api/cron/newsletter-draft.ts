@@ -223,9 +223,19 @@ Devuelve el JSON con "lente" y "subject".`;
   // Truncar subject a 60 chars por seguridad
   if (subject.length > 60) subject = subject.slice(0, 57).trim() + '...';
 
+  // UTMs para atribución en GA4: cada link del newsletter sabe que vino del newsletter.
+  // Campaign = fecha ISO YYYY-MM-DD (la del envío) para distinguir ediciones.
+  const isoDate = new Date().toISOString().slice(0, 10);
+  const utmCampaign = `carta-viernes-${isoDate}`;
+  function withUtm(url: string, content?: string): string {
+    const sep = url.includes('?') ? '&' : '?';
+    const params = `utm_source=newsletter&utm_medium=email&utm_campaign=${encodeURIComponent(utmCampaign)}${content ? `&utm_content=${encodeURIComponent(content)}` : ''}`;
+    return `${url}${sep}${params}`;
+  }
+
   // Render de cada pieza como bloque independiente (todo material del autor).
   const blocksHtml = recent.map((p, i) => {
-    const url = `${SITE_URL}/blog/${p.id}`;
+    const url = withUtm(`${SITE_URL}/blog/${p.id}`, `pieza-${i + 1}`);
     const cat = CATEGORY_LABELS[p.data.categories[0]] || p.data.categories[0];
     const accent = (p.data.pullquote || p.data.tldr || '').trim();
     const isLast = i === recent.length - 1;
@@ -251,14 +261,17 @@ Devuelve el JSON con "lente" y "subject".`;
   const blocksText = recent.map((p) => {
     const cat = CATEGORY_LABELS[p.data.categories[0]] || p.data.categories[0];
     const accent = (p.data.pullquote || p.data.tldr || '').trim();
-    return `${cat.toUpperCase()}\n${p.data.title}\n${accent ? `"${accent}"\n` : ''}Leer: ${SITE_URL}/blog/${p.id}`;
+    return `${cat.toUpperCase()}\n${p.data.title}\n${accent ? `"${accent}"\n` : ''}Leer: ${withUtm(`${SITE_URL}/blog/${p.id}`)}`;
   }).join('\n\n');
 
-  // Share mailto
+  // Share mailto. Los URLs dentro del body llevan utm_source=share para distinguir
+  // tráfico de re-share vs lectores originales del newsletter.
   const lead = recent[0];
+  const shareNewsletterUrl = `${SITE_URL}/newsletter?utm_source=share&utm_medium=email&utm_campaign=${encodeURIComponent(utmCampaign)}&utm_content=cta-share`;
+  const shareLeadUrl = `${SITE_URL}/blog/${lead.id}?utm_source=share&utm_medium=email&utm_campaign=${encodeURIComponent(utmCampaign)}&utm_content=lead-preview`;
   const shareSubject = encodeURIComponent('Le comparto este boletín que vale la pena');
   const shareBody = encodeURIComponent(
-    `Le mando este boletín semanal de Camilo Ramírez sobre IA, negocios y LATAM. Una pieza editorial, los viernes. Sin ruido.\n\nSi le interesa, puede suscribirse acá: ${SITE_URL}/newsletter\n\nLa edición de esta semana abre con: ${lead.data.title}`
+    `Le mando este boletín semanal de Camilo Ramírez sobre IA, negocios y LATAM. Una pieza editorial, los viernes. Sin ruido.\n\nSi le interesa, puede suscribirse acá: ${shareNewsletterUrl}\n\nLa edición de esta semana abre con: ${lead.data.title}\n${shareLeadUrl}`
   );
   const shareUrl = `mailto:?subject=${shareSubject}&body=${shareBody}`;
 
