@@ -20,7 +20,9 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
-  const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@send.camilo-ramirez.com';
+  // El confirm es parte del flow del newsletter (no del form de contacto).
+  // Usamos camilo@ (persona-led) para coherencia con la carta del viernes.
+  const fromEmail = 'camilo@send.camilo-ramirez.com';
 
   if (!apiKey) {
     return json({ ok: false, error: 'Server not configured.' }, 500);
@@ -83,7 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: `Camilo Ramirez <${fromEmail}>`,
+      from: `Camilo Ramírez <${fromEmail}>`,
       to: [email],
       subject,
       html,

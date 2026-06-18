@@ -18,7 +18,9 @@ export const prerender = false;
 export const GET: APIRoute = async ({ url, redirect }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
   const segmentId = import.meta.env.RESEND_SEGMENT_ID;
-  const fromEmail = import.meta.env.CONTACT_FROM_EMAIL || 'forms@send.camilo-ramirez.com';
+  // El welcome es parte del flow del newsletter, no del form de contacto.
+  // Usamos camilo@ (no forms@) para coherencia con la identidad de la carta.
+  const fromEmail = 'camilo@send.camilo-ramirez.com';
 
   if (!apiKey || !segmentId) {
     return new Response('Server not configured.', { status: 500 });
@@ -82,7 +84,7 @@ export const GET: APIRoute = async ({ url, redirect }) => {
     const resend = new Resend(apiKey);
     const { subject, html, text } = welcomeEmailHtml({ name });
     await resend.emails.send({
-      from: `Camilo Ramirez <${fromEmail}>`,
+      from: `Camilo Ramírez <${fromEmail}>`,
       to: [email],
       subject,
       html,

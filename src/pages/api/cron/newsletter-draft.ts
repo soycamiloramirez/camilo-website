@@ -35,8 +35,11 @@ const PAPER = '#FAFAFA';
 const SANS = `-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif`;
 const SERIF = `Georgia,'Times New Roman',serif`;
 
-// From specifico del boletin (no usar el de 'forms@' que es para el form de contacto).
-const NEWSLETTER_FROM = 'Camilo Ramírez <boletin@send.camilo-ramirez.com>';
+// From persona-led (no sub-marca). El email viene de Camilo directamente.
+const NEWSLETTER_FROM = 'Camilo Ramírez <camilo@send.camilo-ramirez.com>';
+
+// Eyebrow descriptor: formato + temas. NO crea sub-marca, describe contenido.
+const EYEBROW_LABEL = 'Carta del viernes · IA, negocios, LATAM';
 
 const CATEGORY_LABELS: Record<string, string> = {
   negocios: 'Negocios y estrategia',
@@ -45,11 +48,24 @@ const CATEGORY_LABELS: Record<string, string> = {
   aprende: 'Aprende',
 };
 
-// Verbos/frases prohibidos en la lente (filtros post-Claude).
+// Frases prohibidas en la lente (filtros post-Claude). Si Claude usa alguna,
+// se descarta su output y se usa el fallback mecánico.
 const BANNED_PHRASES = [
-  'revelará', 'marcará', 'definirá', 'en retrospectiva', 'punto de quiebre',
-  'punto de no retorno', 'momento histórico', 'sin precedentes', 'histórico',
-  'monumental', 'cambiará para siempre', 'nadie mencionaba', 'pocos vieron venir',
+  // Predictivos
+  'revelará', 'marcará', 'definirá', 'cambiará para siempre', 'será recordado',
+  // Editorializantes
+  'en retrospectiva', 'punto de quiebre', 'punto de no retorno', 'momento histórico',
+  'momento decisivo', 'punto de inflexión',
+  // Calificativos propios
+  'sin precedentes', 'monumental', 'histórico',
+  // Voz periodista/anchor (no es la voz de Camilo)
+  'acaba de demostrar', 'acaba de revelar', 'acaba de mostrar',
+  // Frases editorializantes que se repiten
+  'nadie mencionaba', 'pocos vieron venir', 'lo que pocos notaron',
+  // Calques del inglés
+  'ia frontera', 'frontera de la ia',
+  // Business-school
+  'competencia tecnológica', 'guerra fría tecnológica',
 ];
 
 export const GET: APIRoute = async ({ request }) => {
@@ -109,27 +125,49 @@ export const GET: APIRoute = async ({ request }) => {
 
   // Claude: SOLO genera la lente (1-2 frases) y el subject. Cero generación de
   // cuerpo por pieza (eso viene 100% del frontmatter del autor).
-  const systemPrompt = `Eres editor del boletín semanal de Camilo Ramírez (IA, negocios, LATAM para C-level).
+  const systemPrompt = `Eres editor de la carta semanal de Camilo Ramírez (IA, negocios, LATAM para C-level).
 
 Tu único trabajo: dadas las piezas que publicó esta semana, devolver un JSON con dos campos:
 
-- "lente": 1 a 2 frases (40 a 80 palabras) que conecten las piezas con un hilo común. Es el intro editorial del boletín. Empieza directo, sin saludo, sin "Esta semana publiqué".
-- "subject": subject del email (40 a 55 caracteres). Debe sentirse a newsletter curado, no a titular de artículo.
+- "lente": 1 a 2 frases (40 a 80 palabras) que conecten las piezas con un hilo común. Es el intro editorial. Empieza directo, sin saludo, sin "Esta semana publiqué".
+- "subject": subject del email (40 a 55 caracteres). Debe sentirse a carta editorial curada, no a titular de artículo.
 
-Reglas absolutas. Si rompes alguna, descalificas:
+REGLAS ABSOLUTAS (si rompes alguna, descalificas):
 1. Usar SOLO ideas presentes en el material (títulos, pullquotes, tldrs). NUNCA inventar contexto, NUNCA agregar tesis, NUNCA conclusiones tuyas.
 2. Usted formal de Colombia. NUNCA tú. NUNCA voseo argentino.
 3. CERO em-dashes (—). Usar punto, coma o dos puntos.
 4. CERO emoji. CERO signos de admiración. CERO mayúsculas dramáticas.
-5. NUNCA verbos predictivos: "revelará", "marcará", "definirá", "cambiará para siempre".
-6. NUNCA frases editorializantes: "en retrospectiva", "punto de quiebre", "momento histórico", "nadie mencionaba".
-7. NUNCA calificativos propios: "histórico", "sin precedentes", "monumental".
-8. Tono: editorial, sereno, anti-hype. Directo. Como alguien procesando en voz alta lo que pasó esta semana.
 
-Voz de referencia (escribe así, no copies — solo absorbe la cadencia):
-"Suena a una noticia más de centros de datos. No lo es. Es el intento más serio de partir en dos la infraestructura de IA del planeta."
+PALABRAS Y FRASES PROHIBIDAS (lista negra — usar = descalificación):
+- Verbos predictivos: "revelará", "marcará", "definirá", "cambiará para siempre", "será recordado"
+- Frases editorializantes: "en retrospectiva", "punto de quiebre", "momento histórico", "punto de inflexión", "nadie mencionaba", "lo que pocos notaron"
+- Calificativos propios: "histórico", "sin precedentes", "monumental"
+- Voz periodista/anchor: "acaba de demostrar", "acaba de revelar", "acaba de mostrar"
+- Calques del inglés: "IA frontera", "frontera de la IA"
+- Business-school: "competencia tecnológica", "guerra fría tecnológica"
+
+ANTI-EJEMPLOS (NO escribas así, son violaciones reales que hubo):
+MAL: "Estados Unidos acaba de demostrar que tiene un interruptor global sobre la IA frontera. Lo que pasó esta semana no es competencia tecnológica."
+BIEN: "Estados Unidos apagó el modelo más potente del momento con una carta del Departamento de Comercio. China respondió desde otro frente: 295.000 millones de dólares para construir su propio stack."
+
+CADENCIA DE CAMILO (absorbe el ritmo, no copies):
+"Suena a una noticia más de centros de datos. No lo es. Es el intento más serio que hemos visto de partir en dos la infraestructura de IA del planeta."
 "El candado real no está en el modelo, está en la infraestructura."
 "El que se case con un solo bloque hereda sus reglas."
+"Anthropic acata. Dice que cumple la orden porque lo manda la ley."
+"Beijing no se quedó quieto."
+"Microsoft fue el primero que creyó en OpenAI."
+"Esto nos recuerda lo de los chips de Nvidia."
+
+PATRONES CARACTERÍSTICOS:
+- Frases cortas, declarativas, en pasado o presente concreto.
+- Sujetos específicos con nombre (Anthropic, Beijing, Huawei, Microsoft).
+- Estructura "Suena a X. No lo es. Es Y."
+- "Lo que importa de fondo es esto."
+- Verbos de acción directa: apagó, lanzó, anunció, decidió, construyó.
+- Cero adverbios pomposos ("monumentalmente", "drásticamente").
+
+TONO: editorial, sereno, anti-hype. Directo. Como alguien C-level procesando en voz alta lo que pasó esta semana mientras se toma un café, no como analista financiero presentando.
 
 Devuelve SOLO el JSON. Sin markdown, sin code fences, sin explicaciones.`;
 
@@ -219,9 +257,10 @@ Devuelve el JSON con "lente" y "subject".`;
   );
   const shareUrl = `mailto:?subject=${shareSubject}&body=${shareBody}`;
 
-  // Merge tag de Resend para personalizar el saludo. Si no hay first_name, fallback.
-  // Resend usa la sintaxis {{contact.first_name|fallback}} en HTML de broadcasts.
-  const greetingHtml = `Hola {{contact.first_name|}},`;
+  // Merge tag de Resend para personalizar el saludo.
+  // Sintaxis correcta: TRES braces para output sin escape, formato handlebars.
+  // Si no hay first_name, fallback a empty string (queda "Hola ,").
+  const greetingHtml = `Hola {{{contact.first_name|}}},`;
 
   const html = `<!doctype html>
 <html lang="es">
@@ -229,7 +268,7 @@ Devuelve el JSON con "lente" y "subject".`;
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Boletín · Camilo Ramírez</title>
+<title>Carta del viernes · Camilo Ramírez</title>
 </head>
 <body style="margin:0;padding:0;background:${PAPER};font-family:${SANS};color:${INK};-webkit-font-smoothing:antialiased">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:${PAPER}">
@@ -246,7 +285,7 @@ Devuelve el JSON con "lente" y "subject".`;
                     <div style="width:28px;height:4px;background:${ACCENT};line-height:0;font-size:0">&nbsp;</div>
                   </td>
                   <td style="vertical-align:middle">
-                    <span style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${MUTE}">Boletín · Camilo Ramírez</span>
+                    <span style="font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${MUTE}">${EYEBROW_LABEL}</span>
                   </td>
                 </tr>
               </table>
@@ -303,10 +342,10 @@ Devuelve el JSON con "lente" y "subject".`;
 </html>`;
 
   // Versión plain text completa
-  const text = `BOLETÍN · CAMILO RAMÍREZ
+  const text = `${EYEBROW_LABEL.toUpperCase()}
 ${dateFmt}
 
-Hola {{contact.first_name|}},
+Hola {{{contact.first_name|}}},
 
 ${lente}
 

@@ -92,7 +92,7 @@ export function confirmEmailHtml(confirmUrl: string): { subject: string; html: s
   const inner = `
     <tr>
       <td style="padding:56px 40px 12px">
-        ${eyebrow('Boletín · Camilo Ramírez')}
+        ${eyebrow('Carta del viernes · Camilo Ramírez')}
 
         <h1 style="font-family:${SANS};font-size:44px;line-height:1.0;letter-spacing:-.04em;color:${INK};margin:0 0 32px;font-weight:700">
           <span style="font-weight:300;color:${MUTE}">Gracias por</span><br>
@@ -134,7 +134,7 @@ export function confirmEmailHtml(confirmUrl: string): { subject: string; html: s
     <tr><td style="padding:0 40px 48px">${signature()}</td></tr>
   `;
 
-  const text = `Boletín · Camilo Ramírez
+  const text = `Carta del viernes · Camilo Ramírez
 
 Gracias por suscribirse.
 
@@ -178,7 +178,7 @@ export function welcomeEmailHtml(opts: { name?: string } = {}): { subject: strin
   const inner = `
     <tr>
       <td style="padding:56px 40px 12px">
-        ${eyebrow('Bienvenido · Boletín')}
+        ${eyebrow('Bienvenido · Carta del viernes')}
 
         <h1 style="font-family:${SANS};font-size:48px;line-height:1.0;letter-spacing:-.04em;color:${INK};margin:0 0 28px;font-weight:700">
           ${headlineHtml}
@@ -231,7 +231,7 @@ export function welcomeEmailHtml(opts: { name?: string } = {}): { subject: strin
     <tr><td style="padding:24px 40px 48px">${signature()}</td></tr>
   `;
 
-  const text = `Bienvenido · Boletín
+  const text = `Bienvenido · Carta del viernes
 
 ${greeting}
 
@@ -267,12 +267,12 @@ function escapeHtml(s: string): string {
 /* ------------------------------------------------------------------ */
 
 export function draftReadyEmailHtml(broadcastUrl: string, postCount: number): { subject: string; html: string; text: string } {
-  const subject = `Draft del boletín listo (${postCount} ${postCount === 1 ? 'pieza' : 'piezas'})`;
+  const subject = `Draft de la carta del viernes listo (${postCount} ${postCount === 1 ? 'pieza' : 'piezas'})`;
 
   const inner = `
     <tr>
       <td style="padding:48px 40px 12px">
-        ${eyebrow('Operación · Newsletter')}
+        ${eyebrow('Operación · Carta del viernes')}
 
         <h1 style="font-family:${SANS};font-size:32px;line-height:1.1;letter-spacing:-.03em;color:${INK};margin:0 0 24px;font-weight:700">
           <span style="font-weight:300;color:${MUTE}">Draft listo con</span><br>
@@ -297,7 +297,7 @@ export function draftReadyEmailHtml(broadcastUrl: string, postCount: number): { 
     <tr><td style="padding:8px 40px 40px"></td></tr>
   `;
 
-  const text = `Operación · Newsletter
+  const text = `Operación · Carta del viernes
 
 Draft listo con ${postCount} ${postCount === 1 ? 'pieza' : 'piezas'} de la semana.
 

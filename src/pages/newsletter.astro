@@ -6,7 +6,7 @@ import NewsletterForm from '../components/NewsletterForm.astro';
 import { SITE } from '../content/copy';
 
 const lang = 'es' as const;
-const pageTitle = 'Boletín · Camilo Ramírez';
+const pageTitle = 'Carta del viernes · Camilo Ramírez';
 const pageDescription = 'Una pieza con criterio cada viernes. IA, negocios y LATAM. Sin diariazo, sin newsletter de 10 tips. Curaduría destilada de la semana.';
 const url = `${SITE.url}/newsletter`;
 
@@ -15,7 +15,7 @@ const extraJsonLd = [
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': `${url}#page`,
-    name: 'Boletín · Camilo Ramírez',
+    name: 'Carta del viernes · Camilo Ramírez',
     url,
     description: pageDescription,
     inLanguage: 'es-CO',
@@ -29,7 +29,7 @@ const extraJsonLd = [
   <main>
     <section class="cr-pagehead">
       <div class="cr-container">
-        <p class="cr-eyebrow"><span class="cr-franja"></span>Boletín</p>
+        <p class="cr-eyebrow"><span class="cr-franja"></span>Carta del viernes</p>
         <h1 class="cr-pagehead__title"><span class="cr-d-thin">Una pieza con criterio,</span> cada viernes.</h1>
         <p class="cr-lead cr-pagehead__lead">IA, negocios y LATAM destilados en una sola pieza semanal. Pensada para una bandeja de C-level, no para llenar de ruido.</p>
       </div>
