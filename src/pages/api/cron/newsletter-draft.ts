@@ -48,9 +48,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   aprende: 'Aprende',
 };
 
-// Frases prohibidas en la lente (filtros post-Claude). Si Claude usa alguna,
+// Patrones prohibidos en la lente (filtros post-Claude). Si Claude usa alguno,
 // se descarta su output y se usa el fallback mecánico.
-const BANNED_PHRASES = [
+// Mezcla de strings exactos y regex para cubrir variaciones (ej. "acaba de X").
+const BANNED_PATTERNS: Array<string | RegExp> = [
   // Predictivos
   'revelará', 'marcará', 'definirá', 'cambiará para siempre', 'será recordado',
   // Editorializantes
@@ -58,12 +59,12 @@ const BANNED_PHRASES = [
   'momento decisivo', 'punto de inflexión',
   // Calificativos propios
   'sin precedentes', 'monumental', 'histórico',
-  // Voz periodista/anchor (no es la voz de Camilo)
-  'acaba de demostrar', 'acaba de revelar', 'acaba de mostrar',
+  // Voz periodista/anchor: REGEX para pillar cualquier "acaba de + verbo".
+  /\bacaba(n)? de \w+/i,
   // Frases editorializantes que se repiten
   'nadie mencionaba', 'pocos vieron venir', 'lo que pocos notaron',
   // Calques del inglés
-  'ia frontera', 'frontera de la ia',
+  'ia frontera', 'frontera de la ia', 'stack tecnológico',
   // Business-school
   'competencia tecnológica', 'guerra fría tecnológica',
 ];
@@ -199,11 +200,14 @@ Devuelve el JSON con "lente" y "subject".`;
     lente = lente.replace(/—/g, ',').replace(/–/g, ',').replace(/[¡!]/g, '');
     subject = subject.replace(/—/g, ',').replace(/–/g, ',').replace(/[¡!]/g, '');
 
-    // Detectar frases prohibidas en la lente. Si las contiene, fallback.
+    // Detectar patrones prohibidos en la lente. Si los contiene, fallback.
     const lower = lente.toLowerCase();
-    if (BANNED_PHRASES.some((p) => lower.includes(p.toLowerCase()))) {
-      console.warn('[cron] Claude usó frase prohibida, usando fallback');
-      throw new Error('banned phrase');
+    const hit = BANNED_PATTERNS.find((p) =>
+      typeof p === 'string' ? lower.includes(p.toLowerCase()) : p.test(lente)
+    );
+    if (hit) {
+      console.warn('[cron] Claude usó patrón prohibido:', hit);
+      throw new Error('banned pattern');
     }
 
     if (!lente || !subject) throw new Error('empty fields');
