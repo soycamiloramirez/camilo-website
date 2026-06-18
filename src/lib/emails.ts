@@ -178,7 +178,7 @@ export function welcomeEmailHtml(opts: { name?: string } = {}): { subject: strin
   const inner = `
     <tr>
       <td style="padding:56px 40px 12px">
-        ${eyebrow('Bienvenido · Carta del viernes')}
+        ${eyebrow('Suscripción confirmada · Carta del viernes')}
 
         <h1 style="font-family:${SANS};font-size:48px;line-height:1.0;letter-spacing:-.04em;color:${INK};margin:0 0 28px;font-weight:700">
           ${headlineHtml}
@@ -231,7 +231,7 @@ export function welcomeEmailHtml(opts: { name?: string } = {}): { subject: strin
     <tr><td style="padding:24px 40px 48px">${signature()}</td></tr>
   `;
 
-  const text = `Bienvenido · Carta del viernes
+  const text = `Suscripción confirmada · Carta del viernes
 
 ${greeting}
 

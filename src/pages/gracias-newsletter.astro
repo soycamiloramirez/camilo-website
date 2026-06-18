@@ -23,7 +23,7 @@ const pageDescription = isOk
       <div class="cr-container">
         {isOk ? (
           <>
-            <p class="cr-eyebrow"><span class="cr-franja"></span>Bienvenido · Carta del viernes</p>
+            <p class="cr-eyebrow"><span class="cr-franja"></span>Suscripción confirmada · Carta del viernes</p>
             <h1 class="cr-pagehead__title"><span class="cr-d-thin">Gracias.</span> Quedó dentro.</h1>
             <p class="cr-lead cr-pagehead__lead">Le acabo de mandar un correo de bienvenida con tres temas para abrir cuando quiera. El próximo viernes empieza el ritmo: una pieza editorial, destilada de la semana en IA, negocios y LATAM.</p>
             <p class="cr-lead cr-pagehead__lead" style="margin-top:var(--s-4);color:var(--ink-2)">Mientras tanto, si quiere explorar, en el blog están los análisis recientes.</p>
@@ -50,4 +50,21 @@ const pageDescription = isOk
     </section>
   </main>
   <Footer lang={lang} />
+
+  {/* GA4 conversion event: solo dispara cuando la confirmación fue exitosa (status=ok).
+      Inline + check window.gtag para soportar load asincrono del script de GA4. */}
+  <script is:inline define:vars={{ isOk }}>
+    if (isOk) {
+      function fire() {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'newsletter_confirmed', {
+            event_category: 'newsletter',
+            event_label: 'doi_complete',
+          });
+        }
+      }
+      if (typeof window.gtag === 'function') fire();
+      else window.addEventListener('load', fire, { once: true });
+    }
+  </script>
 </Base>

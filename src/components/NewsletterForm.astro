@@ -97,6 +97,15 @@ const TOPICS = [
           status.className = 'cr-form__status cr-form__status--ok';
           status.innerHTML = '<strong>Revise su correo.</strong> Le mandé un link para confirmar la suscripción. Si no lo ve en 2 minutos, revise la carpeta de spam.';
           status.hidden = false;
+          // GA4: conversion event newsletter signup (pre-DOI). El confirmed event va en /gracias-newsletter.
+          if (typeof window.gtag === 'function') {
+            var topics = fd.getAll('topics');
+            window.gtag('event', 'newsletter_signup', {
+              event_category: 'newsletter',
+              event_label: 'pending_doi',
+              topics_count: topics.length,
+            });
+          }
         } else {
           status.className = 'cr-form__status cr-form__status--err';
           status.textContent = json.error || 'No pude registrar la suscripción. Intente de nuevo.';

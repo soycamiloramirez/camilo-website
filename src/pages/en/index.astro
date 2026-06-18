@@ -312,6 +312,12 @@ const extraJsonLd = [
             statusEl.className = 'cr-form__status cr-form__status--ok';
             statusEl.innerHTML = '<strong>Message sent.</strong> I read every request myself. I will reply personally in the coming days.';
             statusEl.hidden = false;
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'contact_submission', {
+                event_category: 'contact',
+                event_label: fd.get('necesita') || 'unknown',
+              });
+            }
           } else {
             statusEl.className = 'cr-form__status cr-form__status--err';
             statusEl.innerHTML = "<strong>Couldn't send your message.</strong> " + (json.error || 'Try again') + ' or email me directly at <a href="mailto:yo@camilo-ramirez.com" style="color:inherit;text-decoration:underline">yo@camilo-ramirez.com</a>.';

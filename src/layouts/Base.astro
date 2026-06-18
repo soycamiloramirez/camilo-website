@@ -220,5 +220,33 @@ const personJsonLd = {
   </head>
   <body>
     <slot />
+    {import.meta.env.PROD && (
+      <script is:inline>
+        {/* Outbound click tracking → GA4 event 'click_outbound'.
+            Listener delegado en body para que capture clicks de cualquier <a>
+            que apunte a un dominio distinto al actual. Cubre Spotify, Apple
+            Podcasts, LinkedIn, YouTube, Navigamo, AI Collective, etc. */}
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[href]');
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
+          var isExternal = false;
+          try {
+            var url = new URL(href, window.location.origin);
+            isExternal = url.host && url.host !== window.location.host;
+          } catch (err) { return; }
+          if (!isExternal) return;
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'click_outbound', {
+              event_category: 'outbound',
+              event_label: a.href,
+              link_domain: (new URL(a.href)).host,
+              link_text: (a.textContent || '').trim().slice(0, 80),
+            });
+          }
+        }, true);
+      </script>
+    )}
   </body>
 </html>
