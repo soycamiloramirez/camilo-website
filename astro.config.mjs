@@ -20,7 +20,10 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.8,
       lastmod: new Date(),
-      filter: (page) => !page.includes('/404') && !page.includes('/api/'),
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/api/') &&
+        !page.includes('/_style-guide'),
     }),
   ],
   vite: { plugins: [tailwindcss()] },
