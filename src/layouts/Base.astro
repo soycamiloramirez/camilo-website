@@ -57,7 +57,6 @@ const description = pageDescription ?? t.meta.description;
 // Includes alternateName, knowsAbout (subjects), nationality, gender, and
 // extended sameAs (socials + podcast platforms + companies).
 const personJsonLd = {
-  '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': `${SITE.url}/#person`,
   name: 'Camilo Ramírez',
@@ -150,6 +149,28 @@ const personJsonLd = {
   ],
   email: `mailto:${SITE.email}`,
 };
+
+// ProfilePage wrapper — el marcado que Google recomienda para perfiles de
+// creador/persona. mainEntity apunta a la Person (#person) vía @id, así que la
+// entidad Person no se duplica: se define una sola vez y se referencia.
+// Emitimos un @graph con ambos nodos (ProfilePage + Person).
+const profilePageJsonLd = {
+  '@type': 'ProfilePage',
+  '@id': `${SITE.url}/#profilepage`,
+  url: SITE.url,
+  name: 'Camilo Ramírez',
+  mainEntity: { '@id': `${SITE.url}/#person` },
+};
+
+const personGraphJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [profilePageJsonLd, personJsonLd],
+};
+
+// Verificación de Google Search Console. Vacío por ahora: pegar aquí el token
+// (solo el valor del content, sin el <meta>) cuando Camilo cree la propiedad en
+// GSC. El meta se renderiza condicionalmente, así que dejarlo vacío no rompe nada.
+const googleSiteVerification = '';
 ---
 <!doctype html>
 <html lang={lang === 'es' ? 'es-CO' : 'en-US'}>
@@ -202,7 +223,13 @@ const personJsonLd = {
     <meta name="twitter:image" content={ogImage ? (ogImage.startsWith('http') ? ogImage : `${SITE.url}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`) : `${SITE.url}/og-image.jpg`} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <meta name="msvalidate.01" content="90255CD86199BA9792E7A613722D9076" />
-    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    {/* Google Search Console: pegar el token en la constante googleSiteVerification
+        (arriba en el frontmatter) cuando Camilo cree la propiedad en GSC. El meta
+        solo se renderiza si el valor no está vacío. */}
+    {googleSiteVerification && (
+      <meta name="google-site-verification" content={googleSiteVerification} />
+    )}
+    <script type="application/ld+json" set:html={JSON.stringify(personGraphJsonLd)} />
     {extraJsonLd.map((obj) => (
       <script type="application/ld+json" set:html={JSON.stringify(obj)} />
     ))}
