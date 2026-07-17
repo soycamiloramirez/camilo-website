@@ -138,30 +138,35 @@ const pageDescription = 'Private proposal.';
           </ol>
           <p class="pp-cta__p">I remain at your disposal for any detail.<br>Camilo Ramírez</p>
 
-          <form class="pp-form" data-pp-form novalidate>
+          <form class="cr-form pp-form" data-pp-form novalidate>
             <input type="hidden" name="propuesta" value="Tortuga Resorts · Cancún 2026">
             <input type="hidden" name="lang" value="en">
             <div class="pp-form__hp" aria-hidden="true">
               <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             </div>
-            <label class="pp-check">
-              <input type="checkbox" name="avanzar" value="yes">
-              <span>Yes, we would like to move forward.</span>
+            <div class="cr-field">
+              <span class="cr-field__label">Your response</span>
+              <div class="cr-form__topics">
+                <label class="cr-form__topic cr-form__topic--chk">
+                  <input type="checkbox" name="avanzar" value="yes">
+                  <span>Yes, we would like to move forward</span>
+                </label>
+              </div>
+            </div>
+            <label class="cr-field">
+              <span class="cr-field__label">Name</span>
+              <input class="cr-field__input" type="text" name="nombre" required autocomplete="name">
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Name</span>
-              <input type="text" name="nombre" required autocomplete="name">
+            <label class="cr-field">
+              <span class="cr-field__label">Email</span>
+              <input class="cr-field__input" type="email" name="email" required autocomplete="email">
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Email</span>
-              <input type="email" name="email" required autocomplete="email">
+            <label class="cr-field">
+              <span class="cr-field__label">Message</span>
+              <textarea class="cr-field__input cr-field__textarea" name="mensaje" rows="4"></textarea>
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Message</span>
-              <textarea name="mensaje" rows="4"></textarea>
-            </label>
-            <button type="submit" class="cr-btn cr-btn--accent pp-form__submit">Send →</button>
-            <p class="pp-form__status" data-pp-status role="status" aria-live="polite" hidden></p>
+            <button type="submit" class="cr-btn cr-btn--accent cr-form__submit">Send →</button>
+            <div class="cr-form__status" data-pp-status role="status" aria-live="polite" hidden></div>
           </form>
           <p class="pp-cta__alt">or write directly to <a href="mailto:yo@camilo-ramirez.com?subject=Keynote%20Canc%C3%BAn%202026">yo@camilo-ramirez.com</a></p>
         </div>
@@ -274,30 +279,35 @@ const pageDescription = 'Private proposal.';
           </ol>
           <p class="pp-cta__p">Quedo atento para resolver cualquier detalle.<br>Camilo Ramírez</p>
 
-          <form class="pp-form" data-pp-form novalidate>
+          <form class="cr-form pp-form" data-pp-form novalidate>
             <input type="hidden" name="propuesta" value="Tortuga Resorts · Cancún 2026">
             <input type="hidden" name="lang" value="es">
             <div class="pp-form__hp" aria-hidden="true">
               <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             </div>
-            <label class="pp-check">
-              <input type="checkbox" name="avanzar" value="yes">
-              <span>Sí, queremos avanzar.</span>
+            <div class="cr-field">
+              <span class="cr-field__label">Su respuesta</span>
+              <div class="cr-form__topics">
+                <label class="cr-form__topic cr-form__topic--chk">
+                  <input type="checkbox" name="avanzar" value="yes">
+                  <span>Sí, queremos avanzar</span>
+                </label>
+              </div>
+            </div>
+            <label class="cr-field">
+              <span class="cr-field__label">Nombre</span>
+              <input class="cr-field__input" type="text" name="nombre" required autocomplete="name">
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Nombre</span>
-              <input type="text" name="nombre" required autocomplete="name">
+            <label class="cr-field">
+              <span class="cr-field__label">Correo</span>
+              <input class="cr-field__input" type="email" name="email" required autocomplete="email">
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Correo</span>
-              <input type="email" name="email" required autocomplete="email">
+            <label class="cr-field">
+              <span class="cr-field__label">Mensaje</span>
+              <textarea class="cr-field__input cr-field__textarea" name="mensaje" rows="4"></textarea>
             </label>
-            <label class="pp-field">
-              <span class="pp-field__l">Mensaje</span>
-              <textarea name="mensaje" rows="4"></textarea>
-            </label>
-            <button type="submit" class="cr-btn cr-btn--accent pp-form__submit">Enviar →</button>
-            <p class="pp-form__status" data-pp-status role="status" aria-live="polite" hidden></p>
+            <button type="submit" class="cr-btn cr-btn--accent cr-form__submit">Enviar →</button>
+            <div class="cr-form__status" data-pp-status role="status" aria-live="polite" hidden></div>
           </form>
           <p class="pp-cta__alt">o escribe directo a <a href="mailto:yo@camilo-ramirez.com?subject=Keynote%20Canc%C3%BAn%202026">yo@camilo-ramirez.com</a></p>
         </div>
@@ -372,40 +382,12 @@ const pageDescription = 'Private proposal.';
       border-top: 1px solid var(--hairline); padding-top: var(--s-4);
     }
 
-    /* Closing form */
-    .pp-form {
-      max-width: 52ch; margin: 0 auto; text-align: left;
-      display: flex; flex-direction: column; gap: var(--s-4);
-    }
+    /* Closing form — uses the DS form (.cr-form / .cr-field / .cr-form__topic--chk).
+       Only layout: constrain width and left-align inside the centered CTA band. */
+    .pp-form { max-width: 52ch; margin: 0 auto; text-align: left; }
     .pp-form__hp {
       position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;
     }
-    .pp-check {
-      display: flex; align-items: flex-start; gap: var(--s-3);
-      font-size: var(--body-lg); line-height: 1.5; color: var(--ink-on-dark);
-      cursor: pointer;
-    }
-    .pp-check input { margin-top: .35em; width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
-    .pp-field { display: flex; flex-direction: column; gap: var(--s-2); }
-    .pp-field__l {
-      font-size: var(--body); font-weight: 600; letter-spacing: .02em;
-      color: var(--ink-on-dark-2);
-    }
-    .pp-field input,
-    .pp-field textarea {
-      font-family: inherit; font-size: var(--body-lg); color: var(--ink);
-      background: var(--paper, #fff); border: 1px solid var(--hairline);
-      border-radius: 6px; padding: 12px 14px; width: 100%;
-    }
-    .pp-field textarea { resize: vertical; min-height: 96px; }
-    .pp-field input:focus,
-    .pp-field textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .pp-form__submit { margin-top: var(--s-2); align-self: flex-start; }
-    .pp-form__submit[disabled] { opacity: .6; cursor: default; }
-    .pp-form__status {
-      font-size: var(--body); line-height: 1.5; color: var(--ink-on-dark-2); margin: 0;
-    }
-    .pp-form__status.is-err { color: #ffb4b4; }
     .pp-cta__alt {
       font-size: var(--body); line-height: 1.6; color: var(--ink-on-dark-2);
       max-width: 52ch; margin: var(--s-4) auto 0; text-align: center;
@@ -437,19 +419,24 @@ const pageDescription = 'Private proposal.';
       var forms = root.querySelectorAll('[data-pp-form]');
       forms.forEach(function (form) {
         var status = form.querySelector('[data-pp-status]');
-        var submit = form.querySelector('.pp-form__submit');
+        var submit = form.querySelector('.cr-form__submit');
         var isEs = form.querySelector('input[name="lang"]') &&
           form.querySelector('input[name="lang"]').value === 'es';
+        function setStatus(kind, msg) {
+          if (!status) return;
+          status.hidden = false;
+          status.className = 'cr-form__status' + (kind ? ' cr-form__status--' + kind : '');
+          status.textContent = msg;
+        }
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          if (status) { status.hidden = false; status.classList.remove('is-err'); }
           if (!form.checkValidity()) {
-            if (status) { status.classList.add('is-err'); status.textContent = isEs ? 'Revisa el nombre y el correo.' : 'Please check your name and email.'; }
+            setStatus('err', isEs ? 'Revisa el nombre y el correo.' : 'Please check your name and email.');
             form.reportValidity();
             return;
           }
           if (submit) { submit.disabled = true; }
-          if (status) { status.textContent = isEs ? 'Enviando…' : 'Sending…'; }
+          setStatus('', isEs ? 'Enviando…' : 'Sending…');
           var fd = new FormData(form);
           fetch('/api/propuesta', { method: 'POST', body: fd })
             .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
@@ -461,16 +448,16 @@ const pageDescription = 'Private proposal.';
                   }
                 } catch (err) {}
                 form.reset();
-                if (status) { status.textContent = isEs ? 'Gracias. Recibí tu respuesta y te escribo pronto.' : 'Thank you. I received your reply and will be in touch shortly.'; }
+                setStatus('ok', isEs ? 'Gracias. Recibí tu respuesta y te escribo pronto.' : 'Thank you. I received your reply and will be in touch shortly.');
                 if (submit) { submit.remove(); }
               } else {
                 if (submit) { submit.disabled = false; }
-                if (status) { status.classList.add('is-err'); status.textContent = isEs ? 'No se pudo enviar. Escribe directo a yo@camilo-ramirez.com.' : 'Could not send. Please write directly to yo@camilo-ramirez.com.'; }
+                setStatus('err', isEs ? 'No se pudo enviar. Escribe directo a yo@camilo-ramirez.com.' : 'Could not send. Please write directly to yo@camilo-ramirez.com.');
               }
             })
             .catch(function () {
               if (submit) { submit.disabled = false; }
-              if (status) { status.classList.add('is-err'); status.textContent = isEs ? 'No se pudo enviar. Escribe directo a yo@camilo-ramirez.com.' : 'Could not send. Please write directly to yo@camilo-ramirez.com.'; }
+              setStatus('err', isEs ? 'No se pudo enviar. Escribe directo a yo@camilo-ramirez.com.' : 'Could not send. Please write directly to yo@camilo-ramirez.com.');
             });
         });
       });
