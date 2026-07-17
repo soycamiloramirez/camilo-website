@@ -23,7 +23,10 @@ const pageDescription = 'Private proposal.';
     <!-- LANGUAGE TOGGLE -->
     <div class="pp-langbar">
       <div class="cr-container pp-langbar__inner">
-        <span class="pp-brand">Camilo Ramírez</span>
+        <a class="cr-header__brand pp-brand" href="https://camilo-ramirez.com" target="_blank" rel="noopener">
+          <span class="cr-mark cr-mark--sm"><img src="/camilo-hero.jpg" alt="Camilo Ramírez" width="36" height="36"></span>
+          <span class="cr-header__brand-mark">Camilo <span class="cr-header__brand-r">Ramírez</span></span>
+        </a>
         <div class="pp-lang" role="group" aria-label="Language / Idioma">
           <button type="button" class="pp-lang__btn is-active" data-set-lang="en">EN</button>
           <span class="pp-lang__sep">/</span>
@@ -327,7 +330,7 @@ const pageDescription = 'Private proposal.';
       height: var(--header-h);
       display: flex; align-items: center; justify-content: space-between; gap: var(--s-5);
     }
-    .pp-brand { font-weight: 700; font-size: var(--h4); letter-spacing: -.02em; color: var(--ink); }
+    /* Brand reusa el Header del sitio (cr-header__brand + cr-mark). Sin overrides. */
     .pp-lang { display: flex; align-items: center; gap: var(--s-2); }
     .pp-lang__btn {
       font-family: inherit; font-weight: 600; font-size: var(--body);
