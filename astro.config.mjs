@@ -23,7 +23,10 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/404') &&
         !page.includes('/api/') &&
-        !page.includes('/_style-guide'),
+        !page.includes('/_style-guide') &&
+        // Rutas privadas no indexables (propuestas, links directos). Se sirven
+        // por URL no adivinable, con noindex en el head, y nunca en el sitemap.
+        !page.includes('/p/'),
     }),
   ],
   vite: { plugins: [tailwindcss()] },
