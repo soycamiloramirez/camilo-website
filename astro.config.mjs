@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import partytown from '@astrojs/partytown';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 
@@ -12,6 +13,11 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   integrations: [
+    // GA4 (gtag) corre en un web worker vía Partytown, fuera del hilo principal.
+    // forward: los stubs que el main thread necesita para encolar eventos hacia
+    // el worker — dataLayer.push (config/pageview) y gtag (eventos custom:
+    // web-vitals, click_outbound, propuesta_submit, newsletter_signup).
+    partytown({ config: { forward: ['dataLayer.push', 'gtag'] } }),
     sitemap({
       i18n: {
         defaultLocale: 'es',
@@ -35,5 +41,9 @@ export default defineConfig({
     locales: ['es', 'en'],
     routing: { prefixDefaultLocale: false },
   },
+  // CSS como stylesheet externo (cacheable entre páginas). Mantener el HTML pequeño
+  // deja que el preload scanner descubra el preload del hero (LCP) en el primer
+  // paquete y lo arranque en paralelo con el CSS, en vez de sepultarlo tras ~74 KB
+  // de CSS inline en el <head>.
   build: { inlineStylesheets: 'auto' },
 });

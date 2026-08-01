@@ -191,15 +191,19 @@ const googleSiteVerification = '';
       </>
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <!-- Preload critical webfonts: Helvetica Neue Regular (cuerpo), Bold (display) y Fraunces Italic (accent en displays) -->
+    <!-- Preload only the two above-the-fold criticals: Helvetica Neue Regular (cuerpo)
+         y Bold (display). Los demás pesos y Fraunces (accent italic) cargan vía CSS con
+         font-display:swap, sin competir con el LCP. -->
     <link rel="preload" href="/fonts/HelveticaNeue.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/HelveticaNeue-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/Fraunces-RegularItalic.woff2" as="font" type="font/woff2" crossorigin />
     {/* Preload hero AVIF: es el LCP del home. La foto de Camilo se carga
         como background-image del .cr-hero__photo. Sin preload, el browser
         descubre la URL solo cuando parsea CSS. */}
     {(path === '/' || path === '/en') && (
-      <link rel="preload" as="image" href="/ds-assets/camilo-hero.avif" type="image/avif" />
+      <>
+        <link rel="preload" as="image" href="/ds-assets/camilo-hero-600.avif" type="image/avif" media="(max-width: 767px)" fetchpriority="high" />
+        <link rel="preload" as="image" href="/ds-assets/camilo-hero-800.avif" type="image/avif" media="(min-width: 768px)" fetchpriority="high" />
+      </>
     )}
     <link rel="alternate" type="application/rss+xml" title="Blog · Camilo Ramírez" href={`${SITE.url}/blog/rss.xml`} />
     <meta property="og:type" content={pageType} />
@@ -235,20 +239,38 @@ const googleSiteVerification = '';
     ))}
     {import.meta.env.PROD && (
       <>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YNYELQBZ62"></script>
-        <script is:inline>
+        {/* GA4 vía Partytown: gtag.js corre en un web worker, fuera del main thread.
+            Ambos scripts son type="text/partytown". El main thread encola pageviews
+            y eventos custom vía los stubs forward (dataLayer.push, gtag) definidos en
+            astro.config. anonymize_ip se conserva. */}
+        <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-YNYELQBZ62"></script>
+        <script type="text/partytown">
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-YNYELQBZ62', { anonymize_ip: true });
         </script>
-        {/* Microsoft Clarity — heatmaps + session recordings */}
+        {/* Microsoft Clarity — heatmaps + session recordings. NO va en Partytown:
+            se carga diferido en requestIdleCallback o en la primera interacción
+            (scroll/click/tecla/touch), lo que ocurra primero. Sigue grabando a
+            quien interactúa, sin costar main-thread en el arranque. */}
         <script is:inline>
-          (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "wzczzppi54");
+          (function () {
+            var loaded = false;
+            function load() {
+              if (loaded) return; loaded = true;
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "wzczzppi54");
+            }
+            if ('requestIdleCallback' in window) { requestIdleCallback(load, { timeout: 6000 }); }
+            else { setTimeout(load, 4000); }
+            ['scroll','click','keydown','touchstart','pointerdown'].forEach(function (ev) {
+              window.addEventListener(ev, load, { once: true, passive: true });
+            });
+          })();
         </script>
         {/* Web Vitals → GA4 via gtag(). El gtag está definido inline arriba en este
             mismo head antes de que web-vitals (async dynamic import) pueda disparar,
