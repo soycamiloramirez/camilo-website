@@ -3,8 +3,6 @@ import { Resend } from 'resend';
 import {
   isHoneypotFilled,
   isTooFast,
-  looksLikeSubscriptionSpam,
-  containsLink,
   hitRateLimit,
   clientIp,
 } from '../../lib/anti-spam';
@@ -126,11 +124,11 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // Capa 4 — heurística de contenido (conservadora) sobre el mensaje libre.
-  if (mensaje && (looksLikeSubscriptionSpam(mensaje) || containsLink(mensaje))) {
-    console.warn('[propuesta] blocked: content heuristic', { email });
-    return silentOk();
-  }
+  // NOTA: aquí NO se aplica la heurística de contenido (links / "mailing list").
+  // Un cliente de propuesta responde legítimamente con su web, Calendly o
+  // LinkedIn, y containsLink descartaría su respuesta en silencio (falla
+  // silenciosa en un deal real). El remitente ya está validado por nombre+email+
+  // tiempo+2 honeypots+rate limit, y la URL es privada/hasheada/noindex.
 
   const avanzarLabel = avanzar ? 'Sí, quiere avanzar' : 'No marcó avanzar';
   const subject = `[Propuesta] ${nombre} · ${propuesta}`;
