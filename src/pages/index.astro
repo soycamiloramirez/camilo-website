@@ -278,10 +278,12 @@ const extraJsonLd = [
 
         <form class="cr-form" id="contactForm" action="/api/contact" method="POST" novalidate>
           <input type="hidden" name="lang" value="es">
-          {/* Honeypot anti-spam: oculto visualmente y para lectores de pantalla. Bots lo llenan, humanos no. */}
+          {/* Honeypots anti-spam: ocultos visual y semánticamente. Bots los llenan, humanos no. */}
           <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
             <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            <label>Company URL<input name="company_url" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
+          <input type="hidden" name="form_elapsed" value="">
           <div class="cr-form__row">
             <label class="cr-field">
               <span class="cr-field__label">Nombre</span>
@@ -309,6 +311,14 @@ const extraJsonLd = [
             <span class="cr-field__label">Cuénteme el contexto</span>
             <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3" required minlength="10"></textarea>
           </label>
+          {import.meta.env.PUBLIC_TURNSTILE_SITE_KEY && (
+            <div
+              class="cf-turnstile"
+              data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+              data-size="flexible"
+              style="margin:var(--s-3) 0"
+            ></div>
+          )}
           <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">Enviar →</button>
           <div class="cr-form__status" id="contactStatus" aria-live="polite" hidden></div>
         </form>

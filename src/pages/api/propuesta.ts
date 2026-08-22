@@ -1,5 +1,13 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import {
+  isHoneypotFilled,
+  isTooFast,
+  looksLikeSubscriptionSpam,
+  containsLink,
+  hitRateLimit,
+  clientIp,
+} from '../../lib/anti-spam';
 
 // Server-rendered: must NOT be prerendered.
 export const prerender = false;
@@ -24,6 +32,8 @@ type PropuestaPayload = {
   email?: string;
   mensaje?: string;
   website?: string; // honeypot
+  company_url?: string; // honeypot #2
+  form_elapsed?: string; // ms desde carga (cliente)
   lang?: 'es' | 'en';
 };
 
@@ -64,13 +74,30 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // Honeypot — bots fill every input. Real users leave this empty.
-  if (data.website && String(data.website).trim() !== '') {
-    return new Response(JSON.stringify({ ok: true }), {
+  // Respuesta "silenciosa": simula éxito para que el bot no reintente.
+  const silentOk = () =>
+    new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
+
+  if (isHoneypotFilled(data as Record<string, unknown>)) {
+    console.warn('[propuesta] blocked: honeypot');
+    return silentOk();
   }
+  if (isTooFast(data as Record<string, unknown>)) {
+    console.warn('[propuesta] blocked: too fast');
+    return silentOk();
+  }
+  if (hitRateLimit(clientIp(request))) {
+    console.warn('[propuesta] blocked: rate limit');
+    return silentOk();
+  }
+  // Nota: Turnstile NO se exige aquí. La landing /p/* tiene dos formularios
+  // (ES/EN) con uno oculto al cargar; un widget dentro de un contenedor oculto
+  // puede no emitir token y bloquearía a un cliente real. Es una página privada,
+  // noindex y con URL hasheada (exposición a bots mínima), así que las capas
+  // 1 (honeypots), 2 (tiempo), 4 (heurística) y 5 (rate limit) son suficientes.
 
   const propuesta = (data.propuesta ?? 'Propuesta').toString().trim();
   const nombre = (data.nombre ?? '').toString().trim();
@@ -97,6 +124,12 @@ export const POST: APIRoute = async ({ request }) => {
       status: 400,
       headers: { 'content-type': 'application/json' },
     });
+  }
+
+  // Capa 4 — heurística de contenido (conservadora) sobre el mensaje libre.
+  if (mensaje && (looksLikeSubscriptionSpam(mensaje) || containsLink(mensaje))) {
+    console.warn('[propuesta] blocked: content heuristic', { email });
+    return silentOk();
   }
 
   const avanzarLabel = avanzar ? 'Sí, quiere avanzar' : 'No marcó avanzar';

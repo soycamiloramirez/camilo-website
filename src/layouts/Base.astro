@@ -297,8 +297,36 @@ const googleSiteVerification = '';
         </script>
       </>
     )}
+    {/* Cloudflare Turnstile — sólo si la site key está configurada (opcional). */}
+    {import.meta.env.PUBLIC_TURNSTILE_SITE_KEY && (
+      <script
+        is:inline
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer
+      ></script>
+    )}
   </head>
   <body>
+    {/* Anti-spam: señal de tiempo. Marca cuándo cargó la página y, en cualquier
+        submit de formulario, escribe los ms transcurridos en el input oculto
+        `form_elapsed` ANTES de que corra el handler del form (fase de captura).
+        Inmune al skew de reloj (mide delta local) y al cacheo por CDN. */}
+    <script is:inline>
+      (function () {
+        var loadedAt = Date.now();
+        document.addEventListener(
+          'submit',
+          function (e) {
+            var f = e.target;
+            if (!f || !f.querySelector) return;
+            var el = f.querySelector('input[name="form_elapsed"]');
+            if (el) el.value = String(Date.now() - loadedAt);
+          },
+          true
+        );
+      })();
+    </script>
     <slot />
     {import.meta.env.PROD && (
       <script is:inline>
