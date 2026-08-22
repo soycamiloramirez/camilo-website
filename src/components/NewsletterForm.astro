@@ -36,10 +36,12 @@ const TOPICS = [
   method="POST"
   novalidate
 >
-  {/* Honeypot anti-spam */}
+  {/* Honeypots anti-spam */}
   <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
     <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+    <label>Company URL<input name="company_url" type="text" tabindex="-1" autocomplete="off"></label>
   </div>
+  <input type="hidden" name="form_elapsed" value="">
 
   <div class="cr-form__row">
     <label class="cr-field">
@@ -68,6 +70,14 @@ const TOPICS = [
     </div>
   )}
 
+  {import.meta.env.PUBLIC_TURNSTILE_SITE_KEY && (
+    <div
+      class="cf-turnstile"
+      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+      data-size="flexible"
+      style="margin:var(--s-3) 0"
+    ></div>
+  )}
   <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">Suscribirme →</button>
   <div class="cr-form__status" id={statusId} aria-live="polite" hidden></div>
 </form>

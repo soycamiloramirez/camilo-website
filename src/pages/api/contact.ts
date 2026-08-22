@@ -1,5 +1,14 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import {
+  isHoneypotFilled,
+  isTooFast,
+  verifyTurnstile,
+  looksLikeSubscriptionSpam,
+  containsLink,
+  hitRateLimit,
+  clientIp,
+} from '../../lib/anti-spam';
 
 // Server-rendered: must NOT be prerendered.
 export const prerender = false;
@@ -13,7 +22,9 @@ export const prerender = false;
  *   - CONTACT_TO_EMAIL      — destination inbox, e.g. yo@camilo-ramirez.com
  *   - CONTACT_FROM_EMAIL    — verified sender, e.g. forms@camilo-ramirez.com
  *
- * Spam protection: honeypot field `website` must be empty.
+ * Anti-spam: capas en src/lib/anti-spam.ts (honeypots, tiempo, Turnstile,
+ * heurística de contenido, rate limit). Turnstile es opcional (gated por env
+ * PUBLIC_TURNSTILE_SITE_KEY + TURNSTILE_SECRET_KEY).
  */
 
 type ContactPayload = {
@@ -23,6 +34,8 @@ type ContactPayload = {
   necesita?: string;
   contexto?: string;
   website?: string; // honeypot
+  company_url?: string; // honeypot #2
+  form_elapsed?: string; // ms desde carga (cliente)
   lang?: 'es' | 'en';
 };
 
@@ -70,13 +83,36 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // Honeypot — bots fill every input. Real users leave this empty.
-  if (data.website && data.website.trim() !== '') {
-    // Pretend success so bots don't retry.
-    return new Response(JSON.stringify({ ok: true }), {
+  // Respuesta "silenciosa": simula éxito para que el bot no reintente.
+  const silentOk = () =>
+    new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
+
+  // Capa 1 — honeypots.
+  if (isHoneypotFilled(data as Record<string, unknown>)) {
+    console.warn('[contact] blocked: honeypot');
+    return silentOk();
+  }
+
+  // Capa 2 — envío demasiado rápido (<3s desde que cargó el form).
+  if (isTooFast(data as Record<string, unknown>)) {
+    console.warn('[contact] blocked: too fast');
+    return silentOk();
+  }
+
+  // Capa 5 — rate limit best-effort por IP.
+  if (hitRateLimit(clientIp(request))) {
+    console.warn('[contact] blocked: rate limit');
+    return silentOk();
+  }
+
+  // Capa 3 — Turnstile (gated por env). Ausente/inválido con capa activa → bot.
+  const ts = await verifyTurnstile(data as Record<string, unknown>, clientIp(request));
+  if (!ts.ok) {
+    console.warn('[contact] blocked: turnstile');
+    return silentOk();
   }
 
   const nombre = (data.nombre ?? '').trim();
@@ -104,6 +140,13 @@ export const POST: APIRoute = async ({ request }) => {
       status: 400,
       headers: { 'content-type': 'application/json' },
     });
+  }
+
+  // Capa 4 — heurística de contenido (conservadora). Un lead real de advisory
+  // no pega links ni pide confirmar una suscripción a un "mailing list".
+  if (looksLikeSubscriptionSpam(contexto) || containsLink(contexto)) {
+    console.warn('[contact] blocked: content heuristic', { email });
+    return silentOk();
   }
 
   const needLabel = NEED_LABELS[necesita] ?? necesita;

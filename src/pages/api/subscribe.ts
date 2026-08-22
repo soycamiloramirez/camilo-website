@@ -2,6 +2,13 @@ import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { signSubscribeToken } from '../../lib/email-tokens';
 import { confirmEmailHtml } from '../../lib/emails';
+import {
+  isHoneypotFilled,
+  isTooFast,
+  verifyTurnstile,
+  hitRateLimit,
+  clientIp,
+} from '../../lib/anti-spam';
 
 export const prerender = false;
 
@@ -28,7 +35,15 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'Server not configured.' }, 500);
   }
 
-  let body: { email?: string; name?: string; topics?: string | string[]; website?: string } = {};
+  let body: {
+    email?: string;
+    name?: string;
+    topics?: string | string[];
+    website?: string;
+    company_url?: string;
+    form_elapsed?: string;
+    'cf-turnstile-response'?: string;
+  } = {};
   try {
     const ct = request.headers.get('content-type') || '';
     if (ct.includes('application/json')) {
@@ -52,8 +67,22 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'Invalid payload.' }, 400);
   }
 
-  // Honeypot: respondemos ok para no dar señal a bots.
-  if (body.website && body.website.trim() !== '') {
+  // Anti-spam. Respondemos ok (silencioso) para no dar señal a bots.
+  if (isHoneypotFilled(body as Record<string, unknown>)) {
+    console.warn('[subscribe] blocked: honeypot');
+    return json({ ok: true }, 200);
+  }
+  if (isTooFast(body as Record<string, unknown>)) {
+    console.warn('[subscribe] blocked: too fast');
+    return json({ ok: true }, 200);
+  }
+  if (hitRateLimit(clientIp(request))) {
+    console.warn('[subscribe] blocked: rate limit');
+    return json({ ok: true }, 200);
+  }
+  const ts = await verifyTurnstile(body as Record<string, unknown>, clientIp(request));
+  if (!ts.ok) {
+    console.warn('[subscribe] blocked: turnstile');
     return json({ ok: true }, 200);
   }
 

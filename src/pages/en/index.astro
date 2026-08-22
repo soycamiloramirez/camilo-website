@@ -221,7 +221,9 @@ const extraJsonLd = [
           <input type="hidden" name="lang" value="en">
           <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
             <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            <label>Company URL<input name="company_url" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
+          <input type="hidden" name="form_elapsed" value="">
           <div class="cr-form__row">
             <label class="cr-field"><span class="cr-field__label">{t.contacto.form.name}</span><input class="cr-field__input" name="nombre" type="text" required minlength="2"></label>
             <label class="cr-field"><span class="cr-field__label">{t.contacto.form.company}</span><input class="cr-field__input" name="empresa" type="text"></label>
@@ -243,6 +245,14 @@ const extraJsonLd = [
             <span class="cr-field__label">{t.contacto.form.message}</span>
             <textarea class="cr-field__input cr-field__textarea" name="contexto" rows="3" required minlength="10"></textarea>
           </label>
+          {import.meta.env.PUBLIC_TURNSTILE_SITE_KEY && (
+            <div
+              class="cf-turnstile"
+              data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+              data-size="flexible"
+              style="margin:var(--s-3) 0"
+            ></div>
+          )}
           <button class="cr-btn cr-btn--accent cr-form__submit" type="submit">{t.contacto.form.send} →</button>
           <div class="cr-form__status" id="contactStatus" aria-live="polite" hidden></div>
         </form>
