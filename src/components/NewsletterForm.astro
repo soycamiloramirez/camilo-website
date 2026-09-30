@@ -42,6 +42,7 @@ const TOPICS = [
     <label>Company URL<input name="company_url" type="text" tabindex="-1" autocomplete="off"></label>
   </div>
   <input type="hidden" name="form_elapsed" value="">
+  <input type="hidden" name="form_token" value="">
 
   <div class="cr-form__row">
     <label class="cr-field">
@@ -99,6 +100,16 @@ const TOPICS = [
       status.className = 'cr-form__status';
 
       try {
+        // Token de sesión firmado: fresco antes de enviar. Un suscriptor real
+        // (con JS) siempre lo lleva; un bot que postea directo, no.
+        const tokEl = form.querySelector('input[name="form_token"]');
+        if (tokEl && !tokEl.value) {
+          try {
+            const tokRes = await fetch('/api/form-token', { headers: { Accept: 'application/json' } });
+            const tokJson = await tokRes.json().catch(() => ({}));
+            if (tokJson && tokJson.token) tokEl.value = tokJson.token;
+          } catch (err) { /* si falla, server responde ok silencioso; no bloqueamos UX */ }
+        }
         const fd = new FormData(form);
         const res = await fetch('/api/subscribe', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
         const json = await res.json().catch(() => ({}));

@@ -9,6 +9,7 @@ import {
   hitRateLimit,
   clientIp,
 } from '../../lib/anti-spam';
+import { verifyFormToken } from '../../lib/form-token';
 
 export const prerender = false;
 
@@ -42,6 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
     website?: string;
     company_url?: string;
     form_elapsed?: string;
+    form_token?: string;
     'cf-turnstile-response'?: string;
   } = {};
   try {
@@ -68,6 +70,11 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // Anti-spam. Respondemos ok (silencioso) para no dar señal a bots.
+  // Capa 0 — token de sesión firmado (cierra el POST directo sin cargar la página).
+  if (!verifyFormToken(body.form_token)) {
+    console.warn('[subscribe] blocked: form token');
+    return json({ ok: true }, 200);
+  }
   if (isHoneypotFilled(body as Record<string, unknown>)) {
     console.warn('[subscribe] blocked: honeypot');
     return json({ ok: true }, 200);
