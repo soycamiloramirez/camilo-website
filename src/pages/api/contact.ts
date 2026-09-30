@@ -9,6 +9,7 @@ import {
   hitRateLimit,
   clientIp,
 } from '../../lib/anti-spam';
+import { verifyFormToken } from '../../lib/form-token';
 
 // Server-rendered: must NOT be prerendered.
 export const prerender = false;
@@ -36,6 +37,7 @@ type ContactPayload = {
   website?: string; // honeypot
   company_url?: string; // honeypot #2
   form_elapsed?: string; // ms desde carga (cliente)
+  form_token?: string; // token de sesión firmado (emitido por /api/form-token)
   lang?: 'es' | 'en';
 };
 
@@ -89,6 +91,14 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
+
+  // Capa 0 — token de sesión firmado. Cierra el hueco del POST DIRECTO: un bot
+  // que postea sin cargar la página (y sin pasar por /api/form-token) no trae un
+  // token válido. Un lead real siempre lo trae (el form lo pide al enviar).
+  if (!verifyFormToken(data.form_token)) {
+    console.warn('[contact] blocked: form token');
+    return silentOk();
+  }
 
   // Capa 1 — honeypots.
   if (isHoneypotFilled(data as Record<string, unknown>)) {

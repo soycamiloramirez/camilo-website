@@ -284,6 +284,7 @@ const extraJsonLd = [
             <label>Company URL<input name="company_url" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
           <input type="hidden" name="form_elapsed" value="">
+          <input type="hidden" name="form_token" value="">
           <div class="cr-form__row">
             <label class="cr-field">
               <span class="cr-field__label">Nombre</span>
@@ -371,6 +372,16 @@ const extraJsonLd = [
         statusEl.className = 'cr-form__status';
 
         try {
+          // Token de sesión firmado: lo pedimos fresco antes de enviar. Un lead
+          // real (con JS) siempre lo lleva; un bot que postea directo, no.
+          var tokEl = form.querySelector('input[name="form_token"]');
+          if (tokEl && !tokEl.value) {
+            try {
+              var tokRes = await fetch('/api/form-token', { headers: { 'Accept': 'application/json' } });
+              var tokJson = await tokRes.json().catch(function () { return {}; });
+              if (tokJson && tokJson.token) tokEl.value = tokJson.token;
+            } catch (err) { /* si falla, el server responde ok silencioso; no bloqueamos la UX */ }
+          }
           var fd = new FormData(form);
           var res = await fetch('/api/contact', {
             method: 'POST',

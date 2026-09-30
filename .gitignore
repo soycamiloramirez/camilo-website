@@ -25,3 +25,8 @@ pnpm-debug.log*
 .vercel
 blog.zip
 *.original.*
+
+# secretos (nunca subir llaves)
+.env
+.env.*
+!.env.example
